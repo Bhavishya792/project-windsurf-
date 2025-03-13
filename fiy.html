@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRise - Fix It Yourself</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fiy.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="eco-theme">
+    <nav>
+        <div class="nav-left">
+            <img src="assets/logo.png" alt="EcoRise Logo" class="logo">
+            <span class="brand-name">EcoRise</span>
+        </div>
+        <div class="nav-middle">
+            <a href="index.html">Home</a>
+            <a href="fiy.html" class="active">FIY</a>
+            <a href="#">Volunteer</a>
+            <a href="#">Guide</a>
+            <a href="#" class="accessibility-link">Accessibility Info</a>
+        </div>
+        <div class="nav-right">
+            <button class="icon-btn" id="calendarBtn">
+                <i class="fas fa-calendar"></i>
+            </button>
+            <button class="icon-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+            </button>
+            <button class="profile-btn">
+                <img src="assets/default-profile.png" alt="Profile" class="profile-pic">
+            </button>
+        </div>
+    </nav>
+
+    <main class="fiy-main">
+        <section class="fiy-hero">
+            <div class="hero-content">
+                <h1>Fix It Yourself</h1>
+                <p style="color: aliceblue;">Give your items a second life and help save the planet</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-recycle"></i>
+                        <span>1000+ Items Saved</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span>500+ DIY Heroes</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-earth-americas"></i>
+                        <span>Reducing Waste Together</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="repair-assistant">
+            <div class="section-header">
+                <h2><i class="fas fa-magic"></i> AI Repair Assistant</h2>
+                <p>Get personalized repair guidance powered by AI</p>
+            </div>
+            <div class="assistant-container">
+                <div class="input-section">
+                    <div class="input-wrapper">
+                        <textarea id="repairQuery" placeholder="Describe what you want to repair (e.g., 'torn jeans pocket', 'wobbly chair leg')..."></textarea>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                    <div class="button-group">
+                        <button id="attachImage" class="secondary-btn">
+                            <i class="fas fa-camera"></i> Add Photo
+                        </button>
+                        <button id="getHelp" class="primary-btn">
+                            <i class="fas fa-wand-magic-sparkles"></i> Get Repair Guide
+                        </button>
+                    </div>
+                    <input type="file" id="itemImage" accept="image/*" style="display: none">
+                </div>
+                <div class="response-section">
+                    <div id="loadingIndicator" class="loading-indicator hidden">
+                        <div class="spinner"></div>
+                        <p>Analyzing your repair request...</p>
+                    </div>
+                    <div id="repairGuide" class="repair-guide hidden">
+                        <div class="guide-header">
+                            <h3>Your Repair Guide</h3>
+                            <span class="difficulty-badge" id="difficultyBadge">Easy</span>
+                        </div>
+                        <div class="guide-content">
+                            <div class="tools-section guide-section">
+                                <h4><i class="fas fa-tools"></i> Required Tools</h4>
+                                <ul id="toolsList"></ul>
+                            </div>
+                            <div class="steps-section guide-section">
+                                <h4><i class="fas fa-list-ol"></i> Step-by-step Process</h4>
+                                <ol id="stepsList"></ol>
+                            </div>
+                            <div class="safety-section guide-section">
+                                <h4><i class="fas fa-shield-alt"></i> Safety Precautions</h4>
+                                <ul id="safetyList"></ul>
+                            </div>
+                            <div class="info-section">
+                                <p id="difficultyLevel"></p>
+                                <p id="costSavings"></p>
+                                <div id="professionalAdvice" class="warning hidden"></div>
+                            </div>
+                            <div class="video-recommendations">
+                                <h4><i class="fab fa-youtube"></i> Related Video Guides</h4>
+                                <div id="videoLinks" class="video-links-grid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-repairs">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> Popular Repair Guides</h2>
+                <p>Learn from our curated collection of repair tutorials</p>
+            </div>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1589365278144-c9e705f843cd" alt="Clothing Repair">
+                        <span class="difficulty easy">Easy</span>
+                        <div class="video-duration">8:45</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Basic Clothing Repairs</h3>
+                        <p>Learn simple stitching techniques to fix torn clothes</p>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 12K views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 98%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1581091226825-c6a89e7e4801" alt="Furniture Repair">
+                        <span class="difficulty medium">Medium</span>
+                        <div class="video-duration">15:20</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Wooden Furniture Touch-ups</h3>
+                        <p>Fix scratches and dents in wooden furniture</p>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 8.5K views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 95%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1621113411038-af3b8c9399ea" alt="Electronics Repair">
+                        <span class="difficulty hard">Hard</span>
+                        <div class="video-duration">22:15</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Basic Electronics Repair</h3>
+                        <p>Simple fixes for common electronic issues</p>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 15K views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 92%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837" alt="Shoe Repair">
+                        <span class="difficulty medium">Medium</span>
+                        <div class="video-duration">12:30</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Shoe Sole Replacement</h3>
+                        <p>Give your favorite shoes new life</p>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 10K views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 96%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1" alt="Bike Repair">
+                        <span class="difficulty medium">Medium</span>
+                        <div class="video-duration">18:45</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Bicycle Maintenance</h3>
+                        <p>Common bike repairs and maintenance</p>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 20K views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 97%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff" alt="Garden Tools">
+                        <span class="difficulty easy">Easy</span>
+                        <div class="video-duration">10:15</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Garden Tool Maintenance</h3>
+                        <p>Keep your garden tools sharp and rust-free</p>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 7K views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 94%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="fiy.js"></script>
+</body>
+</html>
