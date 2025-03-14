@@ -223,7 +223,15 @@ VIDEOS:
 
             // Handle list items and numbered steps
             if (currentSection && (line.startsWith('-') || /^\d+\./.test(line))) {
-                const content = line.replace(/^[-\d.]\s*/, '').trim().replace(/['"*]/g, '');
+                let content;
+                if (currentSection === 'steps') {
+                    // For steps, completely remove any existing number formatting
+                    content = line.replace(/^[\d.]+\s*/, '').trim().replace(/['"*]/g, '');
+                } else {
+                    // For other sections, just remove the dash
+                    content = line.replace(/^[-]\s*/, '').trim().replace(/['"*]/g, '');
+                }
+                
                 if (content) {
                     switch (currentSection) {
                         case 'tools':
@@ -283,6 +291,7 @@ VIDEOS:
 
         // Display steps
         if (guide.steps.length > 0) {
+            stepsList.innerHTML = ''; // Clear any previous content
             guide.steps.forEach(step => {
                 stepsList.innerHTML += `
                     <li>
@@ -310,9 +319,33 @@ VIDEOS:
         difficultyLevel.innerHTML = `
             <i class="fas fa-chart-line"></i> 
             Difficulty Level: <strong>${cleanText(guide.difficulty) || 'Not specified'}</strong>`;
+        
+        // Convert USD to INR if the cost savings contains a dollar sign
+        let costSavingsText = cleanText(guide.costSavings) || 'Not specified';
+        if (costSavingsText.includes('$')) {
+            // Extract the number from the string (assuming format like "$50" or "$20-30")
+            const usdMatch = costSavingsText.match(/\$(\d+)(?:-(\d+))?/);
+            if (usdMatch) {
+                // Basic conversion (approximate exchange rate: 1 USD = 75 INR)
+                const convertToINR = (usd) => Math.round(usd * 75);
+                
+                if (usdMatch[2]) { // Range format like "$20-30"
+                    const lowerUSD = parseInt(usdMatch[1]);
+                    const upperUSD = parseInt(usdMatch[2]);
+                    costSavingsText = `₹${convertToINR(lowerUSD)}-${convertToINR(upperUSD)}`;
+                } else { // Single value like "$50"
+                    const usd = parseInt(usdMatch[1]);
+                    costSavingsText = `₹${convertToINR(usd)}`;
+                }
+            } else {
+                // If format is different, just replace $ with ₹
+                costSavingsText = costSavingsText.replace('$', '₹');
+            }
+        }
+        
         costSavings.innerHTML = `
             <i class="fas fa-piggy-bank"></i> 
-            Estimated Cost Savings: <strong>${cleanText(guide.costSavings) || 'Not specified'}</strong>`;
+            Estimated Cost Savings: <strong>${costSavingsText}</strong>`;
 
         // Display professional advice
         professionalAdvice.innerHTML = `
