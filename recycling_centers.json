@@ -1,0 +1,49 @@
+{
+  "places": [
+    {
+      "id": "rc1",
+      "name": "Green Earth Recycling Center",
+      "lat": 28.6139,
+      "lng": 77.2090,
+      "address": "Nehru Place, New Delhi",
+      "rating": 4.5,
+      "user_ratings_total": 120
+    },
+    {
+      "id": "rc2",
+      "name": "EcoTech Recyclers",
+      "lat": 19.0760,
+      "lng": 72.8777,
+      "address": "Andheri East, Mumbai",
+      "rating": 4.3,
+      "user_ratings_total": 89
+    },
+    {
+      "id": "rc3",
+      "name": "Sustainable Solutions",
+      "lat": 12.9716,
+      "lng": 77.5946,
+      "address": "Koramangala, Bangalore",
+      "rating": 4.7,
+      "user_ratings_total": 156
+    },
+    {
+      "id": "rc4",
+      "name": "Clean City Recycling",
+      "lat": 22.5726,
+      "lng": 88.3639,
+      "address": "Salt Lake City, Kolkata",
+      "rating": 4.2,
+      "user_ratings_total": 78
+    },
+    {
+      "id": "rc5",
+      "name": "Green Future Recyclers",
+      "lat": 17.3850,
+      "lng": 78.4867,
+      "address": "Hitech City, Hyderabad",
+      "rating": 4.4,
+      "user_ratings_total": 92
+    }
+  ]
+}

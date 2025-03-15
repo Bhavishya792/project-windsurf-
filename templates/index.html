@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recycling Guide</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&libraries=places"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Recycling Guide</h1>
+            <p>Upload a photo of any item to get detailed recycling instructions</p>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <!-- Image Analysis Section -->
+                <section class="analysis-section">
+                    <div class="upload-container">
+                        <div class="upload-area" id="uploadArea">
+                            <input type="file" id="imageUpload" accept="image/*" capture="environment" style="display: none;">
+                            <div class="upload-buttons">
+                                <button id="cameraButton" class="btn camera-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                        <circle cx="12" cy="13" r="4"/>
+                                    </svg>
+                                    Take Photo
+                                </button>
+                                <button id="uploadButton" class="btn upload-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Upload Image
+                                </button>
+                            </div>
+                            <div class="upload-message">
+                                <p>or drag and drop your image here</p>
+                            </div>
+                            <div class="status-message"></div>
+                        </div>
+
+                        <!-- Preview Area -->
+                        <div id="previewArea" class="preview-area" style="display: none;">
+                            <img id="imagePreview" alt="Preview">
+                            <button id="retakeButton" class="btn secondary-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 2v6h6"></path>
+                                    <path d="M3 12a9 9 0 1 0 9-9"></path>
+                                </svg>
+                                Retake
+                            </button>
+                        </div>
+
+                        <!-- Analysis Results -->
+                        <div id="analysisResult" class="analysis-result" style="display: none;">
+                            <div class="result-header">
+                                <h3>Recycling Guide</h3>
+                                <button id="closeAnalysis" class="close-button" aria-label="Close">×</button>
+                            </div>
+                            <div class="result-content"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Map Section -->
+                <section class="map-section">
+                    <div class="map-container">
+                        <div id="map"></div>
+                        <div class="places-panel">
+                            <div class="results-summary"></div>
+                            <div class="places-list"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <p>Find the nearest recycling center and get detailed recycling instructions for any item</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
