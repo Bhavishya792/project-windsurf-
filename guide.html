@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRise - Environmental Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="guide.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="eco-theme">
+    <nav>
+        <div class="nav-left">
+            <img src="assets/logo.png" alt="EcoRise Logo" class="logo">
+            <span class="brand-name">EcoRise</span>
+        </div>
+        <div class="nav-middle">
+            <a href="index.html">Home</a>
+            <a href="fiy.html">FIY</a>
+            <a href="volunteer.html">Volunteer</a>
+            <a href="guide.html" class="active">Guide</a>
+            <a href="#" class="accessibility-link">Accessibility Info</a>
+        </div>
+        <div class="nav-right">
+            <button class="icon-btn" id="calendarBtn">
+                <i class="fas fa-calendar"></i>
+            </button>
+            <button class="icon-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+            </button>
+            <button class="profile-btn">
+                <img src="assets/default-profile.png" alt="Profile" class="profile-pic">
+            </button>
+        </div>
+    </nav>
+
+    <main class="guide-main">
+        <section class="guide-hero">
+            <div class="hero-content">
+                <h1>Guide to Recycling and Composting</h1>
+                <p>Empowering You to Create a Sustainable Future</p>
+            </div>
+        </section>
+
+        <div class="guide-content">
+            <!-- Quick navigation links -->
+            <div class="guide-section">
+                <div class="guide-section-header active">
+                    <h2><i class="fas fa-compass"></i> Quick Navigation</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content active">
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-info-circle"></i> Introduction
+                            </div>
+                            <div class="info-card-content">
+                                Learn why recycling and composting are essential for a sustainable future
+                                <p><a href="#introduction" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-leaf"></i> Getting Started
+                            </div>
+                            <div class="info-card-content">
+                                Practical tips to begin your recycling and composting journey
+                                <p><a href="#getting-started" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-check-circle"></i> Recycling Dos & Don'ts
+                            </div>
+                            <div class="info-card-content">
+                                Learn what to do and what to avoid when recycling
+                                <p><a href="#recycling-dos-donts" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-seedling"></i> Composting Dos & Don'ts
+                            </div>
+                            <div class="info-card-content">
+                                Best practices for effective and odor-free composting
+                                <p><a href="#composting-dos-donts" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-exclamation-triangle"></i> Common Myths
+                            </div>
+                            <div class="info-card-content">
+                                Debunking misconceptions about recycling and composting
+                                <p><a href="#myths" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-recycle"></i> What Can Be Recycled
+                            </div>
+                            <div class="info-card-content">
+                                Comprehensive guide to recyclable and non-recyclable items
+                                <p><a href="#recyclable-items" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-globe-americas"></i> Environmental Impact
+                            </div>
+                            <div class="info-card-content">
+                                The real-world benefits of your recycling and composting efforts
+                                <p><a href="#environmental-impact" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-hands-helping"></i> Join the Movement
+                            </div>
+                            <div class="info-card-content">
+                                Get involved with EcoRise and make a bigger difference
+                                <p><a href="#join-ecorise" class="quick-link">Jump to section</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Introduction Section -->
+            <div id="introduction" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <p>Welcome to your guide to recycling and composting! Together, these practices form the cornerstone of sustainable living by reducing waste, conserving resources, and protecting our planet for future generations. Whether you're an eco-novice or a seasoned recycler, this comprehensive guide will help you take actionable steps to create a greener world.</p>
+                    
+                    <h3>The Growing Waste Crisis</h3>
+                    <p>Every year, billions of tons of waste are generated globally, much of which ends up in landfills, emitting harmful greenhouse gases such as methane. Recycling and composting are two of the most effective ways to combat this growing issue.</p>
+                    
+                    <h3>Environmental Benefits</h3>
+                    <ul>
+                        <li><strong>Recycling:</strong> Conserves natural resources, reduces energy use, and minimizes carbon emissions. For example, recycling one ton of aluminum saves up to 95% of the energy needed to produce it from raw materials.</li>
+                        <li><strong>Composting:</strong> Transforms organic waste into nutrient-rich compost, reducing methane emissions from landfills and improving soil health.</li>
+                    </ul>
+                    
+                    <h3>Resource Conservation</h3>
+                    <p>Recycling and composting ensure that resources like trees, water, and minerals are preserved, fostering a circular economy where materials are reused instead of discarded.</p>
+                    
+                    <div class="benefits-icons">
+                        <div class="benefit-icon">
+                            <i class="fas fa-tree"></i>
+                            <p>Preserves Natural Resources</p>
+                        </div>
+                        <div class="benefit-icon">
+                            <i class="fas fa-bolt"></i>
+                            <p>Reduces Energy Consumption</p>
+                        </div>
+                        <div class="benefit-icon">
+                            <i class="fas fa-cloud"></i>
+                            <p>Decreases Carbon Emissions</p>
+                        </div>
+                        <div class="benefit-icon">
+                            <i class="fas fa-water"></i>
+                            <p>Protects Water Quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Getting Started Section -->
+            <div id="getting-started" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-leaf"></i> How to Get Started</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <h3>Recycling Basics</h3>
+                    <ol>
+                        <li><strong>Identify Your Waste:</strong> Determine the recyclable materials in your household, such as paper, glass, plastics (check recycling codes), and metals.</li>
+                        <li><strong>Set Up a System:</strong> Use separate, clearly labeled bins for different materials. This minimizes contamination and simplifies sorting.</li>
+                        <li><strong>Know Your Local Guidelines:</strong> Recycling rules vary by region. Check your local waste management website for specifics.</li>
+                        <li><strong>Reduce and Reuse:</strong> Prioritize reducing waste and repurposing items before recycling them.</li>
+                    </ol>
+                    
+                    <h3>Composting Basics</h3>
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Choose Your Method
+                            </div>
+                            <div class="info-card-content">
+                                <ul>
+                                    <li><strong>Open Pile:</strong> Ideal for large outdoor spaces.</li>
+                                    <li><strong>Closed Bin:</strong> Compact and pest-resistant.</li>
+                                    <li><strong>Rotating Tumbler:</strong> Speeds up decomposition.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Balance Your Ingredients
+                            </div>
+                            <div class="info-card-content">
+                                <p>Maintain a 2:1 ratio of carbon-rich "browns" (leaves, paper) to nitrogen-rich "greens" (food scraps, coffee grounds).</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Maintain Your Compost
+                            </div>
+                            <div class="info-card-content">
+                                <p>Turn regularly for aeration, keep it moist but not soggy, and monitor for balance.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Harvest the Compost
+                            </div>
+                            <div class="info-card-content">
+                                <p>When it's dark, crumbly, and earthy-smelling, it's ready to enrich your garden.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recycling Dos and Don'ts Section -->
+            <div id="recycling-dos-donts" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-check-circle"></i> Dos and Don'ts of Recycling</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <div class="dos-donts-container">
+                        <div class="dos-column">
+                            <div class="dos-header">
+                                <i class="fas fa-check"></i> Recycling Dos
+                            </div>
+                            <ul class="dos-list">
+                                <li>Rinse containers to avoid contamination</li>
+                                <li>Flatten cardboard boxes to save space</li>
+                                <li>Remove staples and clips from paper</li>
+                                <li>Separate thin plastic bags</li>
+                                <li>Recycle glass bottles but remove lids</li>
+                                <li>Sort electronics and batteries for special disposal</li>
+                                <li>Follow your city's guidelines for accepted items</li>
+                                <li>Collect and recycle scrap metal</li>
+                                <li>Use clear bags for visibility and sorting ease</li>
+                                <li>Keep biodegradables out of the recycling bin</li>
+                            </ul>
+                        </div>
+                        <div class="donts-column">
+                            <div class="donts-header">
+                                <i class="fas fa-times"></i> Recycling Don'ts
+                            </div>
+                            <ul class="donts-list">
+                                <li>Don't recycle hoses or cables</li>
+                                <li>Avoid greasy pizza boxes</li>
+                                <li>Don't include broken glass</li>
+                                <li>Avoid shredded paper</li>
+                                <li>Never mix batteries or hazardous items with recycling</li>
+                                <li>Don't recycle mixed-material products</li>
+                                <li>Avoid plastic toys in standard recycling bins</li>
+                                <li>Never recycle textiles</li>
+                                <li>Don't recycle wet or contaminated paper</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Understanding Recycling Dos</h3>
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Rinse Containers
+                            </div>
+                            <div class="info-card-content">
+                                <p>Dirty containers can contaminate an entire recycling batch. Rinse thoroughly to ensure the items can be processed effectively.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Flatten Cardboard
+                            </div>
+                            <div class="info-card-content">
+                                <p>Breaking down boxes helps maximize bin space and makes transportation more efficient at recycling facilities.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Remove Metal Items
+                            </div>
+                            <div class="info-card-content">
+                                <p>Although small, staples and clips can cause issues during paper recycling. Always detach them beforehand.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Separate Plastic Bags
+                            </div>
+                            <div class="info-card-content">
+                                <p>Thin plastic bags can clog recycling machinery. Collect them separately and drop them off at designated recycling points.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Avoiding Common Recycling Mistakes</h3>
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Greasy Containers
+                            </div>
+                            <div class="info-card-content">
+                                <p>Grease and food residue compromise the integrity of paper fibers, making them unrecyclable. Compost instead.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Tangling Items
+                            </div>
+                            <div class="info-card-content">
+                                <p>Hoses, cables, and textiles can jam machinery at recycling facilities, causing delays and possible damage.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Mixed Materials
+                            </div>
+                            <div class="info-card-content">
+                                <p>Items like coffee cups (paper with a plastic lining) are too difficult to separate for effective recycling.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Hazardous Items
+                            </div>
+                            <div class="info-card-content">
+                                <p>Batteries and chemicals release toxins during processing. Always dispose of them through special programs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Composting Dos and Don'ts Section -->
+            <div id="composting-dos-donts" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-seedling"></i> Dos and Don'ts of Composting</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <div class="dos-donts-container">
+                        <div class="dos-column">
+                            <div class="dos-header">
+                                <i class="fas fa-check"></i> Composting Dos
+                            </div>
+                            <ul class="dos-list">
+                                <li>Compost vegetable and fruit scraps</li>
+                                <li>Add coffee grounds and filters for nitrogen</li>
+                                <li>Chop larger items to speed up decomposition</li>
+                                <li>Balance greens and browns for optimal composting</li>
+                                <li>Aerate the pile regularly</li>
+                            </ul>
+                        </div>
+                        <div class="donts-column">
+                            <div class="donts-header">
+                                <i class="fas fa-times"></i> Composting Don'ts
+                            </div>
+                            <ul class="donts-list">
+                                <li>Avoid meat or dairy</li>
+                                <li>Don't add glossy or coated paper</li>
+                                <li>Avoid diseased plants</li>
+                                <li>Don't compost cooked foods</li>
+                                <li>Never include pet waste</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Best Composting Practices</h3>
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Fruit & Vegetable Scraps
+                            </div>
+                            <div class="info-card-content">
+                                <p>These decompose quickly and add essential nutrients to the compost pile, making them perfect compost ingredients.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Coffee Grounds
+                            </div>
+                            <div class="info-card-content">
+                                <p>Coffee grounds are a great nitrogen source, and most filters are compostable if they're unbleached.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Size Matters
+                            </div>
+                            <div class="info-card-content">
+                                <p>Cut large items like watermelon rinds into smaller pieces for quicker breakdown and more efficient composting.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Aeration is Key
+                            </div>
+                            <div class="info-card-content">
+                                <p>Turning the pile allows oxygen to reach all layers, promoting faster decomposition and preventing foul odors.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Composting Problems to Avoid</h3>
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Animal Products
+                            </div>
+                            <div class="info-card-content">
+                                <p>Meat and dairy items attract pests and create unpleasant odors in your compost. Keep them out.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Processed Materials
+                            </div>
+                            <div class="info-card-content">
+                                <p>Glossy or coated paper often contains plastic or harmful chemicals that won't break down properly.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Diseased Plants
+                            </div>
+                            <div class="info-card-content">
+                                <p>Composting diseased plants can spread pathogens to healthy plants when you use the compost.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Pet Waste
+                            </div>
+                            <div class="info-card-content">
+                                <p>Pet waste contains harmful bacteria and pathogens unsuitable for composting in a regular home system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Myths Section -->
+            <div id="myths" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Common Myths About Recycling & Composting</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <h3>Recycling Myths vs. Facts</h3>
+                    <div class="cards-grid">
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: All plastics are recyclable.</p>
+                                <p class="fact">Fact: Only certain plastics (like #1, #2, and #5) are widely accepted. Plastics like #3 (PVC) and #6 (polystyrene) are rarely recycled.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: You don't need to clean recyclables.</p>
+                                <p class="fact">Fact: Dirty recyclables can contaminate entire batches, sending them to landfills. Always rinse items before recycling.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: Recycling uses more energy than it saves.</p>
+                                <p class="fact">Fact: Recycling materials like aluminum and paper saves significantly more energy than producing new materials.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: Small items like bottle caps and straws are recyclable.</p>
+                                <p class="fact">Fact: These items are often too small for machinery to handle and may jam equipment.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: You can recycle greasy pizza boxes.</p>
+                                <p class="fact">Fact: Grease contaminates paper fibers, making the box unsuitable for recycling. Compost it instead if grease-free areas can be separated.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Composting Myths vs. Facts</h3>
+                    <div class="cards-grid">
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: Compost piles always smell bad.</p>
+                                <p class="fact">Fact: Properly balanced compost piles with adequate aeration smell earthy, not rotten.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: You can throw anything biodegradable into compost.</p>
+                                <p class="fact">Fact: Not all biodegradable items are safe for compost, like meat, dairy, and pet waste, which attract pests or contain harmful pathogens.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: Composting requires a lot of space.</p>
+                                <p class="fact">Fact: Compact compost bins and indoor systems like vermicomposting make it possible even in small spaces.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: Adding worms to a compost pile is mandatory.</p>
+                                <p class="fact">Fact: Worms are optional and helpful but not required for decomposition.</p>
+                            </div>
+                        </div>
+                        <div class="myth-card">
+                            <div class="myth-card-header">
+                                <i class="fas fa-question-circle"></i> Myth vs. Fact
+                            </div>
+                            <div class="myth-card-content">
+                                <p class="myth">Myth: Composting is only for gardeners.</p>
+                                <p class="fact">Fact: Composting benefits everyone by reducing landfill waste and enriching soil for community green spaces and parks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recyclable Items Section -->
+            <div id="recyclable-items" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-recycle"></i> What Can and Cannot Be Recycled</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <h3>Recyclable Items</h3>
+                    <table class="guide-table">
+                        <thead>
+                            <tr>
+                                <th>Material</th>
+                                <th>Examples</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Paper</td>
+                                <td>Newspapers, office paper</td>
+                                <td>Avoid wet or greasy paper</td>
+                            </tr>
+                            <tr>
+                                <td>Cardboard</td>
+                                <td>Boxes, cereal boxes</td>
+                                <td>Flatten and remove tape</td>
+                            </tr>
+                            <tr>
+                                <td>Glass</td>
+                                <td>Bottles, jars</td>
+                                <td>Remove lids and rinse</td>
+                            </tr>
+                            <tr>
+                                <td>Plastics (1, 2, 5)</td>
+                                <td>Water bottles, milk jugs</td>
+                                <td>Check local rules for plastic codes</td>
+                            </tr>
+                            <tr>
+                                <td>Metals</td>
+                                <td>Aluminum cans, steel containers</td>
+                                <td>Rinse and remove labels if possible</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Non-Recyclable Items</h3>
+                    <table class="guide-table">
+                        <thead>
+                            <tr>
+                                <th>Material</th>
+                                <th>Examples</th>
+                                <th>Why It's Non-Recyclable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tanglers</td>
+                                <td>Hoses, wires, ropes</td>
+                                <td>Damage recycling machinery</td>
+                            </tr>
+                            <tr>
+                                <td>Contaminated Items</td>
+                                <td>Greasy pizza boxes, food waste</td>
+                                <td>Contaminate other materials</td>
+                            </tr>
+                            <tr>
+                                <td>Mixed-Material Products</td>
+                                <td>Coffee cups, laminated paper</td>
+                                <td>Hard to separate layers for recycling</td>
+                            </tr>
+                            <tr>
+                                <td>Hazardous Material</td>
+                                <td>Batteries, chemicals</td>
+                                <td>Require specialized disposal</td>
+                            </tr>
+                            <tr>
+                                <td>Textiles</td>
+                                <td>Clothes, rugs</td>
+                                <td>Donate to textile recycling programs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Environmental Impact Section -->
+            <div id="environmental-impact" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-globe-americas"></i> Environmental Impact</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <h3>Impact of Different Materials</h3>
+                    <table class="guide-table">
+                        <thead>
+                            <tr>
+                                <th>Material Recycled</th>
+                                <th>Energy Saved Compared to Virgin Materials</th>
+                                <th>CO₂ Reduction</th>
+                                <th>Other Benefits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Aluminum</td>
+                                <td>95%</td>
+                                <td>High</td>
+                                <td>Conserves bauxite ore</td>
+                            </tr>
+                            <tr>
+                                <td>Plastic (PET)</td>
+                                <td>88%</td>
+                                <td>Moderate</td>
+                                <td>Reduces oil usage</td>
+                            </tr>
+                            <tr>
+                                <td>Paper</td>
+                                <td>68%</td>
+                                <td>Moderate</td>
+                                <td>Saves trees and water</td>
+                            </tr>
+                            <tr>
+                                <td>Steel</td>
+                                <td>60%</td>
+                                <td>High</td>
+                                <td>Reduces mining of iron ore</td>
+                            </tr>
+                            <tr>
+                                <td>Glass</td>
+                                <td>30%</td>
+                                <td>Low</td>
+                                <td>Avoids raw material extraction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Pollution Reduction</h3>
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Air Quality Benefits
+                            </div>
+                            <div class="info-card-content">
+                                <p>Recycling reduces air pollution associated with raw material extraction and processing.</p>
+                                <p>Composting reduces water pollution by preventing organic waste from leaching harmful chemicals into water supplies in landfills.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Ocean Protection
+                            </div>
+                            <div class="info-card-content">
+                                <p>Proper recycling of plastics prevents them from entering oceans, where they harm marine life and contribute to microplastic pollution.</p>
+                                <p>Composting food scraps reduces the need for plastic waste bags that often end up in waterways.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Toxin Reduction
+                            </div>
+                            <div class="info-card-content">
+                                <p>Recycling electronics properly prevents harmful chemicals like lead and mercury from contaminating soil and water.</p>
+                                <p>Composting avoids the use of chemical fertilizers, reducing runoff into rivers and lakes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Quantifiable Global Impact</h3>
+                    <div class="cards-grid">
+                        <div class="impact-card">
+                            <div class="impact-number">17</div>
+                            <div class="impact-text">Trees saved by recycling one ton of paper</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-number">30%</div>
+                            <div class="impact-text">Household waste reduction possible through composting</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-number">3 hrs</div>
+                            <div class="impact-text">TV power from recycling one aluminum can</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-number">7,000</div>
+                            <div class="impact-text">Gallons of water saved per ton of recycled paper</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Join EcoRise Section -->
+            <div id="join-ecorise" class="guide-section">
+                <div class="guide-section-header">
+                    <h2><i class="fas fa-hands-helping"></i> What Change We Can Bring: Join EcoRise Today!</h2>
+                    <span class="toggle-btn"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="guide-section-content">
+                    <p>EcoRise is your opportunity to be part of a global movement for a sustainable future. By joining, you can:</p>
+                    <div class="cards-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Access Resources
+                            </div>
+                            <div class="info-card-content">
+                                <p>Get tools and information to improve your recycling and composting practices, maximizing your impact.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Connect with Community
+                            </div>
+                            <div class="info-card-content">
+                                <p>Meet like-minded individuals and communities working toward environmental sustainability.</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                Contribute to Initiatives
+                            </div>
+                            <div class="info-card-content">
+                                <p>Participate in large-scale environmental initiatives and help shape environmental policies.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cta-section">
+                        <h2>Together, We Can Create a Cleaner, Healthier Planet</h2>
+                        <p>Start your eco-journey today with EcoRise—because every action counts!</p>
+                        <button class="cta-button">Get Involved Today</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Calendar Modal -->
+    <div id="calendarModal" class="calendar-modal">
+        <div class="calendar-container">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <div class="calendar-navigation">
+                        <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="currentMonthYear">March 2025</h3>
+                        <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <button class="close-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="calendar"></div>
+            </div>
+            <div class="events-section">
+                <h3>Upcoming Events</h3>
+                <div id="eventsList" class="events-list">
+                    <!-- Events will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content notification-modal">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <h2>Notifications</h2>
+            <div class="notification-list">
+                <!-- Notifications will be populated here -->
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text">Beach cleanup event tomorrow at 9 AM</p>
+                        <p class="notification-time">1 hour ago</p>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text">You've earned the "Eco Warrior" badge!</p>
+                        <p class="notification-time">Yesterday</p>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text">New community challenge: Plastic-free Week</p>
+                        <p class="notification-time">2 days ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content profile-modal">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <div class="profile-header">
+                <div class="profile-image-container">
+                    <img src="assets/default-profile.png" alt="Profile" id="profileImage">
+                    <button class="edit-profile-image">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <h2>John Doe</h2>
+                <p>Eco Enthusiast</p>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-value">12</span>
+                    <span class="stat-label">Events</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">5</span>
+                    <span class="stat-label">Badges</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">320</span>
+                    <span class="stat-label">Points</span>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="profile-action-btn">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </button>
+                <button class="profile-action-btn">
+                    <i class="fas fa-medal"></i>
+                    <span>Achievements</span>
+                </button>
+                <button class="profile-action-btn">
+                    <i class="fas fa-history"></i>
+                    <span>Activity</span>
+                </button>
+                <button class="profile-action-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FullCalendar JavaScript -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js'></script>
+    <script type="module" src="script.js"></script>
+    <script src="guide.js"></script>
+    <script src="sidebar-injector.js"></script>
+</body>
+</html>
