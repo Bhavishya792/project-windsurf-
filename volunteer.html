@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRise - Volunteer Opportunities</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="volunteer.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="eco-theme">
+    <nav>
+        <div class="nav-left">
+            <img src="assets/logo.png" alt="EcoRise Logo" class="logo">
+            <span class="brand-name">EcoRise</span>
+        </div>
+        <div class="nav-middle">
+            <a href="index.html">Home</a>
+            <a href="fiy.html">FIY</a>
+            <a href="volunteer.html" class="active">Volunteer</a>
+            <a href="#">Guide</a>
+            <a href="#" class="accessibility-link">Accessibility Info</a>
+        </div>
+        <div class="nav-right">
+            <button class="icon-btn" id="calendarBtn">
+                <i class="fas fa-calendar"></i>
+            </button>
+            <button class="icon-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+            </button>
+            <button class="profile-btn">
+                <img src="assets/default-profile.png" alt="Profile" class="profile-pic">
+            </button>
+        </div>
+    </nav>
+
+    <main class="volunteer-main">
+        <section class="volunteer-hero">
+            <div class="hero-content">
+                <h1>Join Our Volunteer Community</h1>
+                <p>Make a real impact through environmental action</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-hands-helping"></i>
+                        <span>2000+ Active Volunteers</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-seedling"></i>
+                        <span>500+ Projects Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-globe-americas"></i>
+                        <span>Global Impact</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="volunteer-options">
+            <div class="section-header">
+                <h2><i class="fas fa-hand-holding-heart"></i> Ways to Volunteer</h2>
+                <p>Find the perfect opportunity that matches your skills and availability</p>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" id="volunteerSearch" placeholder="Search for volunteer opportunities...">
+                        <button type="button" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button class="create-event-btn" id="createEventBtn">
+                        <i class="fas fa-plus"></i> Create Event
+                    </button>
+                </div>
+            </div>
+            <div class="volunteer-cards">
+                <div class="volunteer-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1564223288351-a96bae754255?w=800')"></div>
+                    <div class="card-content">
+                        <h3>Beach Clean-up Drive</h3>
+                        <div class="tag-container">
+                            <span class="tag category">Environmental</span>
+                            <span class="tag difficulty">Beginner-Friendly</span>
+                            <span class="tag type">Outdoor</span>
+                            <span class="tag commitment">One-time</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Juhu Beach, Mumbai</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>March 23, 2025</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-clock"></i>
+                                <span>7:00 AM - 11:00 AM</span>
+                            </div>
+                        </div>
+                        <p class="description">Join our community beach clean-up initiative to remove plastic waste and debris from our shorelines. Help protect marine life and keep our beaches beautiful. Equipment and refreshments provided.</p>
+                        <div class="card-footer">
+                            <div class="spots-left">
+                                <i class="fas fa-users"></i>
+                                <span>10 spots left</span>
+                            </div>
+                            <button class="sign-up-btn" data-signed-up="false">
+                                <i class="fas fa-hand-paper"></i>
+                                <span class="btn-text">Sign Up</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="volunteer-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1511108690759-009324a90311?w=800')"></div>
+                    <div class="card-content">
+                        <h3>Urban Forest Initiative</h3>
+                        <div class="tag-container">
+                            <span class="tag category">Conservation</span>
+                            <span class="tag difficulty">Moderate</span>
+                            <span class="tag type">Outdoor</span>
+                            <span class="tag commitment">Recurring</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Aarey Colony, Mumbai</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>Every Saturday</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-clock"></i>
+                                <span>6:30 AM - 10:30 AM</span>
+                            </div>
+                        </div>
+                        <p class="description">Help restore urban forests by planting native trees. Learn about local ecosystems while contributing to the city's green cover. Training and tools provided. Perfect for nature enthusiasts!</p>
+                        <div class="card-footer">
+                            <div class="spots-left">
+                                <i class="fas fa-users"></i>
+                                <span>8 spots left</span>
+                            </div>
+                            <button class="sign-up-btn" data-signed-up="false">
+                                <i class="fas fa-hand-paper"></i>
+                                <span class="btn-text">Sign Up</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="volunteer-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=800')"></div>
+                    <div class="card-content">
+                        <h3>Eco-Education Workshop</h3>
+                        <div class="tag-container">
+                            <span class="tag category">Education</span>
+                            <span class="tag difficulty">Intermediate</span>
+                            <span class="tag type">Indoor</span>
+                            <span class="tag commitment">Weekly</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Green Earth Center, Powai</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>Every Wednesday</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-clock"></i>
+                                <span>4:00 PM - 6:00 PM</span>
+                            </div>
+                        </div>
+                        <p class="description">Share your knowledge about sustainability and environmental conservation with students. Help shape the next generation of environmental stewards through engaging workshops.</p>
+                        <div class="card-footer">
+                            <div class="spots-left">
+                                <i class="fas fa-users"></i>
+                                <span>3 spots left</span>
+                            </div>
+                            <button class="sign-up-btn" data-signed-up="false">
+                                <i class="fas fa-hand-paper"></i>
+                                <span class="btn-text">Sign Up</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="volunteer-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1494059980473-813e73ee784b?w=800')"></div>
+                    <div class="card-content">
+                        <h3>Community Garden Project</h3>
+                        <div class="tag-container">
+                            <span class="tag category">Agriculture</span>
+                            <span class="tag difficulty">All Levels</span>
+                            <span class="tag type">Outdoor</span>
+                            <span class="tag commitment">Flexible</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Thane Community Garden</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>Ongoing</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="far fa-clock"></i>
+                                <span>7:00 AM - 5:00 PM</span>
+                            </div>
+                        </div>
+                        <p class="description">Join our community garden initiative to grow organic vegetables and herbs. Learn sustainable farming practices while helping provide fresh produce to local food banks.</p>
+                        <div class="card-footer">
+                            <div class="spots-left">
+                                <i class="fas fa-users"></i>
+                                <span>20 spots left</span>
+                            </div>
+                            <button class="sign-up-btn" data-signed-up="false">
+                                <i class="fas fa-hand-paper"></i>
+                                <span class="btn-text">Sign Up</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add pagination controls -->
+            <div class="pagination">
+                <button class="page-btn prev-btn" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-numbers">
+                    <button class="page-number active">1</button>
+                    <button class="page-number">2</button>
+                    <button class="page-number">3</button>
+                </div>
+                <button class="page-btn next-btn">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="volunteer-map">
+            <div class="section-header">
+                <h2><i class="fas fa-map-marked-alt"></i> Find Opportunities Near You</h2>
+                <p>Discover local volunteer events and projects in your area</p>
+            </div>
+            <div class="map-container">
+                <div class="filter-panel">
+                    <h3>Filter Options</h3>
+                    <div class="filter-group">
+                        <label>Event Type</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" checked> Clean-up</label>
+                            <label><input type="checkbox" checked> Planting</label>
+                            <label><input type="checkbox" checked> Education</label>
+                            <label><input type="checkbox" checked> Conservation</label>
+                            <label><input type="checkbox" checked> Community</label>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Distance</label>
+                        <input type="range" min="5" max="100" value="25" class="slider" id="distanceRange">
+                        <span id="distanceValue">25 km</span>
+                    </div>
+                    <div class="filter-group">
+                        <label>Date Range</label>
+                        <input type="date" id="startDate">
+                        <input type="date" id="endDate">
+                    </div>
+                    <button class="filter-btn">Apply Filters</button>
+                </div>
+                <div id="volunteerMap" class="map-view"></div>
+            </div>
+        </section>
+
+        <section class="impact-stories">
+            <div class="section-header">
+                <h2><i class="fas fa-heart"></i> Volunteer Impact Stories</h2>
+                <p>Real stories from volunteers making a difference</p>
+            </div>
+            <div class="stories-container">
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" alt="Sarah" class="story-image">
+                    <div class="story-content">
+                        <h3>Sarah's Story</h3>
+                        <p class="quote">"I started volunteering at beach clean-ups last year and was shocked by how much plastic we collected. Now I lead my own team every month, and we've removed over 500kg of waste from our local shores."</p>
+                        <p class="impact-stat">Impact: 12 clean-ups organized, 500kg waste collected</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Michael" class="story-image">
+                    <div class="story-content">
+                        <h3>Michael's Story</h3>
+                        <p class="quote">"After retiring, I wanted to give back. The community garden project has not only helped local food security, but it's connected me with neighbors I never knew. The garden now supplies fresh produce to our local food bank."</p>
+                        <p class="impact-stat">Impact: 1 community garden established, 200kg produce donated</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" alt="Aisha" class="story-image">
+                    <div class="story-content">
+                        <h3>Aisha's Story</h3>
+                        <p class="quote">"I volunteer as an environmental educator in local schools. Seeing children get excited about sustainability and take those lessons home to their families is incredibly rewarding. Small actions create big ripples."</p>
+                        <p class="impact-stat">Impact: 15 schools visited, 1000+ students educated</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="get-started">
+            <h2>Ready to Make a Difference?</h2>
+            <p>Join our community of environmental volunteers today</p>
+            <div class="action-buttons">
+                <button class="primary-btn">Create Account</button>
+                <button class="secondary-btn">Browse All Opportunities</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Event Details Modal -->
+    <div class="event-modal" id="eventModal">
+        <div class="modal-content">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <div class="event-image"></div>
+                <h2 class="event-title"></h2>
+                <div class="tag-container"></div>
+            </div>
+            <div class="modal-body">
+                <div class="event-details-grid">
+                    <div class="detail-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p class="event-location"></p>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <i class="far fa-calendar-alt"></i>
+                        <div>
+                            <h4>Date</h4>
+                            <p class="event-date"></p>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <i class="far fa-clock"></i>
+                        <div>
+                            <h4>Time</h4>
+                            <p class="event-time"></p>
+                        </div>
+                    </div>
+                    <div class="detail-group">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h4>Spots Available</h4>
+                            <p class="event-spots"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-section">
+                    <h3>About This Event</h3>
+                    <p class="event-description"></p>
+                </div>
+
+                <div class="event-section">
+                    <h3>What to Bring</h3>
+                    <ul class="event-requirements"></ul>
+                </div>
+
+                <div class="event-section">
+                    <h3>Event Coordinator</h3>
+                    <div class="coordinator-info">
+                        <img src="" alt="Coordinator" class="coordinator-image">
+                        <div>
+                            <h4 class="coordinator-name"></h4>
+                            <p class="coordinator-contact"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-section">
+                    <h3>Additional Information</h3>
+                    <div class="additional-info"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="share-btn"><i class="fas fa-share-alt"></i> Share</button>
+                <button class="register-btn">Register Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="signup-modal" id="signupModal">
+        <div class="modal-content">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h2>Sign Up for <span class="event-title"></span></h2>
+            </div>
+            <div class="modal-body">
+                <div class="signup-grid">
+                    <!-- Organizer Information -->
+                    <div class="organizer-info-section">
+                        <h3>Event Organizer</h3>
+                        <div class="organizer-card">
+                            <img src="" alt="Organizer" class="organizer-image">
+                            <div class="organizer-details">
+                                <h4 class="organizer-name"></h4>
+                                <p class="organizer-role"></p>
+                                <div class="contact-info">
+                                    <div class="contact-item">
+                                        <i class="fas fa-envelope"></i>
+                                        <span class="organizer-email"></span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <i class="fas fa-phone"></i>
+                                        <span class="organizer-phone"></span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <i class="fas fa-building"></i>
+                                        <span class="organizer-organization"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <div class="registration-section">
+                        <h3>Your Information</h3>
+                        <form id="registrationForm" class="registration-form">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age *</label>
+                                <input type="number" id="age" min="16" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="experience">Relevant Experience</label>
+                                <textarea id="experience" rows="3" placeholder="Tell us about any relevant experience you have"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="requirements">Special Requirements</label>
+                                <textarea id="requirements" rows="2" placeholder="Any dietary restrictions, accessibility needs, etc."></textarea>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="termsAccepted" required>
+                                    I agree to the terms and conditions
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">Cancel</button>
+                <button class="submit-btn" form="registrationForm">Complete Registration</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Event Modal -->
+    <div class="modal" id="createEventModal">
+        <div class="modal-content">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <h2>Create New Volunteer Event</h2>
+            <form id="createEventForm">
+                <div class="form-group">
+                    <label for="eventTitle">Event Title</label>
+                    <input type="text" id="eventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventCategory">Category</label>
+                    <select id="eventCategory" required>
+                        <option value="Environmental">Environmental</option>
+                        <option value="Conservation">Conservation</option>
+                        <option value="Education">Education</option>
+                        <option value="Community">Community</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventDifficulty">Difficulty Level</label>
+                    <select id="eventDifficulty" required>
+                        <option value="Beginner-Friendly">Beginner-Friendly</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventType">Event Type</label>
+                    <select id="eventType" required>
+                        <option value="Indoor">Indoor</option>
+                        <option value="Outdoor">Outdoor</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventCommitment">Commitment</label>
+                    <select id="eventCommitment" required>
+                        <option value="One-time">One-time</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Recurring">Recurring</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventLocation">Location</label>
+                    <input type="text" id="eventLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="eventStartTime">Start Time</label>
+                        <input type="time" id="eventStartTime" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="eventEndTime">End Time</label>
+                        <input type="time" id="eventEndTime" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Description</label>
+                    <textarea id="eventDescription" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="eventSpots">Available Spots</label>
+                    <input type="number" id="eventSpots" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventImage">Event Image URL</label>
+                    <input type="url" id="eventImage" placeholder="https://example.com/image.jpg" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Create Event</button>
+                    <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Calendar Modal -->
+    <div id="calendarModal" class="calendar-modal">
+        <div class="calendar-container">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <div class="calendar-navigation">
+                        <button id="prevMonth" class="nav-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonth" class="current-month">March 2024</h3>
+                        <button id="nextMonth" class="nav-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <button class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Sun</div>
+                    <div class="calendar-day-header">Mon</div>
+                    <div class="calendar-day-header">Tue</div>
+                    <div class="calendar-day-header">Wed</div>
+                    <div class="calendar-day-header">Thu</div>
+                    <div class="calendar-day-header">Fri</div>
+                    <div class="calendar-day-header">Sat</div>
+                </div>
+                <div id="calendarDays" class="calendar-grid"></div>
+            </div>
+            <div class="event-list">
+                <h3>Events</h3>
+                <div class="event-items">
+                    <p>Select a date to view events</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EcoRise</h3>
+                <p>Creating a sustainable future through community action and education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="volunteer.js"></script>
+    <script type="module">
+        import { GOOGLE_MAPS_API_KEY } from './config.js';
+        
+        // Set up Google Maps API with key from config
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+        
+        window.initMap = function() {
+            // This function will be called by the Google Maps API script
+            const event = new Event('google-maps-loaded');
+            window.dispatchEvent(event);
+        };
+    </script>
+</body>
+</html>

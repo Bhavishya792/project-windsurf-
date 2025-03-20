@@ -6,6 +6,7 @@
     <title>EcoRise - Fix It Yourself</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="fiy.css">
+    <link rel="stylesheet" href="css/calendar.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -19,7 +20,7 @@
         <div class="nav-middle">
             <a href="index.html">Home</a>
             <a href="fiy.html" class="active">FIY</a>
-            <a href="#">Volunteer</a>
+            <a href="volunteer.html">Volunteer</a>
             <a href="#">Guide</a>
             <a href="#" class="accessibility-link">Accessibility Info</a>
         </div>
@@ -217,6 +218,44 @@
         </section>
     </main>
 
-    <script src="fiy.js"></script>
+    <!-- Calendar Modal -->
+    <div id="calendarModal" class="calendar-modal">
+        <div class="calendar-container">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <div class="calendar-navigation">
+                        <button id="prevMonth" class="nav-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonth" class="current-month">March 2024</h3>
+                        <button id="nextMonth" class="nav-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <button class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Sun</div>
+                    <div class="calendar-day-header">Mon</div>
+                    <div class="calendar-day-header">Tue</div>
+                    <div class="calendar-day-header">Wed</div>
+                    <div class="calendar-day-header">Thu</div>
+                    <div class="calendar-day-header">Fri</div>
+                    <div class="calendar-day-header">Sat</div>
+                </div>
+                <div id="calendarDays" class="calendar-grid"></div>
+            </div>
+            <div class="event-list">
+                <h3>Events</h3>
+                <div class="event-items">
+                    <p>Select a date to view events</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="fiy.js"></script>
 </body>
 </html>

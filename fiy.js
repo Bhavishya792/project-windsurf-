@@ -1,9 +1,16 @@
+// Import the calendar module
+import { initializeCalendar } from './js/calendar.js';
+
 // Gemini API configuration
-const GEMINI_API_KEY = 'AIzaSyC32FW2soAQRwzQJUvuqhrsqGvR0kc_ywE';
+// Using environment variables for API keys instead of hardcoding
+import { GEMINI_API_KEY } from './config.js';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 const GEMINI_VISION_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the calendar from the shared module
+    initializeCalendar();
+    
     const attachImageBtn = document.getElementById('attachImage');
     const itemImageInput = document.getElementById('itemImage');
     const getHelpBtn = document.getElementById('getHelp');

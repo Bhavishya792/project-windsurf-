@@ -1,3 +1,6 @@
+// Import the calendar module
+import { initializeCalendar } from './js/calendar.js';
+
 // DOM Elements
 const cameraBtn = document.getElementById('cameraBtn');
 const uploadModal = document.getElementById('uploadModal');
@@ -5,9 +8,17 @@ const closeButtons = document.querySelectorAll('.close-button');
 const fileInput = document.getElementById('fileInput');
 const uploadBox = document.getElementById('uploadBox');
 const analysisResult = document.getElementById('analysisResult');
+const createEventBtn = document.getElementById('createEventBtn');
+const createEventModal = document.getElementById('createEventModal');
+const calendarBtn = document.getElementById('calendarBtn');
+const calendarModal = document.getElementById('calendarModal');
+const profileBtn = document.querySelector('.profile-btn');
+const profileModal = document.getElementById('profileModal');
+let calendar = null;
 
 // Modal handling
 function openModal(modal) {
+    if (!modal) return;
     modal.style.display = 'flex';
     setTimeout(() => {
         modal.classList.add('active');
@@ -15,28 +26,46 @@ function openModal(modal) {
 }
 
 function closeModal(modal) {
+    if (!modal) return;
     modal.classList.remove('active');
     setTimeout(() => {
         modal.style.display = 'none';
-        // Reset the analysis result when closing
-        analysisResult.style.display = 'none';
-        analysisResult.classList.remove('loading');
     }, 300);
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // Camera button click handler (opens upload modal)
-    if (cameraBtn) {
-        cameraBtn.addEventListener('click', () => {
-            openModal(uploadModal);
+    // Initialize calendar from the shared module
+    initializeCalendar();
+    
+    // Load profile data
+    loadProfileData();
+    
+    // Load events
+    updateEventsDisplay();
+    
+    // Calendar button click is now handled by the calendar module
+    
+    // Profile button click handler
+    if (profileBtn) {
+        profileBtn.addEventListener('click', () => {
+            openModal(profileModal);
         });
     }
     
-    // Close button handlers
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = button.closest('.modal');
+    // Create Event button click handler
+    if (createEventBtn) {
+        createEventBtn.addEventListener('click', () => {
+            openModal(createEventModal);
+            currentStep = 0;
+            updateFormSteps();
+        });
+    }
+    
+    // Close button handlers for all modals
+    document.querySelectorAll('.close-btn, .close-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.modal');
             closeModal(modal);
         });
     });
@@ -44,163 +73,415 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle ESC key
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            const openModal = document.querySelector('.modal.active');
-            if (openModal) closeModal(openModal);
+            const openModals = document.querySelectorAll('.modal[style*="display: flex"]');
+            openModals.forEach(modal => closeModal(modal));
         }
     });
     
-    // Handle clicking outside modal
+    // Handle clicking outside modals
     window.addEventListener('click', (e) => {
-        const openModal = document.querySelector('.modal.active');
-        if (e.target === openModal) {
-            closeModal(openModal);
-        }
+        const openModals = document.querySelectorAll('.modal[style*="display: flex"]');
+        openModals.forEach(modal => {
+            if (e.target === modal) {
+                closeModal(modal);
+            }
+        });
     });
     
-    // File input change handler
-    fileInput.addEventListener('change', handleFileUpload);
-    
-    // Drag and drop handlers
-    uploadBox.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadBox.style.borderStyle = 'solid';
+    // Tab switching in profile
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabBtns.forEach(b => b.classList.remove('active'));
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            btn.classList.add('active');
+            const tabId = btn.dataset.tab;
+            document.getElementById(tabId).classList.add('active');
+        });
     });
     
-    uploadBox.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        uploadBox.style.borderStyle = 'dashed';
-    });
-    
-    uploadBox.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadBox.style.borderStyle = 'dashed';
-        
-        const file = e.dataTransfer.files[0];
-        if (file) {
-            handleFileUpload({ target: { files: [file] } });
-        }
-    });
-});
-
-// File upload and analysis
-async function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-        showStatus('Please select an image file.', 'error');
-        return;
+    // Profile image change
+    const editProfileImageBtn = document.querySelector('.edit-profile-image');
+    if (editProfileImageBtn) {
+        editProfileImageBtn.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        document.getElementById('profileImage').src = event.target.result;
+                        // Save to localStorage
+                        const profileData = JSON.parse(localStorage.getItem('profileData') || '{}');
+                        profileData.imageUrl = event.target.result;
+                        localStorage.setItem('profileData', JSON.stringify(profileData));
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        });
     }
     
-    // Validate file size (10MB limit)
-    if (file.size > 10 * 1024 * 1024) {
-        showStatus('Image size should be less than 10MB.', 'error');
-        return;
+    // Settings form submission
+    const settingsForm = document.getElementById('profileSettingsForm');
+    if (settingsForm) {
+        settingsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const profileData = {
+                name: document.getElementById('settingsName').value,
+                email: document.getElementById('settingsEmail').value,
+                location: document.getElementById('settingsLocation').value,
+                bio: document.getElementById('settingsBio').value,
+                imageUrl: document.getElementById('profileImage').src
+            };
+            localStorage.setItem('profileData', JSON.stringify(profileData));
+            
+            // Update profile display
+            document.getElementById('profileName').textContent = profileData.name;
+            document.querySelector('.profile-email').textContent = profileData.email;
+            
+            showNotification('Profile updated successfully!');
+        });
     }
     
-    try {
-        // Show loading state
-        analysisResult.style.display = 'block';
-        analysisResult.classList.add('loading');
-        const resultContent = analysisResult.querySelector('.result-content');
-        resultContent.innerHTML = `
-            <div class="loading-spinner"></div>
-            <p>Analyzing your product...</p>
-        `;
-        
-        // Create form data
-        const formData = new FormData();
-        formData.append('image', file);
-        
-        // Send request to server
-        const response = await fetch('/analyze', {
-            method: 'POST',
-            body: formData
+    // Multi-step form for event creation
+    const form = document.getElementById('createEventForm');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const steps = document.querySelectorAll('.form-step');
+    const progressSteps = document.querySelectorAll('.step-indicator');
+    let currentStep = 0;
+    
+    function updateFormSteps() {
+        steps.forEach((step, index) => {
+            step.style.display = index === currentStep ? 'block' : 'none';
         });
         
-        const data = await response.json();
+        progressSteps.forEach((step, index) => {
+            if (index < currentStep) {
+                step.classList.add('completed');
+                step.classList.remove('active');
+            } else if (index === currentStep) {
+                step.classList.add('active');
+                step.classList.remove('completed');
+            } else {
+                step.classList.remove('active', 'completed');
+            }
+        });
         
-        if (!response.ok) {
-            throw new Error(data.error || 'Failed to analyze image');
+        if (currentStep === 0) {
+            prevBtn.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'block';
         }
         
-        // Format and display results
-        analysisResult.classList.remove('loading');
-        resultContent.innerHTML = formatAnalysisResults(data.analysis);
-        showStatus('Analysis complete!', 'success');
+        if (currentStep === steps.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'block';
+        } else {
+            nextBtn.style.display = 'block';
+            submitBtn.style.display = 'none';
+        }
+    }
+    
+    function validateStep(step) {
+        const inputs = step.querySelectorAll('input[required], textarea[required]');
+        let isValid = true;
         
-    } catch (error) {
-        console.error('Error:', error);
-        analysisResult.classList.remove('loading');
-        const resultContent = analysisResult.querySelector('.result-content');
-        resultContent.innerHTML = `
-            <div class="error-message">
-                <p><strong>Error:</strong> ${error.message}</p>
-                <p>Please try again with a different image or check your internet connection.</p>
-            </div>
-        `;
-        showStatus('Analysis failed. Please try again.', 'error');
+        inputs.forEach(input => {
+            if (!input.value) {
+                isValid = false;
+                input.classList.add('invalid');
+            } else {
+                input.classList.remove('invalid');
+            }
+        });
+        
+        return isValid;
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (validateStep(steps[currentStep])) {
+                currentStep++;
+                updateFormSteps();
+            }
+        });
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentStep--;
+            updateFormSteps();
+        });
+    }
+    
+    // Event form submission
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!validateStep(steps[currentStep])) {
+                return;
+            }
+            
+            const title = document.getElementById('eventTitle').value;
+            const location = document.getElementById('eventLocation').value;
+            const description = document.getElementById('eventDescription').value;
+            const date = document.getElementById('eventDate').value;
+            const startTime = document.getElementById('eventStartTime').value;
+            const endTime = document.getElementById('eventEndTime').value;
+            
+            // Get the image file and convert to base64
+            const imageFile = document.getElementById('eventImage').files[0];
+            if (!imageFile) {
+                alert('Please select an image for the event');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                
+                // Create event object
+                const event = {
+                    title,
+                    location,
+                    description,
+                    date,
+                    startTime,
+                    endTime,
+                    imageData
+                };
+                
+                // Save to localStorage
+                const events = JSON.parse(localStorage.getItem('events') || '[]');
+                events.push(event);
+                localStorage.setItem('events', JSON.stringify(events));
+                
+                // Update events display
+                updateEventsDisplay();
+                
+                // Close modal and reset form
+                closeModal(createEventModal);
+                form.reset();
+                currentStep = 0;
+                updateFormSteps();
+                
+                // Show success notification
+                showNotification('Event created successfully!');
+            };
+            
+            reader.readAsDataURL(imageFile);
+        });
+    }
+    
+    // Initialize form steps if form exists
+    if (form) {
+        updateFormSteps();
+    }
+    
+    // Camera button handler
+    if (cameraBtn) {
+        cameraBtn.addEventListener('click', () => {
+            openModal(uploadModal);
+        });
+    }
+    
+    // Initialize image upload
+    initializeImageUpload();
+});
+
+// Load profile data from localStorage
+function loadProfileData() {
+    const profileData = JSON.parse(localStorage.getItem('profileData') || '{}');
+    const profileName = document.getElementById('profileName');
+    const profileEmail = document.querySelector('.profile-email');
+    const profileImage = document.getElementById('profileImage');
+    const settingsName = document.getElementById('settingsName');
+    const settingsEmail = document.getElementById('settingsEmail');
+    const settingsLocation = document.getElementById('settingsLocation');
+    const settingsBio = document.getElementById('settingsBio');
+    
+    if (Object.keys(profileData).length > 0) {
+        // Update profile information
+        if (profileData.name && profileName) {
+            profileName.textContent = profileData.name;
+            if (settingsName) settingsName.value = profileData.name;
+        }
+        if (profileData.email && profileEmail) {
+            profileEmail.textContent = profileData.email;
+            if (settingsEmail) settingsEmail.value = profileData.email;
+        }
+        if (profileData.location && settingsLocation) {
+            settingsLocation.value = profileData.location;
+        }
+        if (profileData.bio && settingsBio) {
+            settingsBio.value = profileData.bio;
+        }
+        if (profileData.imageUrl && profileImage) {
+            profileImage.src = profileData.imageUrl;
+        }
     }
 }
 
-function formatAnalysisResults(analysis) {
-    // Split the analysis into sections based on numbered points
-    const sections = analysis.split(/\d+\.\s+/).filter(Boolean);
+// Function to create event card
+function createEventCard(event) {
+    const card = document.createElement('div');
+    card.className = 'event-card';
     
-    let html = '<div class="analysis-content">';
+    // Format the date and time
+    const eventDate = new Date(`${event.date}T${event.startTime}`);
+    const formattedDate = eventDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    const formattedTime = `${event.startTime.slice(0, -3)} - ${event.endTime.slice(0, -3)}`;
     
-    // Map known section titles
-    const sectionTitles = [
-        'Product Description',
-        'Material Analysis',
-        'Recycling Instructions',
-        'Recyclability Score',
-        'Environmental Impact',
-        'Cost-Effectiveness',
-        'Alternative Uses',
-        'Special Notes'
-    ];
-    
-    sections.forEach((section, index) => {
-        if (index < sectionTitles.length) {
-            html += `
-                <div class="result-section">
-                    <h4 class="result-heading">${sectionTitles[index]}</h4>
-                    <div class="result-text">${formatSection(section)}</div>
+    card.innerHTML = `
+        <img src="${event.imageData}" alt="${event.title}" class="event-image">
+        <div class="event-content">
+            <h3 class="event-title">${event.title}</h3>
+            <div class="event-details">
+                <div class="event-detail">
+                    <i class="fas fa-calendar"></i>
+                    <span>${formattedDate}</span>
                 </div>
-            `;
-        }
+                <div class="event-detail">
+                    <i class="fas fa-clock"></i>
+                    <span>${formattedTime}</span>
+                </div>
+                <div class="event-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>${event.location}</span>
+                </div>
+            </div>
+            <p class="event-description">${event.description}</p>
+            <div class="event-actions">
+                <button class="event-action-btn event-join-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Join Event
+                </button>
+                <button class="event-action-btn event-share-btn">
+                    <i class="fas fa-share"></i>
+                    Share
+                </button>
+            </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Function to update events display
+function updateEventsDisplay() {
+    const eventsContainer = document.getElementById('eventsContainer');
+    if (!eventsContainer) return;
+    
+    // Clear existing events
+    eventsContainer.innerHTML = '';
+    
+    // Get events from localStorage
+    const events = JSON.parse(localStorage.getItem('events') || '[]');
+    
+    // Sort events by date and time
+    events.sort((a, b) => {
+        const dateA = new Date(`${a.date}T${a.startTime}`);
+        const dateB = new Date(`${b.date}T${b.startTime}`);
+        return dateA - dateB;
     });
     
-    html += '</div>';
-    return html;
-}
-
-function formatSection(text) {
-    // Convert bullet points to HTML list
-    text = text.replace(/\n\s*-\s+/g, '</li><li>');
-    if (text.includes('<li>')) {
-        text = '<ul><li>' + text.substring(text.indexOf('<li>') + 4) + '</li></ul>';
+    // Create and append event cards
+    events.forEach(event => {
+        const card = createEventCard(event);
+        eventsContainer.appendChild(card);
+    });
+    
+    // Update calendar if it exists
+    if (calendar) {
+        calendar.refetchEvents();
     }
-    
-    // Convert newlines to paragraphs
-    text = text.split('\n')
-        .filter(line => line.trim())
-        .map(line => `<p>${line}</p>`)
-        .join('');
-    
-    return text;
 }
 
-function showStatus(message, type = 'info') {
-    const statusDiv = document.createElement('div');
-    statusDiv.className = `status-message ${type}`;
-    statusDiv.textContent = message;
-    document.body.appendChild(statusDiv);
+function handleImageSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+        if (!file.type.startsWith('image/')) {
+            alert('Please select an image file.');
+            return;
+        }
+        
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size should be less than 5MB.');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const previewContainer = document.querySelector('.image-preview');
+            if (previewContainer) {
+                previewContainer.innerHTML = `<img src="${event.target.result}" alt="Event Image Preview">`;
+                previewContainer.style.display = 'block';
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Show notification
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
     
     setTimeout(() => {
-        statusDiv.classList.add('fade-out');
-        setTimeout(() => statusDiv.remove(), 500);
-    }, 3000);
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }, 100);
+}
+
+// Initialize image upload functionality
+function initializeImageUpload() {
+    const imageInput = document.getElementById('eventImage');
+    const uploadContainer = document.querySelector('.image-upload-container');
+    const previewContainer = document.querySelector('.image-preview');
+    
+    if (imageInput) {
+        imageInput.addEventListener('change', handleImageSelect);
+        
+        uploadContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.add('drag-over');
+        });
+        
+        uploadContainer.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.remove('drag-over');
+        });
+        
+        uploadContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.remove('drag-over');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                imageInput.files = e.dataTransfer.files;
+                handleImageSelect({ target: { files: [file] } });
+            }
+        });
+    }
 }
