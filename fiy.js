@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (file) {
             selectedImage = file;
             attachImageBtn.innerHTML = `<i class="fas fa-check"></i> Image Added`;
-            
+
             // Show image preview
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function getRepairGuide(query, imageContent) {
         const prompt = `You are a repair expert. I need help fixing: ${query}
 
-Please provide a detailed repair guide in this EXACT format (keep the exact headings and structure):
+Please provide a detailed repair guide in this EXACT format (keep the exact headings and structure)(Also analyze the product in the image provided and provide relevant repair procedure):
 
 TOOLS:
 - [List each required tool, one per line]
@@ -118,9 +118,9 @@ VIDEOS:
             } else if (query.toLowerCase().includes('broken table')) {
                 return getMockBrokenTableResponse();
             }
-            
+
             const apiUrl = imageContent ? GEMINI_VISION_API_URL : GEMINI_API_URL;
-            
+
             const requestBody = {
                 contents: [{
                     parts: [{
@@ -139,7 +139,7 @@ VIDEOS:
             }
 
             console.log('Sending request to:', apiUrl);
-            
+
             const response = await fetch(`${apiUrl}?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: {
@@ -151,7 +151,7 @@ VIDEOS:
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('API Error:', errorText);
-                
+
                 // If API fails, fall back to mock responses
                 if (query.toLowerCase().includes('faucet') || query.toLowerCase().includes('sink') || query.toLowerCase().includes('tap')) {
                     return getMockLeakingFaucetResponse();
@@ -165,7 +165,7 @@ VIDEOS:
 
             const data = await response.json();
             console.log('Raw API Response:', data);
-            
+
             if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
                 throw new Error('Invalid API response format');
             }
@@ -173,7 +173,7 @@ VIDEOS:
             return parseGeminiResponse(data.candidates[0].content.parts[0].text);
         } catch (error) {
             console.error('Error:', error);
-            
+
             // Fallback to mock responses on any error
             if (query.toLowerCase().includes('faucet') || query.toLowerCase().includes('sink') || query.toLowerCase().includes('tap')) {
                 return getMockLeakingFaucetResponse();
@@ -188,7 +188,7 @@ VIDEOS:
 
     function parseGeminiResponse(response) {
         console.log('Parsing response:', response);
-        
+
         const sections = {
             tools: [],
             steps: [],
@@ -204,7 +204,7 @@ VIDEOS:
 
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
-            
+
             if (line.startsWith('TOOLS:')) {
                 currentSection = 'tools';
                 continue;
@@ -230,7 +230,15 @@ VIDEOS:
 
             // Handle list items and numbered steps
             if (currentSection && (line.startsWith('-') || /^\d+\./.test(line))) {
-                const content = line.replace(/^[-\d.]\s*/, '').trim().replace(/['"*]/g, '');
+                let content;
+                if (currentSection === 'steps') {
+                    // For steps, completely remove any existing number formatting
+                    content = line.replace(/^[\d.]+\s*/, '').trim().replace(/['"*]/g, '');
+                } else {
+                    // For other sections, just remove the dash
+                    content = line.replace(/^[-]\s*/, '').trim().replace(/['"*]/g, '');
+                }
+
                 if (content) {
                     switch (currentSection) {
                         case 'tools':
@@ -290,6 +298,7 @@ VIDEOS:
 
         // Display steps
         if (guide.steps.length > 0) {
+            stepsList.innerHTML = ''; // Clear any previous content
             guide.steps.forEach(step => {
                 stepsList.innerHTML += `
                     <li>
@@ -315,16 +324,40 @@ VIDEOS:
 
         // Display difficulty and cost savings
         difficultyLevel.innerHTML = `
-            <i class="fas fa-chart-line"></i> 
+            <i class="fas fa-chart-line"></i>
             Difficulty Level: <strong>${cleanText(guide.difficulty) || 'Not specified'}</strong>`;
+
+        // Convert USD to INR if the cost savings contains a dollar sign
+        let costSavingsText = cleanText(guide.costSavings) || 'Not specified';
+        if (costSavingsText.includes('$')) {
+            // Extract the number from the string (assuming format like "$50" or "$20-30")
+            const usdMatch = costSavingsText.match(/\$(\d+)(?:-(\d+))?/);
+            if (usdMatch) {
+                // Basic conversion (approximate exchange rate: 1 USD = 75 INR)
+                const convertToINR = (usd) => Math.round(usd * 75);
+
+                if (usdMatch[2]) { // Range format like "$20-30"
+                    const lowerUSD = parseInt(usdMatch[1]);
+                    const upperUSD = parseInt(usdMatch[2]);
+                    costSavingsText = `₹${convertToINR(lowerUSD)}-${convertToINR(upperUSD)}`;
+                } else { // Single value like "$50"
+                    const usd = parseInt(usdMatch[1]);
+                    costSavingsText = `₹${convertToINR(usd)}`;
+                }
+            } else {
+                // If format is different, just replace $ with ₹
+                costSavingsText = costSavingsText.replace('$', '₹');
+            }
+        }
+
         costSavings.innerHTML = `
-            <i class="fas fa-piggy-bank"></i> 
-            Estimated Cost Savings: <strong>${cleanText(guide.costSavings) || 'Not specified'}</strong>`;
+            <i class="fas fa-piggy-bank"></i>
+            Estimated Cost Savings: <strong>${costSavingsText}</strong>`;
 
         // Display professional advice
         professionalAdvice.innerHTML = `
-            <i class="fas fa-${guide.professionalHelp ? 'hard-hat' : 'tools'}"></i> 
-            ${guide.professionalHelp ? 
+            <i class="fas fa-${guide.professionalHelp ? 'hard-hat' : 'tools'}"></i>
+            ${guide.professionalHelp ?
                 'Professional help is recommended for this repair due to its complexity or safety concerns.' :
                 'This repair can be safely done as a DIY project.'}`;
         professionalAdvice.classList.remove('hidden');
