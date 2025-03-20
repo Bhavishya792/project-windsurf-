@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoRise - Sustainable Living</title>
+    <title>EcoRise - Environmental Awareness</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/calendar.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet' />
 </head>
 <body>
-    <nav>
+    <nav> 
         <div class="nav-left">
             <img src="assets/logo.png" alt="EcoRise Logo" class="logo">
             <span class="brand-name">EcoRise</span>
@@ -18,7 +21,7 @@
         <div class="nav-middle">
             <a href="index.html" class="active">Home</a>
             <a href="fiy.html">FIY</a>
-            <a href="#">Volunteer</a>
+            <a href="volunteer.html">Volunteer</a>
             <a href="#">Guide</a>
             <a href="#" class="accessibility-link">Accessibility Info</a>
         </div>
@@ -138,6 +141,11 @@
 
         <section class="locations-section">
             <h2>Want to bring change but don't know where to begin?</h2>
+            <div class="section-header">
+                <button class="create-event-btn" id="createEventBtn">
+                    <i class="fas fa-plus"></i> Create Event
+                </button>
+            </div>
             <div class="map-container">
                 <div class="buttons-container">
                     <h3>Locate places where you can begin the change</h3>
@@ -159,6 +167,13 @@
                     <div class="results-list"></div>
                 </div>
                 <div id="map"></div>
+            </div>
+        </section>
+
+        <section class="events-section">
+            <h2>Upcoming Events</h2>
+            <div class="events-container" id="eventsContainer">
+                <!-- Event cards will be added here dynamically -->
             </div>
         </section>
 
@@ -239,12 +254,214 @@
         </div>
     </div>
 
-    <!-- Calendar Events Modal -->
-    <div class="modal" id="calendarModal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Upcoming Recycling Events</h2>
-            <div id="events-list"></div>
+    <!-- Calendar Modal -->
+    <div id="calendarModal" class="calendar-modal">
+        <div class="calendar-container">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <div class="calendar-navigation">
+                        <button id="prevMonth" class="nav-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonth" class="current-month">March 2024</h3>
+                        <button id="nextMonth" class="nav-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <button class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Sun</div>
+                    <div class="calendar-day-header">Mon</div>
+                    <div class="calendar-day-header">Tue</div>
+                    <div class="calendar-day-header">Wed</div>
+                    <div class="calendar-day-header">Thu</div>
+                    <div class="calendar-day-header">Fri</div>
+                    <div class="calendar-day-header">Sat</div>
+                </div>
+                <div id="calendarDays" class="calendar-grid"></div>
+            </div>
+            <div class="event-list">
+                <h3>Events</h3>
+                <div class="event-items">
+                    <p>Select a date to view events</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content profile-modal">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <div class="profile-header">
+                <div class="profile-image-container">
+                    <img src="assets/default-profile.png" alt="Profile" id="profileImage">
+                    <button class="edit-profile-image">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="profile-info">
+                    <h2 id="profileName">John Doe</h2>
+                    <p class="profile-email">john.doe@example.com</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">Events</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">150</span>
+                            <span class="stat-label">Points</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">8</span>
+                            <span class="stat-label">Badges</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-tabs">
+                <button class="tab-btn active" data-tab="activities">Activities</button>
+                <button class="tab-btn" data-tab="badges">Badges</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </div>
+            <div class="profile-content">
+                <div class="tab-content active" id="activities">
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-leaf activity-icon"></i>
+                            <div class="activity-details">
+                                <h4>Started a recycling campaign</h4>
+                                <p>Collected 50kg of recyclable materials</p>
+                                <span class="activity-date">March 15, 2025</span>
+                            </div>
+                            <span class="points">+30 pts</span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-tree activity-icon"></i>
+                            <div class="activity-details">
+                                <h4>Planted Trees</h4>
+                                <p>Contributed to local park restoration</p>
+                                <span class="activity-date">March 10, 2025</span>
+                            </div>
+                            <span class="points">+50 pts</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="badges">
+                    <div class="badges-grid">
+                        <div class="badge">
+                            <i class="fas fa-seedling"></i>
+                            <span>Green Thumb</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-recycle"></i>
+                            <span>Recycling Pro</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-solar-panel"></i>
+                            <span>Energy Saver</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="settings">
+                    <form id="profileSettingsForm">
+                        <div class="form-group">
+                            <label for="settingsName">Name</label>
+                            <input type="text" id="settingsName" value="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsEmail">Email</label>
+                            <input type="email" id="settingsEmail" value="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsLocation">Location</label>
+                            <input type="text" id="settingsLocation" value="New York, USA">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsBio">Bio</label>
+                            <textarea id="settingsBio">Passionate about environmental conservation and sustainable living.</textarea>
+                        </div>
+                        <button type="submit" class="save-settings-btn">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Event Modal -->
+    <div class="modal" id="createEventModal">
+        <div class="modal-content event-create-modal">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <h2>Create New Event</h2>
+            
+            <div class="progress-container">
+                <div class="step-indicator active"></div>
+                <div class="step-indicator"></div>
+                <div class="step-indicator"></div>
+            </div>
+            
+            <form id="createEventForm">
+                <!-- Step 1: Event Details -->
+                <div class="form-step active">
+                    <h3>Event Details</h3>
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" required></textarea>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Event Image -->
+                <div class="form-step">
+                    <h3>Event Image</h3>
+                    <div class="form-group">
+                        <label>Upload Event Image</label>
+                        <div class="image-upload-container">
+                            <div class="upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Drag & drop image or click to browse</p>
+                                <input type="file" id="eventImage" accept="image/*" required>
+                            </div>
+                        </div>
+                        <div class="image-preview"></div>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Date and Time -->
+                <div class="form-step">
+                    <h3>Date and Time</h3>
+                    <div class="form-group">
+                        <label for="eventDate">Date</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="eventStartTime">Start Time</label>
+                            <input type="time" id="eventStartTime" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="eventEndTime">End Time</label>
+                            <input type="time" id="eventEndTime" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-controls">
+                    <button type="button" id="prevBtn" class="btn-secondary">Previous</button>
+                    <button type="button" id="nextBtn" class="btn-primary">Next</button>
+                    <button type="submit" id="submitBtn" class="btn-success">Create Event</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -390,6 +607,13 @@
         }
         window.onload = loadGoogleMapsScript;
     </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDPWFZ3qz-HDVEZFxyEIg-EhKc2XAjhEM&libraries=places&v=weekly&callback=initMap" async defer></script>
+    <!-- FullCalendar JavaScript -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js'></script>
+    <script type="module" src="script.js"></script>
+
     <script src="script.js"></script>
+
 </body>
 </html>
