@@ -146,9 +146,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         icon.classList.add('fa-chevron-up');
                     }
                     
-                    // Scroll to the section
+                    // Scroll to the section with offset
+                    const headerOffset = 80; // Adjust this value to match the height of your fixed header
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
                     window.scrollTo({
-                        top: targetElement.offsetTop - 20,
+                        top: offsetPosition,
                         behavior: 'smooth'
                     });
                     

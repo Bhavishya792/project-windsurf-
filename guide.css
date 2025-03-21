@@ -47,10 +47,13 @@
 
 .guide-content {
     max-width: 100%;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
     position: relative;
 }
 
@@ -122,9 +125,12 @@
 
 /* Main Content */
 .guide-main-content {
-    margin-left: 320px; /* Match sidebar width (280px) + sidebar left margin (20px) + spacing (20px) */
+    margin-left: 320px;
     width: calc(100% - 320px);
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Hero Section */
@@ -138,8 +144,8 @@
     margin-bottom: 50px;
     position: relative;
     overflow: hidden;
-    width: calc(100% - 320px); /* Match main content width */
-    margin-left: 320px; /* Match sidebar width (280px) + sidebar left margin (20px) + spacing (20px) */
+    width: calc(100% - 320px);
+    margin-left: 320px;
 }
 
 .guide-hero::before {
@@ -173,13 +179,17 @@
     z-index: 2;
 }
 
-/* Guide Sections */
+/* Guide Sections Container */
 .guide-sections-container {
     padding: 20px 40px;
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
+/* Guide Sections */
 .guide-section {
     background-color: var(--card-color);
     border-radius: var(--border-radius);
@@ -188,6 +198,9 @@
     overflow: hidden;
     animation: fadeIn 0.5s ease;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .guide-section:hover {
@@ -203,6 +216,7 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    width: 100%;
 }
 
 .guide-section-header h2 {
@@ -217,6 +231,11 @@
     padding: 30px;
     line-height: 1.6;
     background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: justify;
 }
 
 /* Cards */
@@ -292,20 +311,34 @@
     cursor: pointer;
 }
 
+/* Adjust get started section and footer for guide page */
+.guide-main .get-started,
+.guide-main + .get-started,
+.guide-main + .get-started + .footer,
+.guide-main ~ .get-started,
+.guide-main ~ .footer {
+    width: calc(100% - 320px);
+    margin-left: 320px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+    .guide-main .get-started,
+    .guide-main + .get-started,
+    .guide-main + .get-started + .footer,
+    .guide-main ~ .get-started,
+    .guide-main ~ .footer {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .guide-sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-    }
-
-    .guide-sidebar.active {
-        transform: translateX(0);
-    }
-
     .guide-main-content {
         margin-left: 0;
         width: 100%;
+        align-items: center;
     }
 
     .guide-hero {
@@ -316,6 +349,32 @@
 
     .guide-sections-container {
         padding: 20px;
+        align-items: center;
+    }
+
+    .guide-section {
+        align-items: center;
+    }
+
+    .guide-section-header {
+        justify-content: center;
+    }
+
+    .guide-section-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .guide-section-content {
+        padding: 20px;
+    }
+
+    .guide-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .guide-sidebar.active {
+        transform: translateX(0);
     }
 
     .sidebar-close {

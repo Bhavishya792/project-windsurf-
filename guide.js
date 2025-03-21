@@ -1,4 +1,10 @@
+// Import the calendar module
+import { initializeCalendar } from './js/calendar.js';
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize calendar
+    initializeCalendar();
+    
     // Toggle functionality for expandable sections
     const sectionHeaders = document.querySelectorAll('.guide-section-header');
     
@@ -52,23 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     icon.classList.add('fa-chevron-up');
                 }
                 
-                // Scroll to the section
-                window.scrollTo({
-                    top: targetElement.offsetTop - 20,
-                    behavior: 'smooth'
+                // Scroll to the target element with smooth behavior
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
-                
-                // If on mobile, close the sidebar after clicking a link
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.guide-sidebar').classList.remove('active');
-                }
                 
                 // Update active state in sidebar
                 document.querySelectorAll('.sidebar-nav-link').forEach(navLink => {
                     navLink.classList.remove('active');
                 });
                 
-                // Find the corresponding sidebar link and make it active
+                // Find corresponding sidebar link and make it active
                 const sidebarLink = document.querySelector(`.sidebar-nav-link[href="#${targetId}"]`);
                 if (sidebarLink) {
                     sidebarLink.classList.add('active');

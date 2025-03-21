@@ -5,6 +5,8 @@
     --text-color: #2c3e50;
     --light-bg: #F1F8E9;
     --card-bg: #ffffff;
+    --input-bg: #ffffff;
+    --border-color: #e2e8f0;
 }
 
 * {
@@ -106,7 +108,153 @@ nav {
     border-radius: 50%;
     object-fit: cover;
     overflow: hidden;
+}
 
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    padding: 0.5rem;
+    z-index: 1001;
+    position: relative;
+}
+
+.mobile-nav-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 1002;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-nav-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.close-menu-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.mobile-menu-items {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-menu-items a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: color 0.3s;
+}
+
+.mobile-menu-items a:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu-items a.active {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.mobile-menu-items a:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .nav-middle a {
+        gap: 1rem;
+    }
+    
+    .nav-left .brand-name {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+        position: relative;
+        z-index: 1001;
+        margin-left: 0.5rem;
+    }
+    
+    .nav-middle {
+        display: none;
+    }
+    
+    nav {
+        padding: 1rem 1rem;
+        justify-content: space-between;
+    }
+    
+    .nav-left {
+        flex-shrink: 1;
+    }
+    
+    .nav-left .brand-name {
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+    
+    .nav-right {
+        flex-shrink: 0;
+        margin-right: 0;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .mobile-menu-items {
+        padding: 1.5rem;
+    }
+    
+    .logo {
+        height: 30px;
+        width: 30px;
+    }
+    
+    .nav-left .brand-name {
+        font-size: 0.9rem;
+    }
+    
+    .icon-btn {
+        padding: 0.3rem;
+        font-size: 1rem;
+    }
+    
+    .profile-pic {
+        width: 22px;
+        height: 22px;
+    }
 }
 
 /* Hero Section */
@@ -2077,9 +2225,9 @@ button.loading .button-text {
     padding: 0.75rem;
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    font-size: 1rem;
+    background-color: var(--input-bg);
     color: var(--text-color);
-    background: var(--input-bg);
+    font-size: 1rem;
 }
 
 #profileSettingsForm textarea {
@@ -2334,4 +2482,191 @@ input.invalid,
 textarea.invalid {
     border-color: #ff5252;
     background-color: rgba(255, 82, 82, 0.05);
+}
+
+/* Get Started Section */
+.get-started {
+    padding: 4rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+}
+
+.get-started h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.get-started p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.primary-btn {
+    background-color: white;
+    color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid white;
+    border-radius: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.secondary-btn:hover {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: #283c34;
+    color: white;
+    padding: 3rem 2rem 1rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1 1 250px;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.footer-section p {
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.footer-section ul li a:hover {
+    opacity: 1;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Responsive styles for "Get Started" section and footer */
+@media (max-width: 768px) {
+    .get-started {
+        padding: 3rem 1.5rem;
+    }
+    
+    .get-started h2 {
+        font-size: 2rem;
+    }
+    
+    .get-started p {
+        font-size: 1rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .footer {
+        padding: 2rem 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .get-started h2 {
+        font-size: 1.8rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.1rem;
+    }
 }

@@ -35,7 +35,27 @@
                 <img src="assets/default-profile.png" alt="Profile" class="profile-pic">
             </button>
         </div>
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
     </nav>
+    
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-menu-header">
+            <span class="brand-name">EcoRise</span>
+            <button class="close-menu-btn" id="closeMenuBtn" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">Home</a>
+            <a href="fiy.html">FIY</a>
+            <a href="volunteer.html" class="active">Volunteer</a>
+            <a href="guide.html">Guide</a>
+            <a href="#" class="accessibility-link">Accessibility Info</a>
+        </div>
+    </div>
 
     <main class="volunteer-main">
         <section class="volunteer-hero">
@@ -606,6 +626,7 @@
     </footer>
 
     <script type="module" src="volunteer.js"></script>
+    <script src="mobile-nav.js"></script>
     <script type="module">
         import { GOOGLE_MAPS_API_KEY } from './config.js';
         

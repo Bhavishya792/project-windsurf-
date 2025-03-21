@@ -104,7 +104,7 @@ SAFETY:
 
 DIFFICULTY: [Easy/Medium/Hard]
 
-COST_SAVINGS: [Estimated amount saved in USD]
+COST_SAVINGS: [Estimated amount saved in INR]
 
 PROFESSIONAL: [Yes/No - Answer Yes if professional help is recommended]
 

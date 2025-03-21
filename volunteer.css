@@ -49,14 +49,30 @@
 
 /* Volunteer Page Styles */
 
-/* Hero Section */
+/* Base Layout Styles */
+.volunteer-main {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin-top: 0;
+}
+
+.volunteer-main section {
+    padding: 3rem 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Hero Section - Adjusted for navbar */
 .volunteer-hero {
-    margin-top: 74px;
+    padding-top: calc(60px + 2rem);
+    margin-top: 0;
     min-height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
     background: linear-gradient(135deg, var(--light-bg) 0%, #E8F5E9 100%);
     text-align: center;
     position: relative;
@@ -150,23 +166,22 @@
 
 .volunteer-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2rem;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .volunteer-card {
-    background: #fff;
-    border-radius: 15px;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.volunteer-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .card-image {
@@ -321,34 +336,177 @@
 }
 
 @media (max-width: 768px) {
+    .volunteer-hero {
+        padding-top: calc(60px + 1rem);
+    }
+    
+    .volunteer-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
     .volunteer-card {
-        margin-bottom: 2rem;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .event-form .form-row {
+        flex-direction: column;
+    }
+    
+    .form-group.half {
+        width: 100%;
+    }
+    
+    .featured-volunteers {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .volunteer-spotlight {
+        flex-direction: column;
+    }
+    
+    .spotlight-image {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .spotlight-content {
+        padding: 1.5rem;
+    }
+    
+    .volunteer-main section {
+        padding: 2rem 1rem;
+    }
+    
+    .create-event-modal .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .submit-btn, .cancel-btn {
+        width: 100%;
     }
     
     .tag-container {
-        gap: 0.3rem;
+        flex-wrap: wrap;
     }
     
-    .tag {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.8rem;
+    .search-container {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+    
+    .search-bar {
+        width: 100%;
+    }
+    
+    .create-event-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .volunteer-hero {
+        padding-top: calc(55px + 1rem);
+    }
+    
+    .volunteer-hero .hero-content {
+        padding: 1.2rem;
+    }
+    
+    .volunteer-hero h1 {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        margin-bottom: 0.7rem;
+    }
+    
+    .volunteer-hero p {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        margin-bottom: 1.2rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .section-header p {
+        font-size: 0.9rem;
+    }
+    
+    .card-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .card-content {
+        padding: 1rem;
+    }
+    
+    .description {
+        font-size: 0.9rem;
+    }
+    
+    .detail-item {
+        font-size: 0.9rem;
+    }
+    
+    .spots-left {
+        font-size: 0.85rem;
+    }
+    
+    .sign-up-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .search-bar input {
+        font-size: 0.9rem;
+        padding: 0.7rem 1rem;
+    }
+    
+    .volunteer-stats h3 {
+        font-size: 1.2rem;
+    }
+    
+    .filter-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        width: 100%;
     }
 }
 
 /* Search Bar Styles */
 .search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 800px;
     width: 100%;
-    max-width: 600px;
-    margin: 20px auto 0;
 }
 
 .search-bar {
     display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 30px;
-    padding: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    width: 100%;
 }
 
 .search-bar input {
@@ -1349,3 +1507,179 @@ input[type="date"] {
 }
 
 /* Calendar styles moved to css/calendar.css */
+
+/* Responsive Styles for Volunteer Page */
+@media (max-width: 992px) {
+    .volunteer-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
+    }
+    
+    .volunteer-map {
+        height: 400px;
+    }
+    
+    .stats-container {
+        flex-wrap: wrap;
+    }
+    
+    .stat-box {
+        flex: 1 1 45%;
+        min-width: 200px;
+    }
+    
+    .featured-volunteers {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .volunteer-hero {
+        padding: 1.5rem 1rem;
+        min-height: auto;
+    }
+    
+    .volunteer-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .volunteer-card {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .event-form .form-row {
+        flex-direction: column;
+    }
+    
+    .form-group.half {
+        width: 100%;
+    }
+    
+    .featured-volunteers {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .volunteer-spotlight {
+        flex-direction: column;
+    }
+    
+    .spotlight-image {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .spotlight-content {
+        padding: 1.5rem;
+    }
+    
+    .volunteer-main section {
+        padding: 2rem 1rem;
+    }
+    
+    .create-event-modal .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .submit-btn, .cancel-btn {
+        width: 100%;
+    }
+    
+    .tag-container {
+        flex-wrap: wrap;
+    }
+    
+    .search-container {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+    
+    .search-bar {
+        width: 100%;
+    }
+    
+    .create-event-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .volunteer-hero h1 {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+    }
+    
+    .volunteer-hero p {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    }
+    
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .section-header p {
+        font-size: 0.9rem;
+    }
+    
+    .card-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .description {
+        font-size: 0.9rem;
+    }
+    
+    .detail-item {
+        font-size: 0.9rem;
+    }
+    
+    .spots-left {
+        font-size: 0.85rem;
+    }
+    
+    .sign-up-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .search-bar input {
+        font-size: 0.9rem;
+    }
+    
+    .volunteer-stats h3 {
+        font-size: 1.2rem;
+    }
+    
+    .filter-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+}

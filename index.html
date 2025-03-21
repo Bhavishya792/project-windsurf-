@@ -36,7 +36,27 @@
                 <img src="assets/default-profile.png" alt="Profile" class="profile-pic">
             </button>
         </div>
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
     </nav>
+    
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-menu-header">
+            <span class="brand-name">EcoRise</span>
+            <button class="close-menu-btn" id="closeMenuBtn" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html" class="active">Home</a>
+            <a href="fiy.html">FIY</a>
+            <a href="volunteer.html">Volunteer</a>
+            <a href="guide.html">Guide</a>
+            <a href="#" class="accessibility-link">Accessibility Info</a>
+        </div>
+    </div>
 
     <main>
         <section class="hero">
@@ -63,7 +83,7 @@
                     <a href="#" class="see-more">See more</a>
                 </div>
                 <div class="tip-card">
-                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1588142705232-ff9b54dabf9d?w=800')"></div>
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1588142705232-7515f3d16bb6?w=800')"></div>
                     <h3>Compost Food Scraps</h3>
                     <p>Compost food scraps like vegetable peels and coffee grounds to reduce landfill waste.</p>
                     <a href="#" class="see-more">See more</a>
@@ -465,6 +485,24 @@
         </div>
     </div>
 
+    <section class="get-started">
+        <h2>Ready to Make a Difference?</h2>
+        <p>Join our community of environmental volunteers today</p>
+        <div class="action-buttons">
+            <button class="primary-btn">Create Account</button>
+            <button class="secondary-btn">Browse All Opportunities</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EcoRise</h3>
+                <p>Creating a sustainable future through community action and education.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
         window.initMap = function() {
             const map = new google.maps.Map(document.getElementById('map'), {
@@ -497,5 +535,6 @@
     <!-- FullCalendar JavaScript -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js'></script>
     <script type="module" src="script.js"></script>
+    <script src="mobile-nav.js"></script>
 </body>
 </html>

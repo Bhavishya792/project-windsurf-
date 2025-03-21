@@ -35,7 +35,27 @@
                 <img src="assets/default-profile.png" alt="Profile" class="profile-pic">
             </button>
         </div>
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
     </nav>
+    
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-menu-header">
+            <span class="brand-name">EcoRise</span>
+            <button class="close-menu-btn" id="closeMenuBtn" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html">Home</a>
+            <a href="fiy.html" class="active">FIY</a>
+            <a href="volunteer.html">Volunteer</a>
+            <a href="guide.html">Guide</a>
+            <a href="#" class="accessibility-link">Accessibility Info</a>
+        </div>
+    </div>
 
     <main class="fiy-main">
         <section class="fiy-hero">
@@ -256,6 +276,25 @@
         </div>
     </div>
 
+    <section class="get-started">
+        <h2>Ready to Make a Difference?</h2>
+        <p>Join our community of environmental volunteers today</p>
+        <div class="action-buttons">
+            <button class="primary-btn">Create Account</button>
+            <button class="secondary-btn">Browse All Opportunities</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EcoRise</h3>
+                <p>Creating a sustainable future through community action and education.</p>
+            </div>
+        </div>
+    </footer>
+
     <script type="module" src="fiy.js"></script>
+    <script src="mobile-nav.js"></script>
 </body>
 </html>
