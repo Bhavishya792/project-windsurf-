@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle registration form submission
     document.getElementById('registrationForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Get form data
         const formData = {
             eventTitle: currentEventData.title,
@@ -593,6 +593,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Modal handling functions
+    function openModal(modal) {
+        console.log(`Opening modal: ${modal?.id}`);
+        if (!modal) return;
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            console.log(`Modal visible: ${modal.style.display}, classList: ${modal.classList}`);
+            modal.classList.add('active');
+        }, 10);
+    }
+
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+    
+    // Multi-step form variables
+    const steps = document.querySelectorAll('.form-step');
+    const progressSteps = document.querySelectorAll('.step-indicator');
+    let currentStep = 0;
+    const formNextBtn = document.getElementById('nextBtn');
+    const formPrevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // Multi-step form functions
+    function updateFormSteps() {
+        console.log(`Updating steps to: ${currentStep}`);
+        steps.forEach((step, index) => {
+            console.log(`Step ${index} display: ${step.style.display}`);
+            step.style.display = index === currentStep ? 'block' : 'none';
+        });
+        
+        progressSteps.forEach((step, index) => {
+            if (index < currentStep) {
+                step.classList.add('completed');
+                step.classList.remove('active');
+            } else if (index === currentStep) {
+                step.classList.add('active');
+                step.classList.remove('completed');
+            } else {
+                step.classList.remove('active', 'completed');
+            }
+        });
+        
+        if (currentStep === 0) {
+            formPrevBtn.style.display = 'none';
+        } else {
+            formPrevBtn.style.display = 'block';
+        }
+        
+        if (currentStep === steps.length - 1) {
+            formNextBtn.style.display = 'none';
+            submitBtn.style.display = 'block';
+        } else {
+            formNextBtn.style.display = 'block';
+            submitBtn.style.display = 'none';
+        }
+    }
+    
+    function validateStep(step) {
+        const inputs = step.querySelectorAll('input[required], textarea[required]');
+        let isValid = true;
+        
+        inputs.forEach(input => {
+            if (!input.value) {
+                isValid = false;
+                input.classList.add('invalid');
+                
+                // Add error message if it doesn't exist
+                if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('error-message')) {
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'error-message';
+                    errorMessage.textContent = 'This field is required';
+                    input.parentNode.insertBefore(errorMessage, input.nextSibling);
+                }
+            } else {
+                input.classList.remove('invalid');
+                
+                // Remove error message if exists
+                if (input.nextElementSibling && input.nextElementSibling.classList.contains('error-message')) {
+                    input.parentNode.removeChild(input.nextElementSibling);
+                }
+            }
+        });
+        
+        return isValid;
+    }
+
     // Create Event Modal Functionality
     const createEventModal = document.getElementById('createEventModal');
     const createEventBtn = document.getElementById('createEventBtn');
@@ -600,7 +691,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Open create event modal
     createEventBtn.addEventListener('click', () => {
-        createEventModal.style.display = 'block';
+        console.log('Create Event button clicked');
+        openModal(createEventModal);
+        currentStep = 0;
+        updateFormSteps();
+        
         // Set minimum date to today
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('eventDate').min = today;
@@ -608,11 +703,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close create event modal
     createEventModal.querySelector('.close-btn').addEventListener('click', () => {
-        createEventModal.style.display = 'none';
+        console.log('Closing modal');
+        closeModal(createEventModal);
     });
 
     createEventModal.querySelector('.cancel-btn').addEventListener('click', () => {
-        createEventModal.style.display = 'none';
+        closeModal(createEventModal);
     });
 
     // Handle form submission
@@ -708,7 +804,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cardsContainer.insertBefore(newEventCard, cardsContainer.firstChild);
 
         // Close modal and reset form
-        createEventModal.style.display = 'none';
+        closeModal(createEventModal);
         createEventForm.reset();
 
         // Show success message
@@ -718,9 +814,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close modals when clicking outside
     window.addEventListener('click', (e) => {
         if (e.target === createEventModal) {
-            createEventModal.style.display = 'none';
+            closeModal(createEventModal);
         }
     });
+
+    // Add event listeners for next and previous buttons
+    formNextBtn.addEventListener('click', () => {
+        const currentStepElement = steps[currentStep];
+        if (validateStep(currentStepElement)) {
+            currentStep++;
+            updateFormSteps();
+        }
+    });
+
+    formPrevBtn.addEventListener('click', () => {
+        currentStep--;
+        updateFormSteps();
+    });
+
+    // Initialize form steps
+    updateFormSteps();
 });
 
 // Map functionality

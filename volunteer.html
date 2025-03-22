@@ -477,87 +477,110 @@
 
     <!-- Create Event Modal -->
     <div class="modal" id="createEventModal">
-        <div class="modal-content">
+        <div class="modal-content event-create-modal">
             <button class="close-btn"><i class="fas fa-times"></i></button>
             <h2>Create New Volunteer Event</h2>
+            
+            <div class="progress-container">
+                <div class="step-indicator active"></div>
+                <div class="step-indicator"></div>
+                <div class="step-indicator"></div>
+            </div>
+            
             <form id="createEventForm">
-                <div class="form-group">
-                    <label for="eventTitle">Event Title</label>
-                    <input type="text" id="eventTitle" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventCategory">Category</label>
-                    <select id="eventCategory" required>
-                        <option value="Environmental">Environmental</option>
-                        <option value="Conservation">Conservation</option>
-                        <option value="Education">Education</option>
-                        <option value="Community">Community</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventDifficulty">Difficulty Level</label>
-                    <select id="eventDifficulty" required>
-                        <option value="Beginner-Friendly">Beginner-Friendly</option>
-                        <option value="Moderate">Moderate</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventType">Event Type</label>
-                    <select id="eventType" required>
-                        <option value="Indoor">Indoor</option>
-                        <option value="Outdoor">Outdoor</option>
-                        <option value="Hybrid">Hybrid</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventCommitment">Commitment</label>
-                    <select id="eventCommitment" required>
-                        <option value="One-time">One-time</option>
-                        <option value="Weekly">Weekly</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Recurring">Recurring</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventLocation">Location</label>
-                    <input type="text" id="eventLocation" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventDate">Date</label>
-                    <input type="date" id="eventDate" required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="eventStartTime">Start Time</label>
-                        <input type="time" id="eventStartTime" required>
+                <!-- Step 1: Event Details -->
+                <div class="form-step active">
+                    <h3>Event Details</h3>
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" required>
                     </div>
-                    <div class="form-group half">
-                        <label for="eventEndTime">End Time</label>
-                        <input type="time" id="eventEndTime" required>
+                    <div class="form-group">
+                        <label for="eventCategory">Category</label>
+                        <select id="eventCategory" required>
+                            <option value="Environmental">Environmental</option>
+                            <option value="Conservation">Conservation</option>
+                            <option value="Education">Education</option>
+                            <option value="Community">Community</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDifficulty">Difficulty Level</label>
+                        <select id="eventDifficulty" required>
+                            <option value="Beginner-Friendly">Beginner-Friendly</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventType">Event Type</label>
+                        <select id="eventType" required>
+                            <option value="Indoor">Indoor</option>
+                            <option value="Outdoor">Outdoor</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventCommitment">Commitment</label>
+                        <select id="eventCommitment" required>
+                            <option value="One-time">One-time</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Recurring">Recurring</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="eventDescription">Description</label>
-                    <textarea id="eventDescription" rows="4" required></textarea>
+                
+                <!-- Step 2: Location and Date -->
+                <div class="form-step">
+                    <h3>Location and Date</h3>
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">Date</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="eventStartTime">Start Time</label>
+                            <input type="time" id="eventStartTime" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="eventEndTime">End Time</label>
+                            <input type="time" id="eventEndTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventSpots">Available Spots</label>
+                        <input type="number" id="eventSpots" min="1" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="eventSpots">Available Spots</label>
-                    <input type="number" id="eventSpots" min="1" required>
+                
+                <!-- Step 3: Description and Image -->
+                <div class="form-step">
+                    <h3>Description and Image</h3>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventImage">Event Image URL</label>
+                        <input type="url" id="eventImage" placeholder="https://example.com/image.jpg" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="eventImage">Event Image URL</label>
-                    <input type="url" id="eventImage" placeholder="https://example.com/image.jpg" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="submit-btn">Create Event</button>
-                    <button type="button" class="cancel-btn">Cancel</button>
+                
+                <div class="form-controls">
+                    <button type="button" id="prevBtn" class="btn-secondary">Previous</button>
+                    <button type="button" id="nextBtn" class="btn-primary">Next</button>
+                    <button type="submit" id="submitBtn" class="btn-success">Create Event</button>
                 </div>
             </form>
         </div>
     </div>
-
+    
     <!-- Calendar Modal -->
     <div id="calendarModal" class="calendar-modal">
         <div class="calendar-container">
