@@ -1,75 +1,196 @@
 // Volunteer page functionality
-import { GOOGLE_MAPS_API_KEY } from './config.js';
-import { initializeCalendar } from './js/calendar.js';
+// Variables for Google Maps API and calendar initialization can be defined globally if needed
 
-// Initialize distance slider
-function initializeDistanceSlider() {
-    const distanceRange = document.getElementById('distanceRange');
-    const distanceValue = document.getElementById('distanceValue');
+// Function to handle form submission from the button click
+function submitEventForm() {
+    console.log('Submit button clicked from volunteer.js submitEventForm function');
     
-    if (distanceRange && distanceValue) {
-        distanceRange.addEventListener('input', function() {
-            distanceValue.textContent = this.value + ' km';
-        });
+    try {
+        // Get form values
+        const title = document.getElementById('eventTitle').value || 'New Event';
+        const category = document.getElementById('eventCategory').value || 'Environmental';
+        const difficulty = document.getElementById('eventDifficulty').value || 'Beginner-Friendly';
+        const type = document.getElementById('eventType').value || 'Outdoor';
+        const commitment = document.getElementById('eventCommitment').value || 'One-time';
+        const location = document.getElementById('eventLocation').value || 'Local Area';
+        const date = document.getElementById('eventDate').value || 'Upcoming';
+        const startTime = document.getElementById('eventStartTime').value || '9:00 AM';
+        const endTime = document.getElementById('eventEndTime').value || '5:00 PM';
+        const description = document.getElementById('eventDescription').value || 'Join this exciting environmental event.';
+        const spots = document.getElementById('eventSpots').value || '10';
+        
+        // Find the volunteer cards container
+        const cardsContainer = document.querySelector('.volunteer-cards');
+        if (!cardsContainer) {
+            console.error('Cannot find .volunteer-cards container');
+            alert('Error: Cannot find the volunteer cards container');
+            return;
+        }
+        
+        // Generate a unique title with timestamp
+        const timestamp = new Date().toLocaleTimeString();
+        const uniqueTitle = title + " (" + timestamp + ")";
+        
+        // Create the new card HTML
+        const newCardHTML = `
+            <div class="volunteer-card">
+                <div class="card-image" style="background-image: url('assets/default-event.jpg')"></div>
+                <div class="card-content">
+                    <h3>${uniqueTitle}</h3>
+                    <div class="tag-container">
+                        <span class="tag category">${category}</span>
+                        <span class="tag difficulty">${difficulty}</span>
+                        <span class="tag type">${type}</span>
+                        <span class="tag commitment">${commitment}</span>
+                    </div>
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${location}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>${date}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="far fa-clock"></i>
+                            <span>${startTime} - ${endTime}</span>
+                        </div>
+                    </div>
+                    <p class="description">${description}</p>
+                    <div class="card-footer">
+                        <div class="spots-left">
+                            <i class="fas fa-users"></i>
+                            <span>${spots} spots left</span>
+                        </div>
+                        <button class="sign-up-btn" data-signed-up="false">
+                            <i class="fas fa-hand-paper"></i>
+                            <span class="btn-text">Sign Up</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Insert the new card at the beginning
+        cardsContainer.insertAdjacentHTML('afterbegin', newCardHTML);
+        console.log('Card added successfully via submitEventForm');
+        
+        // Get the newly added card
+        const newCard = cardsContainer.firstElementChild;
+        
+        // Add event handlers to the new card
+        if (newCard) {
+            // Modal event handler
+            newCard.addEventListener('click', function() {
+                if (typeof openEventModal === 'function') {
+                    openEventModal(newCard);
+                }
+            });
+            
+            // Sign up button handler
+            const signUpBtn = newCard.querySelector('.sign-up-btn');
+            if (signUpBtn) {
+                signUpBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const spotsElement = newCard.querySelector('.spots-left span');
+                    if (typeof toggleSignUpState === 'function') {
+                        toggleSignUpState(signUpBtn, spotsElement);
+                    }
+                });
+            }
+        }
+        
+        // Close the modal
+        const modal = document.getElementById('createEventModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+        
+        // Reset the form
+        const form = document.getElementById('createEventForm');
+        if (form) {
+            form.reset();
+        }
+        
+        // Reset image preview if present
+        const previewImg = document.getElementById('previewImg');
+        const previewText = document.querySelector('.preview-text');
+        if (previewImg) {
+            previewImg.style.display = 'none';
+            previewImg.src = '#';
+        }
+        if (previewText) {
+            previewText.style.display = 'block';
+        }
+        
+        // Show success message
+        alert('Event successfully added to the volunteer page!');
+    } catch (error) {
+        console.error('Error in submitEventForm:', error);
+        alert('There was an error adding your event. Please try again.');
     }
 }
 
-// Initialize the page functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Volunteer page functionality
+    // Function to directly display the modal - adding this at the top level
+    function showCreateEventModal() {
+        console.log('showCreateEventModal called');
+        const modal = document.getElementById('createEventModal');
+        if (modal) {
+            console.log('Modal found, displaying');
+            modal.style.display = 'flex';
+            modal.classList.add('active');
+        } else {
+            console.error('Could not find createEventModal');
+        }
+    }
+
+    // Expose this function globally
+    window.showCreateEventModal = showCreateEventModal;
+
+    // Initialize distance slider
+    function initializeDistanceSlider() {
+        const distanceRange = document.getElementById('distanceRange');
+        const distanceValue = document.getElementById('distanceValue');
+        
+        if (distanceRange && distanceValue) {
+            distanceRange.addEventListener('input', function() {
+                distanceValue.textContent = this.value + ' km';
+            });
+        }
+    }
+
+    // Initialize the page functionality
     // Initialize calendar
-    initializeCalendar();
-    
-    // Initialize map
-    initVolunteerMap();
+    if (typeof initializeCalendar === 'function') {
+        initializeCalendar();
+    }
     
     // Initialize distance slider
     initializeDistanceSlider();
     
-    // Other existing initialization code...
-    // Set up range slider for distance
-    const distanceRange = document.getElementById('distanceRange');
-    const distanceValue = document.getElementById('distanceValue');
+    // Initialize map
+    if (typeof initVolunteerMap === 'function') {
+        initVolunteerMap();
+    }
+
+    // Get DOM elements - do this only once
+    const createEventBtn = document.getElementById('createEventBtn');
+    const createEventModal = document.getElementById('createEventModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const createEventForm = document.getElementById('createEventForm');
     
-    if (distanceRange && distanceValue) {
-        distanceRange.addEventListener('input', function() {
-            distanceValue.textContent = this.value + ' km';
+    // Show modal when Create Event button is clicked
+    if (createEventBtn && createEventModal) {
+        createEventBtn.addEventListener('click', function() {
+            console.log('Create Event button clicked');
+            showCreateEventModal();
         });
     }
-    
-    // Set up current date as default for date inputs
-    const startDateInput = document.getElementById('startDate');
-    const endDateInput = document.getElementById('endDate');
-    
-    if (startDateInput && endDateInput) {
-        const today = new Date();
-        const nextMonth = new Date();
-        nextMonth.setMonth(today.getMonth() + 1);
-        
-        startDateInput.valueAsDate = today;
-        endDateInput.valueAsDate = nextMonth;
-    }
-    
-    // Set up join buttons
-    const joinButtons = document.querySelectorAll('.join-btn');
-    joinButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Get the event name from the parent element
-            const card = this.closest('.volunteer-card');
-            const eventName = card.querySelector('h3').textContent;
-            
-            // Show confirmation message
-            alert(`Thanks for your interest in "${eventName}"! Sign-up functionality will be available soon.`);
-        });
-    });
-    
-    // Set up action buttons in the get-started section
-    const actionButtons = document.querySelectorAll('.action-buttons button');
-    actionButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            alert('This feature is coming soon! Thank you for your interest.');
-        });
-    });
-    
+
     // Event data
     const eventData = {
         'Beach Clean-up Drive': {
@@ -460,6 +581,175 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Thank you for your interest! Registration system coming soon.');
     });
 
+    // Set minimum date to today for the event date input
+    const today = new Date().toISOString().split('T')[0];
+    const eventDateInput = document.getElementById('eventDate');
+    if (eventDateInput) {
+        eventDateInput.min = today;
+    }
+
+    // Create Event Modal Functionality
+    // Handle cancel button
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', function() {
+            const modal = document.getElementById('createEventModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+            
+            // Reset the form
+            const form = document.getElementById('createEventForm');
+            if (form) {
+                form.reset();
+            }
+            
+            // Reset image preview if present
+            const previewImg = document.getElementById('previewImg');
+            const previewText = document.querySelector('.preview-text');
+            if (previewImg) {
+                previewImg.style.display = 'none';
+                previewImg.src = '#';
+            }
+            if (previewText) {
+                previewText.style.display = 'block';
+            }
+        });
+    }
+
+    // Helper function for creating event cards from the form
+    function createFormEventCard(container, imageUrl, title, category, difficulty, type, commitment, location, date, startTime, endTime, description, spots) {
+        // Create card HTML
+        const cardHTML = `
+            <div class="volunteer-card">
+                <div class="card-image" style="background-image: url('${imageUrl}')"></div>
+                <div class="card-content">
+                    <h3>${title}</h3>
+                    <div class="tag-container">
+                        <span class="tag category">${category}</span>
+                        <span class="tag difficulty">${difficulty}</span>
+                        <span class="tag type">${type}</span>
+                        <span class="tag commitment">${commitment}</span>
+                    </div>
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${location}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>${date}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="far fa-clock"></i>
+                            <span>${startTime} - ${endTime}</span>
+                        </div>
+                    </div>
+                    <p class="description">${description}</p>
+                    <div class="card-footer">
+                        <div class="spots-left">
+                            <i class="fas fa-users"></i>
+                            <span>${spots} spots left</span>
+                        </div>
+                        <button class="sign-up-btn" data-signed-up="false">
+                            <i class="fas fa-hand-paper"></i>
+                            <span class="btn-text">Sign Up</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Insert at the beginning of the container
+        container.insertAdjacentHTML('afterbegin', cardHTML);
+        console.log('Card added from form submission');
+        
+        // Add event data to global eventData object if it exists
+        if (typeof window.eventData !== 'undefined') {
+            window.eventData[title] = {
+                requirements: [],
+                coordinator: {
+                    name: 'Event Organizer',
+                    image: 'assets/default-coordinator.jpg',
+                    contact: 'organizer@ecorise.org'
+                },
+                additionalInfo: `
+                    <h4>Event Details</h4>
+                    <p>${description}</p>
+                    <h4>Location</h4>
+                    <p>${location}</p>
+                `
+            };
+        }
+        
+        // Add event handlers to the new card
+        const newCard = container.firstElementChild;
+        if (newCard) {
+            // Add click event for card details
+            newCard.addEventListener('click', function() {
+                // Find the openEventModal function 
+                if (typeof window.openEventModal === 'function') {
+                    window.openEventModal(newCard);
+                } else if (typeof openEventModal === 'function') {
+                    openEventModal(newCard);
+                }
+            });
+            
+            // Add sign-up button handler
+            const signUpBtn = newCard.querySelector('.sign-up-btn');
+            if (signUpBtn) {
+                signUpBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const spotsElement = newCard.querySelector('.spots-left span');
+                    
+                    // Find the toggleSignUpState function
+                    if (typeof window.toggleSignUpState === 'function') {
+                        window.toggleSignUpState(signUpBtn, spotsElement);
+                    } else if (typeof toggleSignUpState === 'function') {
+                        toggleSignUpState(signUpBtn, spotsElement);
+                    }
+                });
+            }
+        }
+        
+        // Show success message
+        alert('Event successfully added to the volunteer page!');
+        
+        // Make sure the card is visible if pagination is active
+        if (typeof window.goToPage === 'function') {
+            window.goToPage(1);
+        } else if (typeof goToPage === 'function') {
+            goToPage(1);
+        }
+    }
+
+    // Function to create event card
+    function createEventCard(eventData) {
+        const cardsContainer = document.querySelector('.volunteer-cards');
+        const newEventCard = document.createElement('div');
+        newEventCard.className = 'volunteer-card';
+        
+        newEventCard.innerHTML = `
+            <div class="card-image" style="background-image: url('${eventData.imageUrl}')"></div>
+            <div class="card-content">
+                <h3>${eventData.eventTitle}</h3>
+                <p class="description">${eventData.eventDescription}</p>
+                <div class="card-footer">
+                    <button class="sign-up-btn">
+                        <i class="fas fa-hand-paper"></i>
+                        <span class="btn-text">Sign Up</span>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Add the new card to the container
+        if (cardsContainer.firstChild) {
+            cardsContainer.insertBefore(newEventCard, cardsContainer.firstChild);
+        } else {
+            cardsContainer.appendChild(newEventCard);
+        }
+    }
+
     // Pagination configuration
     const ITEMS_PER_PAGE = 6;
     let currentPage = 1;
@@ -593,6 +883,157 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Get DOM elements
+    const addTestEventBtn = document.getElementById('addTestEventBtn');
+    
+    // Event data for modal
+    const eventDataForTest = {
+        "Beach Clean-up Drive": {
+            requirements: [
+                "Wear comfortable clothes and shoes",
+                "Bring water and sunscreen",
+                "Gloves will be provided"
+            ],
+            coordinator: {
+                name: "Maria Rodriguez",
+                image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200",
+                contact: "maria@ecorise.org"
+            },
+            additionalInfo: `
+                <h4>What to Expect</h4>
+                <p>Join us for a 3-hour beach clean-up to remove plastic waste and debris from our local shoreline. This event is suitable for all ages and abilities. We'll provide all necessary equipment including trash bags, gloves, and grabbers.</p>
+                <h4>Meeting Point</h4>
+                <p>We'll meet at the north entrance of Sunset Beach, near the parking lot. Look for our EcoRise banner!</p>
+            `
+        },
+        "Eco-Education Workshop": {
+            requirements: [
+                "No prior experience needed",
+                "Bring a notebook if desired",
+                "Laptop optional for resources"
+            ],
+            coordinator: {
+                name: "David Chen",
+                image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=200",
+                contact: "david@ecorise.org"
+            },
+            additionalInfo: `
+                <h4>Workshop Details</h4>
+                <p>This workshop will cover fundamental environmental topics including waste reduction, recycling best practices, and how to effectively communicate environmental issues in your community. The session includes both presentation and interactive activities.</p>
+                <h4>Location Information</h4>
+                <p>The workshop will be held in the Community Room at the Central Library. Materials will be provided, but feel free to bring a notebook for additional notes.</p>
+            `
+        }
+    };
+
+    // Add test event button handler
+    if (addTestEventBtn) {
+        addTestEventBtn.addEventListener('click', function() {
+            addTestEventCard();
+        });
+    }
+
+    // Function to add a test event card directly to the DOM
+    function addTestEventCard() {
+        const cardsContainer = document.querySelector('.volunteer-cards');
+        if (!cardsContainer) {
+            console.error('Could not find .volunteer-cards container');
+            alert('Error: Could not find the volunteer cards container');
+            return;
+        }
+        
+        // Create test event data with timestamp to make it unique
+        const timestamp = new Date().toLocaleTimeString();
+        const testTitle = `Test Event (${timestamp})`;
+        
+        // Create test event card
+        const testCardHTML = `
+            <div class="volunteer-card">
+                <div class="card-image" style="background-image: url('assets/default-event.jpg')"></div>
+                <div class="card-content">
+                    <h3>${testTitle}</h3>
+                    <div class="tag-container">
+                        <span class="tag category">Environmental</span>
+                        <span class="tag difficulty">Beginner-Friendly</span>
+                        <span class="tag type">Outdoor</span>
+                        <span class="tag commitment">One-time</span>
+                    </div>
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Test Location</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>2025-03-30</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="far fa-clock"></i>
+                            <span>10:00 AM - 2:00 PM</span>
+                        </div>
+                    </div>
+                    <p class="description">This is a test event card created to verify the card display functionality.</p>
+                    <div class="card-footer">
+                        <div class="spots-left">
+                            <i class="fas fa-users"></i>
+                            <span>10 spots left</span>
+                        </div>
+                        <button class="sign-up-btn" data-signed-up="false">
+                            <i class="fas fa-hand-paper"></i>
+                            <span class="btn-text">Sign Up</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Insert at the beginning of the container
+        cardsContainer.insertAdjacentHTML('afterbegin', testCardHTML);
+        
+        // Add event data to eventData object
+        eventDataForTest[testTitle] = {
+            requirements: ["No requirements for test event"],
+            coordinator: {
+                name: "Test Coordinator",
+                image: "assets/default-coordinator.jpg",
+                contact: "test@ecorise.org"
+            },
+            additionalInfo: `
+                <h4>Test Event Details</h4>
+                <p>This is a test event created to verify the card display functionality.</p>
+                <h4>Location</h4>
+                <p>Test Location</p>
+            `
+        };
+        
+        // Add event handlers to the new card
+        const newCard = cardsContainer.firstElementChild;
+        if (newCard) {
+            // Add click event for card details
+            newCard.addEventListener('click', function() {
+                openEventModal(newCard);
+            });
+            
+            // Add sign-up button handler
+            const signUpBtn = newCard.querySelector('.sign-up-btn');
+            if (signUpBtn) {
+                signUpBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const spotsElement = newCard.querySelector('.spots-left span');
+                    toggleSignUpState(signUpBtn, spotsElement);
+                });
+            }
+        }
+        
+        // Confirm success
+        alert('Test event card successfully added!');
+        
+        // Make sure it's visible (in case pagination is active)
+        if (typeof goToPage === 'function') {
+            goToPage(1);
+        }
+    }
+
     // Modal handling functions
     function openModal(modal) {
         console.log(`Opening modal: ${modal?.id}`);
@@ -611,233 +1052,10 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
         }, 300);
     }
-    
-    // Multi-step form variables
-    const steps = document.querySelectorAll('.form-step');
-    const progressSteps = document.querySelectorAll('.step-indicator');
-    let currentStep = 0;
-    const formNextBtn = document.getElementById('nextBtn');
-    const formPrevBtn = document.getElementById('prevBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    
-    // Multi-step form functions
-    function updateFormSteps() {
-        console.log(`Updating steps to: ${currentStep}`);
-        steps.forEach((step, index) => {
-            console.log(`Step ${index} display: ${step.style.display}`);
-            step.style.display = index === currentStep ? 'block' : 'none';
-        });
-        
-        progressSteps.forEach((step, index) => {
-            if (index < currentStep) {
-                step.classList.add('completed');
-                step.classList.remove('active');
-            } else if (index === currentStep) {
-                step.classList.add('active');
-                step.classList.remove('completed');
-            } else {
-                step.classList.remove('active', 'completed');
-            }
-        });
-        
-        if (currentStep === 0) {
-            formPrevBtn.style.display = 'none';
-        } else {
-            formPrevBtn.style.display = 'block';
-        }
-        
-        if (currentStep === steps.length - 1) {
-            formNextBtn.style.display = 'none';
-            submitBtn.style.display = 'block';
-        } else {
-            formNextBtn.style.display = 'block';
-            submitBtn.style.display = 'none';
-        }
-    }
-    
-    function validateStep(step) {
-        const inputs = step.querySelectorAll('input[required], textarea[required]');
-        let isValid = true;
-        
-        inputs.forEach(input => {
-            if (!input.value) {
-                isValid = false;
-                input.classList.add('invalid');
-                
-                // Add error message if it doesn't exist
-                if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('error-message')) {
-                    const errorMessage = document.createElement('div');
-                    errorMessage.className = 'error-message';
-                    errorMessage.textContent = 'This field is required';
-                    input.parentNode.insertBefore(errorMessage, input.nextSibling);
-                }
-            } else {
-                input.classList.remove('invalid');
-                
-                // Remove error message if exists
-                if (input.nextElementSibling && input.nextElementSibling.classList.contains('error-message')) {
-                    input.parentNode.removeChild(input.nextElementSibling);
-                }
-            }
-        });
-        
-        return isValid;
-    }
-
-    // Create Event Modal Functionality
-    const createEventModal = document.getElementById('createEventModal');
-    const createEventBtn = document.getElementById('createEventBtn');
-    const createEventForm = document.getElementById('createEventForm');
-
-    // Open create event modal
-    createEventBtn.addEventListener('click', () => {
-        console.log('Create Event button clicked');
-        openModal(createEventModal);
-        currentStep = 0;
-        updateFormSteps();
-        
-        // Set minimum date to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('eventDate').min = today;
-    });
-
-    // Close create event modal
-    createEventModal.querySelector('.close-btn').addEventListener('click', () => {
-        console.log('Closing modal');
-        closeModal(createEventModal);
-    });
-
-    createEventModal.querySelector('.cancel-btn').addEventListener('click', () => {
-        closeModal(createEventModal);
-    });
-
-    // Handle form submission
-    createEventForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get form values
-        const title = document.getElementById('eventTitle').value;
-        const category = document.getElementById('eventCategory').value;
-        const difficulty = document.getElementById('eventDifficulty').value;
-        const type = document.getElementById('eventType').value;
-        const commitment = document.getElementById('eventCommitment').value;
-        const location = document.getElementById('eventLocation').value;
-        const date = document.getElementById('eventDate').value;
-        const startTime = document.getElementById('eventStartTime').value;
-        const endTime = document.getElementById('eventEndTime').value;
-        const description = document.getElementById('eventDescription').value;
-        const spots = document.getElementById('eventSpots').value;
-        const imageUrl = document.getElementById('eventImage').value;
-
-        // Create new event card
-        const newEventCard = document.createElement('div');
-        newEventCard.className = 'volunteer-card';
-        newEventCard.innerHTML = `
-            <div class="card-image" style="background-image: url('${imageUrl}')"></div>
-            <div class="card-content">
-                <h3>${title}</h3>
-                <div class="tag-container">
-                    <span class="tag category">${category}</span>
-                    <span class="tag difficulty">${difficulty}</span>
-                    <span class="tag type">${type}</span>
-                    <span class="tag commitment">${commitment}</span>
-                </div>
-                <div class="event-details">
-                    <div class="detail-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${location}</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>${date}</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="far fa-clock"></i>
-                        <span>${startTime} - ${endTime}</span>
-                    </div>
-                </div>
-                <p class="description">${description}</p>
-                <div class="card-footer">
-                    <div class="spots-left">
-                        <i class="fas fa-users"></i>
-                        <span>${spots} spots left</span>
-                    </div>
-                    <button class="sign-up-btn" data-signed-up="false">
-                        <i class="fas fa-hand-paper"></i>
-                        <span class="btn-text">Sign Up</span>
-                    </button>
-                </div>
-            </div>
-        `;
-
-        // Add event data to eventData object
-        eventData[title] = {
-            requirements: [],
-            coordinator: {
-                name: 'Event Organizer',
-                image: 'assets/default-coordinator.jpg',
-                contact: 'organizer@ecorise.org'
-            },
-            additionalInfo: `
-                <h4>Event Details</h4>
-                <p>${description}</p>
-                <h4>Location</h4>
-                <p>${location}</p>
-            `
-        };
-
-        // Add click event listener to the new card
-        newEventCard.addEventListener('click', () => {
-            openEventModal(newEventCard);
-        });
-
-        // Add sign-up button click handler
-        const signUpBtn = newEventCard.querySelector('.sign-up-btn');
-        signUpBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const spotsElement = newEventCard.querySelector('.spots-left span');
-            toggleSignUpState(signUpBtn, spotsElement);
-        });
-
-        // Add the new card to the volunteer-cards container
-        const cardsContainer = document.querySelector('.volunteer-cards');
-        cardsContainer.insertBefore(newEventCard, cardsContainer.firstChild);
-
-        // Close modal and reset form
-        closeModal(createEventModal);
-        createEventForm.reset();
-
-        // Show success message
-        alert('Event created successfully!');
-    });
-
-    // Close modals when clicking outside
-    window.addEventListener('click', (e) => {
-        if (e.target === createEventModal) {
-            closeModal(createEventModal);
-        }
-    });
-
-    // Add event listeners for next and previous buttons
-    formNextBtn.addEventListener('click', () => {
-        const currentStepElement = steps[currentStep];
-        if (validateStep(currentStepElement)) {
-            currentStep++;
-            updateFormSteps();
-        }
-    });
-
-    formPrevBtn.addEventListener('click', () => {
-        currentStep--;
-        updateFormSteps();
-    });
-
-    // Initialize form steps
-    updateFormSteps();
 });
 
 // Map functionality
-import { GOOGLE_MAPS_API_KEY } from './config.js';
+const GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY_HERE';
 
 const mapScript = document.querySelector('script[src*="maps.googleapis.com"]');
 if (mapScript) {

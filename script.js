@@ -8,8 +8,6 @@ const closeButtons = document.querySelectorAll('.close-button');
 const fileInput = document.getElementById('fileInput');
 const uploadBox = document.getElementById('uploadBox');
 const analysisResult = document.getElementById('analysisResult');
-const createEventBtn = document.getElementById('createEventBtn');
-const createEventModal = document.getElementById('createEventModal');
 const calendarBtn = document.getElementById('calendarBtn');
 const calendarModal = document.getElementById('calendarModal');
 const profileBtn = document.querySelector('.profile-btn');
@@ -50,15 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (profileBtn) {
         profileBtn.addEventListener('click', () => {
             openModal(profileModal);
-        });
-    }
-    
-    // Create Event button click handler
-    if (createEventBtn) {
-        createEventBtn.addEventListener('click', () => {
-            openModal(createEventModal);
-            currentStep = 0;
-            updateFormSteps();
         });
     }
     
@@ -149,144 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             showNotification('Profile updated successfully!');
         });
-    }
-    
-    // Multi-step form for event creation
-    const form = document.getElementById('createEventForm');
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    const steps = document.querySelectorAll('.form-step');
-    const progressSteps = document.querySelectorAll('.step-indicator');
-    let currentStep = 0;
-    
-    function updateFormSteps() {
-        steps.forEach((step, index) => {
-            step.style.display = index === currentStep ? 'block' : 'none';
-        });
-        
-        progressSteps.forEach((step, index) => {
-            if (index < currentStep) {
-                step.classList.add('completed');
-                step.classList.remove('active');
-            } else if (index === currentStep) {
-                step.classList.add('active');
-                step.classList.remove('completed');
-            } else {
-                step.classList.remove('active', 'completed');
-            }
-        });
-        
-        if (currentStep === 0) {
-            prevBtn.style.display = 'none';
-        } else {
-            prevBtn.style.display = 'block';
-        }
-        
-        if (currentStep === steps.length - 1) {
-            nextBtn.style.display = 'none';
-            submitBtn.style.display = 'block';
-        } else {
-            nextBtn.style.display = 'block';
-            submitBtn.style.display = 'none';
-        }
-    }
-    
-    function validateStep(step) {
-        const inputs = step.querySelectorAll('input[required], textarea[required]');
-        let isValid = true;
-        
-        inputs.forEach(input => {
-            if (!input.value) {
-                isValid = false;
-                input.classList.add('invalid');
-            } else {
-                input.classList.remove('invalid');
-            }
-        });
-        
-        return isValid;
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            if (validateStep(steps[currentStep])) {
-                currentStep++;
-                updateFormSteps();
-            }
-        });
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            currentStep--;
-            updateFormSteps();
-        });
-    }
-    
-    // Event form submission
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            if (!validateStep(steps[currentStep])) {
-                return;
-            }
-            
-            const title = document.getElementById('eventTitle').value;
-            const location = document.getElementById('eventLocation').value;
-            const description = document.getElementById('eventDescription').value;
-            const date = document.getElementById('eventDate').value;
-            const startTime = document.getElementById('eventStartTime').value;
-            const endTime = document.getElementById('eventEndTime').value;
-            
-            // Get the image file and convert to base64
-            const imageFile = document.getElementById('eventImage').files[0];
-            if (!imageFile) {
-                alert('Please select an image for the event');
-                return;
-            }
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imageData = e.target.result;
-                
-                // Create event object
-                const event = {
-                    title,
-                    location,
-                    description,
-                    date,
-                    startTime,
-                    endTime,
-                    imageData
-                };
-                
-                // Save to localStorage
-                const events = JSON.parse(localStorage.getItem('events') || '[]');
-                events.push(event);
-                localStorage.setItem('events', JSON.stringify(events));
-                
-                // Update events display
-                updateEventsDisplay();
-                
-                // Close modal and reset form
-                closeModal(createEventModal);
-                form.reset();
-                currentStep = 0;
-                updateFormSteps();
-                
-                // Show success notification
-                showNotification('Event created successfully!');
-            };
-            
-            reader.readAsDataURL(imageFile);
-        });
-    }
-    
-    // Initialize form steps if form exists
-    if (form) {
-        updateFormSteps();
     }
     
     // Camera button handler
