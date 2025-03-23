@@ -18,6 +18,20 @@ const profileModal = document.getElementById('profileModal');
 let calendar = null;
 let map = null;
 
+// Add fallback for profile images
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default image for profile pictures that fail to load
+    const profileImages = document.querySelectorAll('.user-info img');
+    profileImages.forEach(img => {
+        img.onerror = function() {
+            this.src = 'assets/default-profile.png';
+            console.log('Profile image failed to load, using default image');
+        };
+    });
+    
+    console.log('Profile image fallback handlers added');
+});
+
 // Load Google Maps API dynamically
 function loadGoogleMapsAPI() {
     // Use the actual API key from the .env file

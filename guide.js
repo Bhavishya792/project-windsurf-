@@ -126,4 +126,24 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'volunteer.html';
         });
     }
+    
+    // Add scroll handling for the sidebar
+    const getStartedSection = document.querySelector('.get-started');
+    const guideSidebar = document.querySelector('.guide-sidebar');
+
+    if (getStartedSection && guideSidebar) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.body.classList.add('get-started-visible');
+                } else {
+                    document.body.classList.remove('get-started-visible');
+                }
+            });
+        }, {
+            threshold: 0.1 // Start hiding when 10% of the get-started section is visible
+        });
+
+        observer.observe(getStartedSection);
+    }
 });

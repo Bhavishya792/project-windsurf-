@@ -388,43 +388,48 @@
 
 .video-thumbnail {
     position: relative;
-    padding-top: 56.25%;
+    height: 215px;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    background-color: #f5f5f5;
 }
 
-.video-thumbnail img {
-    position: absolute;
-    top: 0;
-    left: 0;
+.video-thumbnail iframe {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-}
-
-.video-duration {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    border: none;
+    position: relative;
+    z-index: 1;
 }
 
 .difficulty {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    color: white;
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
     font-size: 0.8rem;
     font-weight: 500;
+    color: white;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    width: auto;
+    height: auto;
+    pointer-events: none; /* Prevent it from blocking iframe interaction */
 }
 
-.easy { background-color: var(--success); }
-.medium { background-color: var(--warning); }
-.hard { background-color: var(--danger); }
+.difficulty.easy {
+    background-color: #4CAF50;
+}
+
+.difficulty.medium {
+    background-color: #FF9800;
+}
+
+.difficulty.hard {
+    background-color: #f44336;
+}
 
 .video-info {
     padding: 1.5rem;

@@ -68,7 +68,7 @@
                     <button class="search-btn"><i class="fas fa-search"></i></button>
                 </div>
                 <div class="filter-options">
-                    <button class="create-event-btn" id="createEventBtn" style="background-color: #4CAF50; color: white; padding: 10px 15px; font-weight: bold; border-radius: 5px; border: none; cursor: pointer; font-size: 16px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"><i class="fas fa-plus"></i> Create Event</button>
+                    <button class="create-event-btn" id="createEventBtn" onclick="document.getElementById('createEventModal').style.display = 'flex'; document.getElementById('createEventModal').classList.add('active');" style="background-color: #4CAF50; color: white; padding: 10px 15px; font-weight: bold; border-radius: 5px; border: none; cursor: pointer; font-size: 16px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"><i class="fas fa-plus"></i> Create Event</button>
                 </div>
             </div>
             <div class="volunteer-cards">
@@ -271,6 +271,7 @@
                     <button class="filter-btn">Apply Filters</button>
                 </div>
                 <div id="map" class="event-map"></div>
+                <div style="clear: both; height: 150px;"></div>
             </div>
         </section>
 
@@ -630,9 +631,95 @@
         </div>
     </footer>
 
-    <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
-    <script type="module" src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script src="volunteer.js"></script>
+    
+    <!-- Directly initialize the map without conflicting with other scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Adding volunteer map initialization');
+            
+            // Create a script tag for Google Maps API
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC8zy45f-dWZWg0P4A9mGAZjNlMYTnJRvI&callback=volunteerInitMap';
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        });
+        
+        // Map initialization function
+        window.volunteerInitMap = function() {
+            console.log('Volunteer map initialization started');
+            const mapElement = document.getElementById('map');
+            
+            if (!mapElement) {
+                console.error('Map element not found on volunteer page');
+                return;
+            }
+            
+            console.log('Creating map on element:', mapElement);
+            
+            // Initialize the map
+            const map = new google.maps.Map(mapElement, {
+                center: { lat: 39.8283, lng: -98.5795 },
+                zoom: 4,
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"color": "#444444"}]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [{"color": "#f2f2f2"}]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [{"saturation": -100}, {"lightness": 45}]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [{"color": "#c1e0e0"}, {"visibility": "on"}]
+                    }
+                ]
+            });
+            
+            // Sample volunteer event locations
+            const volunteerLocations = [
+                { lat: 40.7128, lng: -74.0060, title: 'NYC Community Garden', type: 'Community' },
+                { lat: 34.0522, lng: -118.2437, title: 'LA Beach Clean-up', type: 'Clean-up' },
+                { lat: 41.8781, lng: -87.6298, title: 'Chicago Tree Planting', type: 'Planting' },
+                { lat: 29.7604, lng: -95.3698, title: 'Houston Conservation Project', type: 'Conservation' },
+                { lat: 33.4484, lng: -112.0740, title: 'Phoenix Environmental Education', type: 'Education' }
+            ];
+            
+            // Add markers for volunteer events
+            volunteerLocations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.title
+                });
+                
+                // Add click event for markers
+                marker.addListener('click', () => {
+                    alert(`Event: ${location.title}\nType: ${location.type}\nClick on 'Sign Up' in the events list to register!`);
+                });
+            });
+            
+            console.log('Volunteer map initialized successfully');
+        };
+    </script>
+    <script type="module" src="script.js"></script>
+    
     <script>
         // Function to create and add a new event
         function createAndAddEvent() {

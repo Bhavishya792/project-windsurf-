@@ -67,6 +67,19 @@
     z-index: 100;
     display: flex;
     flex-direction: column;
+    max-height: calc(100vh - 250px); /* Ensure it doesn't overlap with get-started section */
+    overflow-y: auto;
+}
+
+.guide-sidebar.scroll-up {
+    top: -100%;
+    transition: top 0.3s ease-in-out;
+}
+
+.get-started-visible .guide-sidebar {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .guide-sidebar-title {
