@@ -101,18 +101,18 @@ nav {
 }
 
 .profile-pic {
-    width: 25px;
-    height: 25px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     object-fit: cover;
     overflow: hidden;
-
+    border: 2px solid var(--primary-color);
 }
 
 /* Hero Section */
 .hero {
     position: relative;
-    margin-top: 74px;
+    margin-top: 0;
     min-height: 60vh;
     display: flex;
     align-items: center;
@@ -1060,7 +1060,7 @@ button.loading .button-text {
     height: 100%;
     width: 100%;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #radiusValue {
@@ -1331,13 +1331,15 @@ button.loading .button-text {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 12px 20px;
-    border-radius: 8px;
     background: var(--primary-color);
     color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    animation: slideIn 0.3s ease-out;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
 }
 
 .status-message.error {
@@ -1887,10 +1889,6 @@ button.loading .button-text {
     transform: translateY(-1px);
 }
 
-.calendar-btn i {
-    font-size: 1.2rem;
-}
-
 /* Events Section */
 .events-section {
     padding: 4rem 2rem;
@@ -2337,7 +2335,7 @@ button.loading .button-text {
 
 .event-create-modal h2 {
     margin-bottom: 1.5rem;
-    color: var(--accent-color);
+    color: var(--text-color);
 }
 
 .progress-container {
@@ -2356,7 +2354,7 @@ button.loading .button-text {
 }
 
 .step-indicator.active {
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
 }
 
 .step-indicator.completed {
@@ -2371,313 +2369,52 @@ button.loading .button-text {
     display: block;
 }
 
-.form-step h3 {
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .event-create-modal {
+        max-width: 95%;
+    }
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    background-color: var(--input-bg);
-    color: var(--text-color);
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.form-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.form-group.half {
-    flex: 1;
-}
-
+/* Form control buttons */
 .form-controls {
     display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #eee;
-}
-
-#prevBtn {
-    display: none;
-}
-
-/* Removed the rule hiding submit button */
-/*
-#submitBtn {
-    display: none;
-}
-*/
-
-/* Add explicit style to make submit button visible */
-#submitBtn {
-    display: inline-block !important;
-    background-color: #4CAF50 !important;
-    color: white !important;
-    padding: 10px 15px !important;
-    font-weight: bold !important;
-    border-radius: 5px !important;
-    border: none !important;
-    cursor: pointer !important;
-    font-size: 16px !important;
-    margin-left: 10px !important;
-}
-
-.btn-primary, .btn-secondary, .btn-success {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background-color: var(--accent-color);
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: var(--accent-hover-color);
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background-color: #f1f1f1;
-    color: var(--text-color);
-}
-
-.btn-secondary:hover {
-    background-color: #e4e4e4;
-    transform: translateY(-2px);
-}
-
-.btn-success {
-    background-color: #4caf50;
-    color: white;
-}
-
-.btn-success:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-}
-
-/* Image upload styles */
-.image-upload-container {
-    border: 2px dashed var(--border-color);
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.image-upload-container.drag-over {
-    border-color: var(--accent-color);
-    background-color: rgba(var(--accent-color-rgb), 0.05);
-}
-
-.upload-area {
-    cursor: pointer;
-}
-
-.upload-area i {
-    font-size: 2.5rem;
-    color: var(--accent-color);
-    margin-bottom: 10px;
-}
-
-.upload-area p {
-    margin: 0;
-    color: var(--text-secondary);
-}
-
-.upload-area input {
-    display: none;
-}
-
-.image-preview {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px dashed #ccc;
-    border-radius: 4px;
-    text-align: center;
-    background-color: #f8f9fa;
-}
-
-.preview-text {
-    color: #666;
-    margin: 10px 0;
-}
-
-input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: white;
-}
-
-.submit-btn {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s;
-}
-
-.submit-btn:hover {
-    background-color: var(--primary-color-dark);
-}
-
-/* Invalid input highlighting */
-input.invalid,
-textarea.invalid {
-    border-color: #ff5252;
-    background-color: rgba(255, 82, 82, 0.05);
-}
-
-/* Event Form Styles */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-    font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-.progress-container {
-    margin-bottom: 2rem;
-}
-
-.progress-steps {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.progress-steps::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #ddd;
-    transform: translateY(-50%);
-    z-index: 1;
-}
-
-.step-indicator {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: white;
-    border: 2px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-    transition: all 0.3s ease;
-}
-
-.step-indicator.active {
-    border-color: var(--primary-color);
-    background: var(--primary-color);
-    color: white;
-}
-
-.step-indicator.completed {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-}
-
-.form-controls {
-    display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 1rem;
     margin-top: 2rem;
     padding-top: 1rem;
     border-top: 1px solid #eee;
 }
 
 .form-controls button {
-    padding: 0.75rem 1.5rem;
-    border: none;
+    padding: 0.8rem 1.5rem;
     border-radius: 6px;
-    cursor: pointer;
     font-size: 1rem;
-    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
 }
 
-.form-controls button.prev-btn {
-    background: #f1f1f1;
-    color: var(--text-color);
-}
-
-.form-controls button.next-btn,
-.form-controls button.submit-btn {
+.form-controls .primary-btn {
     background: var(--primary-color);
     color: white;
+    border: none;
 }
 
-.form-controls button:hover {
-    opacity: 0.9;
+.form-controls .secondary-btn {
+    background: #f0f0f0;
+    color: var(--text-color);
+    border: 1px solid #ddd;
 }
 
-.form-controls button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.form-controls .primary-btn:hover {
+    background: #219a52;
+}
+
+.form-controls .secondary-btn:hover {
+    background: #e4e4e4;
 }
 
 /* Image preview styles */
@@ -2805,23 +2542,23 @@ textarea.invalid {
     transition: all 0.3s ease;
 }
 
-.form-controls .btn-success {
+.form-controls .primary-btn {
     background: var(--primary-color);
     color: white;
     border: none;
 }
 
-.form-controls .btn-secondary {
+.form-controls .secondary-btn {
     background: #f0f0f0;
     color: var(--text-color);
     border: 1px solid #ddd;
 }
 
-.form-controls .btn-success:hover {
+.form-controls .primary-btn:hover {
     background: #219a52;
 }
 
-.form-controls .btn-secondary:hover {
+.form-controls .secondary-btn:hover {
     background: #e4e4e4;
 }
 
@@ -2861,219 +2598,66 @@ textarea.invalid {
     transition: all 0.3s ease;
 }
 
+.form-controls .btn-success,
 .form-controls .primary-btn {
     background: var(--primary-color);
     color: white;
     border: none;
 }
 
+.form-controls .btn-secondary,
 .form-controls .secondary-btn {
     background: #f0f0f0;
     color: var(--text-color);
     border: 1px solid #ddd;
 }
 
+.form-controls .btn-success:hover,
 .form-controls .primary-btn:hover {
     background: #219a52;
 }
 
+.form-controls .btn-secondary:hover,
 .form-controls .secondary-btn:hover {
     background: #e4e4e4;
 }
 
-/* Create Event Modal */
-.event-create-modal {
-    background: white;
-    padding: 2rem;
+/* FIY page specific button styles */
+.primary-btn, .secondary-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
     border-radius: 8px;
-    width: 100%;
-    max-width: 600px;
-    position: relative;
-}
-
-.event-create-modal h2 {
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-    font-size: 1.5rem;
-}
-
-.event-create-modal .form-content {
-    max-height: calc(80vh - 150px);
-    overflow-y: auto;
-    padding-right: 1rem;
-}
-
-.event-create-modal .form-group {
-    margin-bottom: 1.5rem;
-}
-
-.event-create-modal .form-controls {
-    position: sticky;
-    bottom: 0;
-    background: white;
-    padding: 1rem 0;
-    margin-top: 2rem;
-    border-top: 1px solid #eee;
-}
-
-/* Form Footer and Buttons */
-.form-footer {
-    position: sticky;
-    bottom: 0;
-    background: white;
-    padding: 1rem 0;
-    margin-top: 2rem;
-    border-top: 1px solid #eee;
-}
-
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}
-
-.btn {
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-size: 1rem;
     cursor: pointer;
-    display: inline-flex;
+    font-weight: 500;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.2s ease;
-    font-weight: 500;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-.btn i {
-    font-size: 1.1rem;
-}
-
-.btn-submit {
+.primary-btn {
     background-color: var(--primary-color);
     color: white;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.btn-submit:hover {
-    background-color: #219a52;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn-cancel {
+.secondary-btn {
     background-color: #f5f5f5;
-    color: #666;
-    border: 1px solid #ddd;
+    color: var(--text-primary);
 }
 
-.btn-cancel:hover {
-    background-color: #e8e8e8;
-    color: #333;
-}
-
-/* Make sure buttons are visible in the modal */
-.event-create-modal .form-footer {
-    background: white;
-    z-index: 10;
-}
-
-.event-map {
-    width: 100%;
-    height: 400px;
-    margin-top: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.filter-controls {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.filter-controls label {
-    display: block;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.filter-controls input[type="range"] {
-    width: 100%;
-    margin: 0.5rem 0;
-    accent-color: #27ae60;
-}
-
-.filter-controls #radiusValue {
-    display: block;
-    text-align: right;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Map Info Windows */
-.info-window {
-    padding: 12px;
-    max-width: 300px;
-}
-
-.info-window h3 {
-    margin-top: 0;
-    color: #2e7d32;
-    font-size: 1.1rem;
-}
-
-.results-list {
-    margin-top: 1rem;
-    max-height: 300px;
-    overflow-y: auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.results-summary {
-    margin: 1rem 0;
-    font-weight: 500;
-    color: #2c3e50;
-}
-
-.result-item {
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.result-item:hover {
-    background: #f5f5f5;
+.primary-btn:hover, .secondary-btn:hover {
     transform: translateY(-2px);
 }
 
-.result-item h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1rem;
-    color: #2e7d32;
+.primary-btn:hover {
+    background-color: var(--primary-dark);
 }
 
-.result-item .address {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.3rem;
-}
-
-.result-item .rating {
-    font-size: 0.8rem;
-    color: #888;
-}
-
-.no-results, .loading {
-    padding: 2rem;
-    text-align: center;
-    color: #666;
+/* Button group for FIY page */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 /* Get Started Section (Footer) */
@@ -3242,4 +2826,318 @@ textarea.invalid {
 
 .footer-section ul li a:hover {
     opacity: 1;
+}
+
+/* Responsive Navbar Styles */
+.main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 70px;
+    margin-bottom: 0;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+.brand-name {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.nav-middle {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-middle a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-middle a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-middle a:hover::after,
+.nav-middle a.active::after {
+    width: 100%;
+}
+
+.nav-middle a.active {
+    color: var(--primary-color);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    cursor: pointer;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.profile-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 1001;
+    margin-left: 15px;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: flex;
+    }
+    
+    .main-nav {
+        padding: 0.5rem 1rem;
+        justify-content: space-between;
+    }
+    
+    .nav-left {
+        flex: 0 1 auto;
+    }
+    
+    .nav-right {
+        flex: 0 1 auto;
+        position: static;
+        transform: none;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .nav-middle {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        padding: 1rem 0;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 999;
+        gap: 0;
+    }
+    
+    .nav-middle.show {
+        transform: translateY(0);
+    }
+    
+    .nav-middle a {
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-middle a::after {
+        display: none;
+    }
+    
+    .nav-middle a.active {
+        background-color: rgba(76, 175, 80, 0.1);
+    }
+    
+    body.menu-open {
+        overflow: hidden;
+    }
+    
+    /* Make buttons smaller on mobile */
+    .nav-right .icon-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .nav-right .profile-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .nav-right .profile-pic {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* Hero section adjustments */
+.hero {
+    margin-top: 0;
+    padding-top: 2rem;
+}
+
+main {
+    margin-top: 0;
+}
+
+/* Form control buttons */
+.form-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.form-controls button {
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.form-controls .btn-success,
+.form-controls .primary-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.form-controls .btn-secondary,
+.form-controls .secondary-btn {
+    background: #f0f0f0;
+    color: var(--text-color);
+    border: 1px solid #ddd;
+}
+
+.form-controls .btn-success:hover,
+.form-controls .primary-btn:hover {
+    background: #219a52;
+}
+
+.form-controls .btn-secondary:hover,
+.form-controls .secondary-btn:hover {
+    background: #e4e4e4;
+}
+
+/* FIY page specific button styles */
+.primary-btn, .secondary-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: #f5f5f5;
+    color: var(--text-primary);
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+    transform: translateY(-2px);
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Button group for FIY page */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
 }

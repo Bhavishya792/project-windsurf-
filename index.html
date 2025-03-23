@@ -13,17 +13,26 @@
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet' />
 </head>
 <body>
-    <nav>
+    <nav class="main-nav">
         <div class="nav-left">
             <img src="assets/logo.png" alt="EcoRise Logo" class="logo">
             <span class="brand-name">EcoRise</span>
         </div>
+        
+        <!-- Hamburger menu for mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
         <div class="nav-middle">
             <a href="index.html" class="active">Home</a>
             <a href="fiy.html">FIY</a>
             <a href="volunteer.html">Volunteer</a>
             <a href="guide.html">Guide</a>
         </div>
+        
         <div class="nav-right">
             <button class="icon-btn" id="calendarBtn">
                 <i class="fas fa-calendar"></i>
@@ -504,5 +513,6 @@
     <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script type="module" src="script.js"></script>
+    <script src="js/navbar.js"></script>
 </body>
 </html>

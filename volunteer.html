@@ -12,18 +12,26 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="eco-theme">
-    <nav>
+    <nav class="main-nav">
         <div class="nav-left">
             <img src="assets/logo.png" alt="EcoRise Logo" class="logo">
             <span class="brand-name">EcoRise</span>
         </div>
+        
+        <!-- Hamburger menu for mobile -->
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
         <div class="nav-middle">
             <a href="index.html">Home</a>
             <a href="fiy.html">FIY</a>
             <a href="volunteer.html" class="active">Volunteer</a>
             <a href="guide.html">Guide</a>
-            <a href="#" class="accessibility-link">Accessibility Info</a>
         </div>
+        
         <div class="nav-right">
             <button class="icon-btn" id="calendarBtn">
                 <i class="fas fa-calendar"></i>
@@ -633,6 +641,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script src="volunteer.js"></script>
+    <script src="js/navbar.js"></script>
     
     <!-- Directly initialize the map without conflicting with other scripts -->
     <script>

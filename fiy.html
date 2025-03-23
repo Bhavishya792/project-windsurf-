@@ -12,29 +12,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="eco-theme">
-    <nav>
-        <div class="nav-left">
-            <img src="assets/logo.png" alt="EcoRise Logo" class="logo">
-            <span class="brand-name">EcoRise</span>
-        </div>
-        <div class="nav-middle">
-            <a href="index.html">Home</a>
-            <a href="fiy.html" class="active">FIY</a>
-            <a href="volunteer.html">Volunteer</a>
-            <a href="guide.html">Guide</a>
-        </div>
-        <div class="nav-right">
-            <button class="icon-btn" id="calendarBtn">
-                <i class="fas fa-calendar"></i>
-            </button>
-            <button class="icon-btn" id="notificationBtn">
-                <i class="fas fa-bell"></i>
-            </button>
-            <button class="profile-btn">
-                <img src="assets/default-profile.png" alt="Profile" class="profile-pic">
-            </button>
-        </div>
-    </nav>
+    <!-- Navbar will be injected here by navbar-injector.js -->
+    <div id="navbar-container"></div>
 
     <main class="fiy-main">
         <section class="fiy-hero">
@@ -70,14 +49,14 @@
                         <div class="image-preview" id="imagePreview"></div>
                     </div>
                     <div class="button-group">
-                        <button id="attachImage" class="secondary-btn">
+                        <button id="attachImage" class="secondary-btn" onclick="document.getElementById('itemImage').click();">
                             <i class="fas fa-camera"></i> Add Photo
                         </button>
-                        <button id="getHelp" class="primary-btn">
+                        <button id="getHelp" class="primary-btn" onclick="handleGetRepairGuide()">
                             <i class="fas fa-wand-magic-sparkles"></i> Get Repair Guide
                         </button>
                     </div>
-                    <input type="file" id="itemImage" accept="image/*" style="display: none">
+                    <input type="file" id="itemImage" accept="image/*" style="display: none" onchange="handleImageChange(event)">
                 </div>
                 <div class="response-section">
                     <div id="loadingIndicator" class="loading-indicator hidden">
@@ -268,6 +247,394 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    <script src="fiy.js"></script>
+    <script src="js/navbar-injector.js"></script>
+    <script>
+        // Global variables for the repair guide functionality
+        let selectedImage = null;
+        
+        // Handler for image change
+        function handleImageChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedImage = file;
+                document.getElementById('attachImage').innerHTML = `<i class="fas fa-check"></i> Image Added`;
+                
+                // Show image preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('imagePreview').innerHTML = `<img src="${e.target.result}" alt="Item preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Handler for the Get Repair Guide button
+        async function handleGetRepairGuide() {
+            const query = document.getElementById('repairQuery').value.trim();
+            if (!query) {
+                alert('Please describe the item you want to repair.');
+                return;
+            }
+            
+            const repairGuide = document.getElementById('repairGuide');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            
+            try {
+                // Show loading state
+                document.getElementById('getHelp').disabled = true;
+                loadingIndicator.classList.remove('hidden');
+                repairGuide.classList.add('hidden');
+                
+                // Mock response for demonstration
+                setTimeout(() => {
+                    let mockResponse;
+                    
+                    if (query.toLowerCase().includes('faucet') || query.toLowerCase().includes('tap') || query.toLowerCase().includes('sink')) {
+                        mockResponse = getMockLeakingFaucetResponse();
+                    } else if (query.toLowerCase().includes('table') || query.toLowerCase().includes('furniture') || query.toLowerCase().includes('wood')) {
+                        mockResponse = getMockBrokenTableResponse();
+                    } else if (query.toLowerCase().includes('bike') || query.toLowerCase().includes('bicycle') || query.toLowerCase().includes('cycle')) {
+                        mockResponse = getMockBicycleResponse();
+                    } else if (query.toLowerCase().includes('phone') || query.toLowerCase().includes('mobile') || query.toLowerCase().includes('smartphone')) {
+                        mockResponse = getMockPhoneResponse();
+                    } else {
+                        mockResponse = getGenericRepairResponse(query);
+                    }
+                    
+                    displayRepairGuide(mockResponse);
+                    document.getElementById('getHelp').disabled = false;
+                    loadingIndicator.classList.add('hidden');
+                }, 2000);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Sorry, there was an error analyzing your request. Please try again.');
+                document.getElementById('getHelp').disabled = false;
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+        
+        // Display repair guide
+        function displayRepairGuide(guide) {
+            const repairGuide = document.getElementById('repairGuide');
+            const toolsList = document.getElementById('toolsList');
+            const stepsList = document.getElementById('stepsList');
+            const safetyList = document.getElementById('safetyList');
+            const difficultyBadge = document.getElementById('difficultyBadge');
+            const difficultyLevel = document.getElementById('difficultyLevel');
+            const costSavings = document.getElementById('costSavings');
+            const professionalAdvice = document.getElementById('professionalAdvice');
+            const videoLinks = document.getElementById('videoLinks');
+            
+            // Clean function to remove unwanted characters
+            const cleanText = (text) => {
+                if (typeof text !== 'string') return '';
+                return text.replace(/['"*]/g, '').trim();
+            };
+            
+            // Clear previous content
+            toolsList.innerHTML = '';
+            stepsList.innerHTML = '';
+            safetyList.innerHTML = '';
+            videoLinks.innerHTML = '';
+            
+            // Update difficulty badge
+            difficultyBadge.textContent = cleanText(guide.difficulty) || 'Unknown';
+            difficultyBadge.className = 'difficulty-badge ' + (cleanText(guide.difficulty) || 'medium').toLowerCase();
+            
+            // Display tools
+            if (guide.tools.length > 0) {
+                guide.tools.forEach(tool => {
+                    toolsList.innerHTML += `<li><i class="fas fa-check"></i> ${cleanText(tool)}</li>`;
+                });
+            } else {
+                toolsList.innerHTML = '<li class="no-items">No specific tools required</li>';
+            }
+            
+            // Display steps
+            if (guide.steps.length > 0) {
+                guide.steps.forEach(step => {
+                    stepsList.innerHTML += `
+                        <li>
+                            <span class="step-content">${cleanText(step)}</span>
+                        </li>`;
+                });
+            } else {
+                stepsList.innerHTML = '<li class="no-items">No steps available</li>';
+            }
+            
+            // Display safety precautions
+            if (guide.safety.length > 0) {
+                guide.safety.forEach(precaution => {
+                    safetyList.innerHTML += `
+                        <li>
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span class="safety-content">${cleanText(precaution)}</span>
+                        </li>`;
+                });
+            } else {
+                safetyList.innerHTML = '<li class="no-items">No safety precautions specified</li>';
+            }
+            
+            // Display difficulty and cost savings
+            difficultyLevel.innerHTML = `
+                <i class="fas fa-chart-line"></i> 
+                Difficulty Level: <strong>${cleanText(guide.difficulty) || 'Not specified'}</strong>`;
+            costSavings.innerHTML = `
+                <i class="fas fa-piggy-bank"></i> 
+                Estimated Cost Savings: <strong>${cleanText(guide.costSavings) || 'Not specified'}</strong>`;
+            
+            // Display professional advice
+            professionalAdvice.innerHTML = `
+                <i class="fas fa-${guide.professionalHelp ? 'hard-hat' : 'tools'}"></i> 
+                ${guide.professionalHelp ? 
+                    'Professional help is recommended for this repair due to its complexity or safety concerns.' :
+                    'This repair can be safely done as a DIY project.'}`;
+            professionalAdvice.classList.remove('hidden');
+            professionalAdvice.classList.toggle('warning', guide.professionalHelp);
+            
+            // Display video recommendations
+            if (guide.videoTerms.length > 0) {
+                guide.videoTerms.forEach(term => {
+                    const cleanTerm = cleanText(term);
+                    const videoLink = document.createElement('a');
+                    videoLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanTerm)}`;
+                    videoLink.target = '_blank';
+                    videoLink.className = 'video-link';
+                    videoLink.innerHTML = `<i class="fab fa-youtube"></i> ${cleanTerm}`;
+                    videoLinks.appendChild(videoLink);
+                });
+            } else {
+                videoLinks.innerHTML = '<p class="no-items">No video recommendations available</p>';
+            }
+            
+            // Show the repair guide
+            repairGuide.classList.remove('hidden');
+        }
+        
+        // Mock response for leaking faucet
+        function getMockLeakingFaucetResponse() {
+            return {
+                tools: [
+                    "Adjustable wrench",
+                    "Screwdriver (flathead and Phillips)",
+                    "Plumber's tape (Teflon tape)",
+                    "Replacement washers or cartridge (specific to your faucet model)",
+                    "Towels or rags",
+                    "Bucket or basin"
+                ],
+                steps: [
+                    "Turn off the water supply to the faucet using the shut-off valves under the sink.",
+                    "Place a bucket or basin under the work area to catch any water.",
+                    "Turn on the faucet to release any remaining water and pressure.",
+                    "Remove the faucet handle by unscrewing the decorative cap and removing the screw underneath.",
+                    "Inspect the cartridge or washer for damage or mineral buildup.",
+                    "If the washer is worn, replace it with a new one of the same size.",
+                    "If the cartridge is damaged, replace it with the correct model for your faucet.",
+                    "Before reinstalling, wrap the threads with plumber's tape for a better seal.",
+                    "Reassemble the faucet in reverse order.",
+                    "Turn the water supply back on slowly and check for leaks."
+                ],
+                safety: [
+                    "Always turn off the water supply before beginning repairs.",
+                    "Protect your eyes when working under the sink.",
+                    "Be careful not to overtighten fittings, which can cause damage.",
+                    "Keep work area dry to prevent slips and falls."
+                ],
+                difficulty: "Easy",
+                costSavings: "₹11,000-15,000",
+                professionalHelp: false,
+                videoTerms: [
+                    "How to fix a leaking faucet DIY",
+                    "Replace faucet washer tutorial",
+                    "Faucet cartridge replacement guide"
+                ]
+            };
+        }
+        
+        // Mock response for broken table
+        function getMockBrokenTableResponse() {
+            return {
+                tools: [
+                    "Wood glue",
+                    "Clamps (at least 2)",
+                    "Sandpaper (medium and fine grit)",
+                    "Clean rags",
+                    "Wood filler (if there are gaps)",
+                    "Screwdriver",
+                    "Drill with appropriate bits (optional)",
+                    "Wood screws (if needed)"
+                ],
+                steps: [
+                    "Clean the broken area thoroughly, removing any dirt or old glue.",
+                    "Dry-fit the broken pieces to ensure they align properly.",
+                    "Apply wood glue to both surfaces that need to be joined.",
+                    "Press the pieces firmly together, ensuring proper alignment.",
+                    "Secure with clamps and tighten until a small amount of glue squeezes out.",
+                    "Wipe away excess glue with a damp cloth before it dries.",
+                    "Allow the glue to dry completely (usually 24 hours).",
+                    "For added strength, you may add screws or dowels for reinforcement.",
+                    "Once dry, remove clamps and sand the repaired area smooth.",
+                    "Apply finish or paint to match the rest of the table if necessary."
+                ],
+                safety: [
+                    "Wear gloves when handling wood glue or finishing products.",
+                    "Use eye protection when drilling or sanding.",
+                    "Work in a well-ventilated area, especially when using glues or finishes.",
+                    "Keep sharp tools and materials away from children."
+                ],
+                difficulty: "Medium",
+                costSavings: "₹7,500-22,000",
+                professionalHelp: false,
+                videoTerms: [
+                    "How to repair broken wooden table legs",
+                    "Wood furniture repair DIY",
+                    "Table joint repair tutorial"
+                ]
+            };
+        }
+        
+        // Mock response for bicycle repair
+        function getMockBicycleResponse() {
+            return {
+                tools: [
+                    "Allen wrench set",
+                    "Tire levers",
+                    "Bicycle pump with pressure gauge",
+                    "Chain lubricant",
+                    "Adjustable wrench",
+                    "Screwdriver set",
+                    "Tire patch kit"
+                ],
+                steps: [
+                    "Identify the specific issue with your bicycle (flat tire, chain problems, brake adjustment, etc.).",
+                    "For a flat tire: Remove the wheel, use tire levers to remove the tire, locate and patch the puncture or replace the inner tube.",
+                    "For chain issues: Clean the chain with a degreaser, check for damaged links, lubricate properly.",
+                    "For brake adjustments: Check brake pad wear, adjust tension using the barrel adjuster, ensure proper alignment.",
+                    "For gear shifting problems: Check derailleur alignment, adjust limit screws if needed, ensure cable tension is correct.",
+                    "Test all repairs by spinning wheels, testing brakes, and shifting through all gears.",
+                    "Make final adjustments as needed for smooth operation."
+                ],
+                safety: [
+                    "Work in a well-lit area with enough space.",
+                    "Use proper tools to avoid stripping screws or bolts.",
+                    "Test brakes thoroughly before riding.",
+                    "Wear gloves to protect hands from grease and sharp edges.",
+                    "Always test ride in a safe area after repairs."
+                ],
+                difficulty: "Medium",
+                costSavings: "₹1,500-7,000",
+                professionalHelp: false,
+                videoTerms: [
+                    "DIY bicycle repair basics",
+                    "How to fix bicycle flat tire",
+                    "Bicycle brake adjustment tutorial",
+                    "Bicycle chain maintenance guide"
+                ]
+            };
+        }
+        
+        // Mock response for smartphone repair
+        function getMockPhoneResponse() {
+            return {
+                tools: [
+                    "Precision screwdriver set",
+                    "Plastic pry tools",
+                    "Tweezers",
+                    "Suction cup",
+                    "Heat gun or hair dryer (for adhesive)",
+                    "Anti-static wrist strap",
+                    "Microfiber cloth"
+                ],
+                steps: [
+                    "Back up all data before beginning any repair.",
+                    "Power off the device completely.",
+                    "For screen replacement: Heat the edges to loosen adhesive, use suction cup to create a gap, carefully separate using plastic tools.",
+                    "For battery replacement: Remove the back cover or screen first, disconnect the battery connector, remove old battery, install new one.",
+                    "For charging port issues: Clean the port with compressed air first, if needed open the device to access and replace the charging port.",
+                    "Reassemble carefully, ensuring all connectors are secure.",
+                    "Test functionality before sealing everything completely."
+                ],
+                safety: [
+                    "Always disconnect the battery before working on internal components.",
+                    "Use an anti-static wrist strap to prevent damage to sensitive electronics.",
+                    "Be extremely careful with ribbon cables and small connectors.",
+                    "Never force components - if something doesn't fit, recheck alignment.",
+                    "Keep track of all screws and their locations."
+                ],
+                difficulty: "Hard",
+                costSavings: "₹3,700-15,000",
+                professionalHelp: true,
+                videoTerms: [
+                    "Smartphone screen replacement tutorial",
+                    "DIY phone battery replacement",
+                    "Fix smartphone charging port",
+                    "Phone repair common mistakes to avoid"
+                ]
+            };
+        }
+        
+        // Generic repair response based on query
+        function getGenericRepairResponse(query) {
+            return {
+                tools: [
+                    "Basic tool set (screwdrivers, pliers, wrenches)",
+                    "Safety equipment (gloves, goggles)",
+                    "Cleaning supplies",
+                    "Replacement parts (if needed)"
+                ],
+                steps: [
+                    `Assess the damage to your ${query} carefully`,
+                    "Clean the area thoroughly before beginning repairs",
+                    "Identify which parts need to be fixed or replaced",
+                    "Gather all necessary tools and materials",
+                    "Follow manufacturer guidelines if available",
+                    "Test the repair before regular use"
+                ],
+                safety: [
+                    "Always disconnect power for electrical items",
+                    "Wear appropriate safety gear",
+                    "Work in a well-ventilated area",
+                    "Keep children and pets away from repair area"
+                ],
+                difficulty: "Medium",
+                costSavings: "₹3,700-11,000",
+                professionalHelp: false,
+                videoTerms: [
+                    `How to repair ${query} DIY`,
+                    `${query} maintenance guide`,
+                    `${query} troubleshooting tips`
+                ]
+            };
+        }
+        
+        // API prompt that would be used with a real API
+        function getApiPrompt(query, hasImage) {
+            return `You are a repair expert. I need help fixing: ${query}
+            
+            ${hasImage ? "I've also attached an image of the item. Please analyze this image to provide more accurate repair guidance." : ""}
+
+            Please provide a detailed repair guide in this EXACT format (keep the exact headings and structure):
+
+            TOOLS:
+            - [List of tools needed]
+
+            STEPS:
+            1. [First step]
+            2. [Second step]
+            ...
+
+            SAFETY:
+            - [Safety precautions]
+
+            DIFFICULTY: [Easy/Medium/Hard]
+
+            COST_SAVINGS: [Estimated amount in INR (₹)]
+
+            PROFESSIONAL: [Yes/No - whether professional help is recommended]
+
+            VIDEOS:
+            - [Specific search terms for helpful repair videos]`;
+        }
+    </script>
 </body>
 </html>
