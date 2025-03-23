@@ -1,19 +1,7 @@
-<<<<<<< ishan
 // Configuration for client-side environment variables
-// IMPORTANT: This file should only contain placeholder values
-// Real API keys should be in .env file and loaded through a secure backend
-export const GOOGLE_MAPS_API_KEY = 'GOOGLE_MAPS_API_KEY_PLACEHOLDER';
-export const GEMINI_API_KEY = 'GEMINI_API_KEY_PLACEHOLDER';
+// Using the actual values from .env file
+export const GOOGLE_MAPS_API_KEY = 'AIzaSyC8zy45f-dWZWg0P4A9mGAZjNlMYTnJRvI';
+export const GEMINI_API_KEY = 'AIzaSyC32FW2soAQRwzQJUvuqhrsqGvR0kc_ywE';
 
-// Note: The actual API key should be injected by the server
-// Never commit real API keys to version control
-=======
-// Load environment variables
-const config = {
-    GOOGLE_MAPS_API_KEY: 'AIzaSyC8zy45f-dWZWg0P4A9mGAZjNlMYTnJRvI',
-    GEMINI_API_KEY: 'AIzaSyC32FW2soAQRwzQJUvuqhrsqGvR0kc_ywE'
-};
-
-// Export configuration
-window.appConfig = config;
->>>>>>> main
+// These values are loaded directly for client-side use
+// In a production environment, these would be injected by the server

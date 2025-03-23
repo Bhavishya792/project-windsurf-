@@ -21,7 +21,7 @@
             <a href="index.html">Home</a>
             <a href="fiy.html">FIY</a>
             <a href="volunteer.html" class="active">Volunteer</a>
-            <a href="#">Guide</a>
+            <a href="guide.html">Guide</a>
             <a href="#" class="accessibility-link">Accessibility Info</a>
         </div>
         <div class="nav-right">
@@ -64,15 +64,11 @@
                 <h2><i class="fas fa-hand-holding-heart"></i> Ways to Volunteer</h2>
                 <p>Find the perfect opportunity that matches your skills and availability</p>
                 <div class="search-container">
-                    <div class="search-bar">
-                        <input type="text" id="volunteerSearch" placeholder="Search for volunteer opportunities...">
-                        <button type="button" id="searchBtn">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    <button class="create-event-btn" id="createEventBtn">
-                        <i class="fas fa-plus"></i> Create Event
-                    </button>
+                    <input type="text" placeholder="Search volunteer opportunities" id="volunteerSearch">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-options">
+                    <button class="create-event-btn" id="createEventBtn" onclick="document.getElementById('createEventModal').style.display = 'flex'; document.getElementById('createEventModal').classList.add('active');" style="background-color: #4CAF50; color: white; padding: 10px 15px; font-weight: bold; border-radius: 5px; border: none; cursor: pointer; font-size: 16px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"><i class="fas fa-plus"></i> Create Event</button>
                 </div>
             </div>
             <div class="volunteer-cards">
@@ -274,7 +270,8 @@
                     </div>
                     <button class="filter-btn">Apply Filters</button>
                 </div>
-                <div id="volunteerMap" class="map-view"></div>
+                <div id="map" class="event-map"></div>
+                <div style="clear: both; height: 150px;"></div>
             </div>
         </section>
 
@@ -477,87 +474,116 @@
 
     <!-- Create Event Modal -->
     <div class="modal" id="createEventModal">
-        <div class="modal-content">
+        <div class="modal-content event-create-modal">
             <button class="close-btn"><i class="fas fa-times"></i></button>
             <h2>Create New Volunteer Event</h2>
+            
             <form id="createEventForm">
-                <div class="form-group">
-                    <label for="eventTitle">Event Title</label>
-                    <input type="text" id="eventTitle" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventCategory">Category</label>
-                    <select id="eventCategory" required>
-                        <option value="Environmental">Environmental</option>
-                        <option value="Conservation">Conservation</option>
-                        <option value="Education">Education</option>
-                        <option value="Community">Community</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventDifficulty">Difficulty Level</label>
-                    <select id="eventDifficulty" required>
-                        <option value="Beginner-Friendly">Beginner-Friendly</option>
-                        <option value="Moderate">Moderate</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventType">Event Type</label>
-                    <select id="eventType" required>
-                        <option value="Indoor">Indoor</option>
-                        <option value="Outdoor">Outdoor</option>
-                        <option value="Hybrid">Hybrid</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventCommitment">Commitment</label>
-                    <select id="eventCommitment" required>
-                        <option value="One-time">One-time</option>
-                        <option value="Weekly">Weekly</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Recurring">Recurring</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventLocation">Location</label>
-                    <input type="text" id="eventLocation" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventDate">Date</label>
-                    <input type="date" id="eventDate" required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="eventStartTime">Start Time</label>
-                        <input type="time" id="eventStartTime" required>
+                <div class="form-content">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" required>
                     </div>
-                    <div class="form-group half">
-                        <label for="eventEndTime">End Time</label>
-                        <input type="time" id="eventEndTime" required>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="eventCategory">Category</label>
+                            <select id="eventCategory" required>
+                                <option value="Environmental">Environmental</option>
+                                <option value="Conservation">Conservation</option>
+                                <option value="Education">Education</option>
+                                <option value="Community">Community</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="eventDifficulty">Difficulty Level</label>
+                            <select id="eventDifficulty" required>
+                                <option value="Beginner-Friendly">Beginner-Friendly</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="eventType">Event Type</label>
+                            <select id="eventType" required>
+                                <option value="Indoor">Indoor</option>
+                                <option value="Outdoor">Outdoor</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="eventCommitment">Commitment</label>
+                            <select id="eventCommitment" required>
+                                <option value="One-time">One-time</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Recurring">Recurring</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="eventDate">Date</label>
+                            <input type="date" id="eventDate" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="eventSpots">Available Spots</label>
+                            <input type="number" id="eventSpots" min="1" value="10" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="eventStartTime">Start Time</label>
+                            <input type="time" id="eventStartTime" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="eventEndTime">End Time</label>
+                            <input type="time" id="eventEndTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventImage">Event Image</label>
+                        <input type="file" id="eventImage" accept="image/*">
+                        <div class="image-preview" id="imagePreview">
+                            <img src="#" alt="Image Preview" id="previewImg" style="display: none; max-width: 100%; max-height: 200px;">
+                            <p class="preview-text">No image selected</p>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="eventDescription">Description</label>
-                    <textarea id="eventDescription" rows="4" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="eventSpots">Available Spots</label>
-                    <input type="number" id="eventSpots" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventImage">Event Image URL</label>
-                    <input type="url" id="eventImage" placeholder="https://example.com/image.jpg" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="submit-btn">Create Event</button>
-                    <button type="button" class="cancel-btn">Cancel</button>
+                
+                <!-- Form Controls -->
+                <div class="form-footer">
+                    <div class="button-group">
+                        <button type="button" class="btn btn-cancel" id="cancelBtn" onclick="
+                            const modal = document.getElementById('createEventModal');
+                            if (modal) {
+                                modal.style.display = 'none';
+                                modal.classList.remove('active');
+                            }
+                        ">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-submit" id="submitBtn" onclick="createAndAddEvent()" style="background-color: #4CAF50; color: white; padding: 10px 15px; font-weight: bold; border-radius: 5px; border: none; cursor: pointer; font-size: 16px; margin-left: 10px; display: inline-block !important;">
+                            <i class="fas fa-plus-circle"></i>
+                            Submit Event
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-
+    
     <!-- Calendar Modal -->
     <div id="calendarModal" class="calendar-modal">
         <div class="calendar-container">
@@ -605,22 +631,220 @@
         </div>
     </footer>
 
-    <script type="module" src="volunteer.js"></script>
-    <script type="module">
-        import { GOOGLE_MAPS_API_KEY } from './config.js';
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="volunteer.js"></script>
+    
+    <!-- Directly initialize the map without conflicting with other scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Adding volunteer map initialization');
+            
+            // Create a script tag for Google Maps API
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC8zy45f-dWZWg0P4A9mGAZjNlMYTnJRvI&callback=volunteerInitMap';
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        });
         
-        // Set up Google Maps API with key from config
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
-        script.async = true;
-        script.defer = true;
-        document.head.appendChild(script);
-        
-        window.initMap = function() {
-            // This function will be called by the Google Maps API script
-            const event = new Event('google-maps-loaded');
-            window.dispatchEvent(event);
+        // Map initialization function
+        window.volunteerInitMap = function() {
+            console.log('Volunteer map initialization started');
+            const mapElement = document.getElementById('map');
+            
+            if (!mapElement) {
+                console.error('Map element not found on volunteer page');
+                return;
+            }
+            
+            console.log('Creating map on element:', mapElement);
+            
+            // Initialize the map
+            const map = new google.maps.Map(mapElement, {
+                center: { lat: 39.8283, lng: -98.5795 },
+                zoom: 4,
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"color": "#444444"}]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [{"color": "#f2f2f2"}]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [{"saturation": -100}, {"lightness": 45}]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [{"color": "#c1e0e0"}, {"visibility": "on"}]
+                    }
+                ]
+            });
+            
+            // Sample volunteer event locations
+            const volunteerLocations = [
+                { lat: 40.7128, lng: -74.0060, title: 'NYC Community Garden', type: 'Community' },
+                { lat: 34.0522, lng: -118.2437, title: 'LA Beach Clean-up', type: 'Clean-up' },
+                { lat: 41.8781, lng: -87.6298, title: 'Chicago Tree Planting', type: 'Planting' },
+                { lat: 29.7604, lng: -95.3698, title: 'Houston Conservation Project', type: 'Conservation' },
+                { lat: 33.4484, lng: -112.0740, title: 'Phoenix Environmental Education', type: 'Education' }
+            ];
+            
+            // Add markers for volunteer events
+            volunteerLocations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.title
+                });
+                
+                // Add click event for markers
+                marker.addListener('click', () => {
+                    alert(`Event: ${location.title}\nType: ${location.type}\nClick on 'Sign Up' in the events list to register!`);
+                });
+            });
+            
+            console.log('Volunteer map initialized successfully');
         };
+    </script>
+    <script type="module" src="script.js"></script>
+    
+    <script>
+        // Function to create and add a new event
+        function createAndAddEvent() {
+            console.log('Create and add event function called');
+            
+            // Get form values
+            const title = document.getElementById('eventTitle').value || 'New Event';
+            const category = document.getElementById('eventCategory').value || 'Environmental';
+            const difficulty = document.getElementById('eventDifficulty').value || 'Beginner-Friendly';
+            const type = document.getElementById('eventType').value || 'Outdoor';
+            const commitment = document.getElementById('eventCommitment').value || 'One-time';
+            const location = document.getElementById('eventLocation').value || 'Local Area';
+            const date = document.getElementById('eventDate').value || 'Upcoming';
+            const startTime = document.getElementById('eventStartTime').value || '9:00 AM';
+            const endTime = document.getElementById('eventEndTime').value || '5:00 PM';
+            const description = document.getElementById('eventDescription').value || 'Join this exciting environmental event.';
+            const spots = document.getElementById('eventSpots').value || '10';
+            
+            // Find the volunteer cards container
+            const cardsContainer = document.querySelector('.volunteer-cards');
+            if (!cardsContainer) {
+                alert('Error: Cannot find the volunteer cards container');
+                return;
+            }
+            
+            // Generate a unique title with timestamp
+            const timestamp = new Date().toLocaleTimeString();
+            const uniqueTitle = title + ' (' + timestamp + ')';
+            
+            // Create the new card HTML using concatenation instead of template literals
+            const newCardHTML = '<div class="volunteer-card">' +
+                '<div class="card-image" style="background-image: url(\'assets/default-event.jpg\')"></div>' +
+                '<div class="card-content">' +
+                    '<h3>' + uniqueTitle + '</h3>' +
+                    '<div class="tag-container">' +
+                        '<span class="tag category">' + category + '</span>' +
+                        '<span class="tag difficulty">' + difficulty + '</span>' +
+                        '<span class="tag type">' + type + '</span>' +
+                        '<span class="tag commitment">' + commitment + '</span>' +
+                    '</div>' +
+                    '<div class="event-details">' +
+                        '<div class="detail-item">' +
+                            '<i class="fas fa-map-marker-alt"></i>' +
+                            '<span>' + location + '</span>' +
+                        '</div>' +
+                        '<div class="detail-item">' +
+                            '<i class="far fa-calendar-alt"></i>' +
+                            '<span>' + date + '</span>' +
+                        '</div>' +
+                        '<div class="detail-item">' +
+                            '<i class="far fa-clock"></i>' +
+                            '<span>' + startTime + ' - ' + endTime + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<p class="description">' + description + '</p>' +
+                    '<div class="card-footer">' +
+                        '<div class="spots-left">' +
+                            '<i class="fas fa-users"></i>' +
+                            '<span>' + spots + ' spots left</span>' +
+                        '</div>' +
+                        '<button class="sign-up-btn" data-signed-up="false">' +
+                            '<i class="fas fa-hand-paper"></i>' +
+                            '<span class="btn-text">Sign Up</span>' +
+                        '</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+            
+            // Insert the new card at the beginning
+            cardsContainer.insertAdjacentHTML('afterbegin', newCardHTML);
+            
+            // Close the modal
+            const modal = document.getElementById('createEventModal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            }
+            
+            // Reset the form
+            const form = document.getElementById('createEventForm');
+            if (form) {
+                form.reset();
+            }
+            
+            // Reset image preview if present
+            const previewImg = document.getElementById('previewImg');
+            const previewText = document.querySelector('.preview-text');
+            if (previewImg) {
+                previewImg.style.display = 'none';
+                previewImg.src = '#';
+            }
+            if (previewText) {
+                previewText.style.display = 'block';
+            }
+            
+            // Show success message
+            alert('Event successfully added to the volunteer page!');
+        }
+    
+        // Direct initialization when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Create Event button
+            const createEventBtn = document.getElementById('createEventBtn');
+            const createEventModal = document.getElementById('createEventModal');
+            
+            if (createEventBtn && createEventModal) {
+                console.log('Found button and modal, attaching event');
+                createEventBtn.addEventListener('click', function() {
+                    console.log('Button clicked!');
+                    createEventModal.style.display = 'flex';
+                    createEventModal.classList.add('active');
+                });
+                
+                // Close buttons
+                const closeButtons = document.querySelectorAll('.close-btn');
+                closeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        createEventModal.style.display = 'none';
+                        createEventModal.classList.remove('active');
+                    });
+                });
+            } else {
+                console.error('Could not find button or modal');
+            }
+        });
     </script>
 </body>
 </html>
