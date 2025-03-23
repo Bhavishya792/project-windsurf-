@@ -297,6 +297,7 @@ nav {
 
 .tip-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .tip-card .card-image {
@@ -348,6 +349,45 @@ nav {
 
 .see-more:hover {
     color: #219a52;
+}
+
+.highlight-card {
+    border: 2px solid var(--primary-color);
+    background: linear-gradient(to bottom right, #ffffff, #f1f8e9);
+    position: relative;
+    overflow: hidden;
+}
+
+.highlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 40px 40px 0;
+    border-color: transparent var(--primary-color) transparent transparent;
+}
+
+.highlight-card h3 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.highlight-card .see-more {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.highlight-card .see-more:hover {
+    background-color: var(--secondary-color);
 }
 
 /* Locations Section */
@@ -2537,62 +2577,6 @@ button.loading .button-text {
     font-size: 1rem;
     cursor: pointer;
     display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
-}
-
-.form-controls .primary-btn {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-}
-
-.form-controls .secondary-btn {
-    background: #f0f0f0;
-    color: var(--text-color);
-    border: 1px solid #ddd;
-}
-
-.form-controls .primary-btn:hover {
-    background: #219a52;
-}
-
-.form-controls .secondary-btn:hover {
-    background: #e4e4e4;
-}
-
-/* Modal content scrolling */
-.modal-content {
-    max-height: 90vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-content {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 1rem;
-    margin-bottom: 1rem;
-}
-
-/* Form control buttons */
-.form-controls {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #eee;
-}
-
-.form-controls button {
-    padding: 0.8rem 1.5rem;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
     align-items: center;
     gap: 0.5rem;
     transition: all 0.3s ease;
