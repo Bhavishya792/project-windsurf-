@@ -3,6 +3,7 @@ import { initializeCalendar } from './js/calendar.js';
 
 // Configuration import
 import { GOOGLE_MAPS_API_KEY } from './config.js';
+import { analyzeImage } from './gemini-service.js';
 
 // DOM Elements
 const cameraBtn = document.getElementById('cameraBtn');
@@ -564,7 +565,7 @@ function closeModal(modal) {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize calendar from the shared module
     initializeCalendar();
-    
+
     // Load profile data
     loadProfileData();
     
@@ -681,6 +682,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Load Google Maps API
     loadGoogleMapsAPI();
+    
+    // Initialize camera button functionality
+    initCameraButton();
 });
 
 // Load profile data from localStorage
@@ -867,4 +871,308 @@ function initializeImageUpload() {
             }
         });
     }
+}
+
+// Function to initialize camera button functionality
+function initCameraButton() {
+    const cameraBtn = document.getElementById('cameraBtn');
+    const productAnalysisModal = document.getElementById('productAnalysisModal');
+    const uploadArea = document.getElementById('uploadArea');
+    const productImageInput = document.getElementById('productImageInput');
+    const productImagePreview = document.getElementById('productImagePreview');
+    const analyzeProductBtn = document.getElementById('analyzeProductBtn');
+    const resetImageBtn = document.getElementById('resetImageBtn');
+    const analysisLoadingIndicator = document.getElementById('analysisLoadingIndicator');
+    const analysisErrorMessage = document.getElementById('analysisErrorMessage');
+    const productAnalysisResults = document.getElementById('productAnalysisResults');
+    
+    // Make sure all required elements exist
+    if (!cameraBtn || !productAnalysisModal) return;
+    
+    // Open the camera modal when the floating button is clicked
+    cameraBtn.addEventListener('click', () => {
+        openModal(productAnalysisModal);
+    });
+    
+    // Handle image upload area click
+    if (uploadArea && productImageInput) {
+        uploadArea.addEventListener('click', () => {
+            productImageInput.click();
+        });
+        
+        // Handle drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            
+            if (e.dataTransfer.files.length) {
+                productImageInput.files = e.dataTransfer.files;
+                handleProductImageSelect(e.dataTransfer.files[0]);
+            }
+        });
+    }
+    
+    // Handle image selection
+    if (productImageInput) {
+        productImageInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleProductImageSelect(e.target.files[0]);
+            }
+        });
+    }
+    
+    // Handle analyze button click
+    if (analyzeProductBtn) {
+        analyzeProductBtn.addEventListener('click', async () => {
+            await analyzeProductImage();
+        });
+    }
+    
+    // Handle reset button click
+    if (resetImageBtn) {
+        resetImageBtn.addEventListener('click', () => {
+            resetProductAnalysis();
+        });
+    }
+}
+
+// Function to handle product image selection
+function handleProductImageSelect(file) {
+    const productImagePreview = document.getElementById('productImagePreview');
+    const analyzeProductBtn = document.getElementById('analyzeProductBtn');
+    const productAnalysisResults = document.getElementById('productAnalysisResults');
+    const analysisErrorMessage = document.getElementById('analysisErrorMessage');
+    
+    if (!file || !productImagePreview || !analyzeProductBtn) return;
+    
+    // Hide any previous results or errors
+    if (productAnalysisResults) productAnalysisResults.classList.remove('visible');
+    if (analysisErrorMessage) analysisErrorMessage.classList.remove('visible');
+    
+    // Create file reader to display image preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        productImagePreview.innerHTML = `<img src="${e.target.result}" alt="Product preview">`;
+        // Enable analyze button
+        analyzeProductBtn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+}
+
+// Function to analyze product image using Gemini API
+async function analyzeProductImage() {
+    const productImageInput = document.getElementById('productImageInput');
+    const analysisLoadingIndicator = document.getElementById('analysisLoadingIndicator');
+    const analysisErrorMessage = document.getElementById('analysisErrorMessage');
+    const productAnalysisResults = document.getElementById('productAnalysisResults');
+    const analyzeProductBtn = document.getElementById('analyzeProductBtn');
+    
+    if (!productImageInput || !productImageInput.files || !productImageInput.files[0]) {
+        console.error('No image selected');
+        return;
+    }
+    
+    // Show loading indicator
+    if (analysisLoadingIndicator) analysisLoadingIndicator.classList.add('visible');
+    if (analyzeProductBtn) analyzeProductBtn.disabled = true;
+    
+    // Hide any previous results or errors
+    if (productAnalysisResults) productAnalysisResults.classList.remove('visible');
+    if (analysisErrorMessage) analysisErrorMessage.classList.remove('visible');
+    
+    try {
+        // Convert image to base64
+        const file = productImageInput.files[0];
+        const base64Image = await getBase64Image(file);
+        
+        // Send image to Gemini API
+        const analysisResult = await analyzeImage(base64Image);
+        
+        // Display results
+        displayProductAnalysis(analysisResult);
+    } catch (error) {
+        console.error('Error analyzing product image:', error);
+        
+        // Show error message
+        if (analysisErrorMessage) {
+            analysisErrorMessage.textContent = error.message || 'An error occurred while analyzing your image. Please try again.';
+            analysisErrorMessage.classList.add('visible');
+        }
+    } finally {
+        // Hide loading indicator
+        if (analysisLoadingIndicator) analysisLoadingIndicator.classList.remove('visible');
+        if (analyzeProductBtn) analyzeProductBtn.disabled = false;
+    }
+}
+
+// Function to convert image to base64
+function getBase64Image(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            // Extract the base64 string (remove the data:image/jpeg;base64, part)
+            const base64String = reader.result.split(',')[1];
+            resolve(base64String);
+        };
+        reader.onerror = error => reject(error);
+    });
+}
+
+// Function to display product analysis results
+function displayProductAnalysis(analysisResult) {
+    const productAnalysisResults = document.getElementById('productAnalysisResults');
+    const productDescription = document.getElementById('productDescription');
+    const productMaterials = document.getElementById('productMaterials');
+    const recyclingSteps = document.getElementById('recyclingSteps');
+    const energySavings = document.getElementById('energySavings');
+    const costSavings = document.getElementById('costSavings');
+    const environmentalImpact = document.getElementById('environmentalImpact');
+    
+    if (!productAnalysisResults || !analysisResult) return;
+    
+    // Parse the result - assuming it has clear sections
+    try {
+        const result = parseProductAnalysisResult(analysisResult);
+        
+        // Update UI with parsed result
+        if (productDescription) productDescription.textContent = result.description || 'No description available';
+        if (productMaterials) productMaterials.textContent = result.materials || 'Materials information not available';
+        
+        // Clear and update recycling steps
+        if (recyclingSteps) {
+            recyclingSteps.innerHTML = '';
+            if (result.recyclingSteps && result.recyclingSteps.length) {
+                result.recyclingSteps.forEach(step => {
+                    const li = document.createElement('li');
+                    li.textContent = step;
+                    recyclingSteps.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = 'No specific recycling steps available for this product.';
+                recyclingSteps.appendChild(li);
+            }
+        }
+        
+        // Update savings indicators
+        if (energySavings) energySavings.textContent = result.energySavings || 'Not available';
+        if (costSavings) costSavings.textContent = result.costSavings || 'Not available';
+        if (environmentalImpact) environmentalImpact.textContent = result.environmentalImpact || 'Not available';
+        
+        // Show the results
+        productAnalysisResults.classList.add('visible');
+    } catch (error) {
+        console.error('Error parsing analysis result:', error);
+        
+        // Show a simple version with the raw text
+        if (productDescription) {
+            productDescription.textContent = 'The analysis returned unstructured data.';
+            
+            // Just append the raw text as fallback
+            const rawDiv = document.createElement('div');
+            rawDiv.classList.add('raw-analysis');
+            rawDiv.innerHTML = `<h4>Raw Analysis</h4><p>${analysisResult}</p>`;
+            productDescription.appendChild(rawDiv);
+        }
+        
+        productAnalysisResults.classList.add('visible');
+    }
+}
+
+// Function to parse product analysis result
+function parseProductAnalysisResult(analysisText) {
+    // Default result structure
+    const result = {
+        description: '',
+        materials: '',
+        recyclingSteps: [],
+        energySavings: '',
+        costSavings: '',
+        environmentalImpact: ''
+    };
+    
+    try {
+        // Try to extract sections based on standard headings
+        const descriptionMatch = analysisText.match(/Product Description:?([\s\S]*?)(?=Materials|Recycling Guide|$)/i);
+        if (descriptionMatch && descriptionMatch[1]) {
+            result.description = descriptionMatch[1].trim();
+        }
+        
+        const materialsMatch = analysisText.match(/Materials:?([\s\S]*?)(?=Recycling Guide|Energy Savings|$)/i);
+        if (materialsMatch && materialsMatch[1]) {
+            result.materials = materialsMatch[1].trim();
+        }
+        
+        // Extract recycling steps
+        const recyclingMatch = analysisText.match(/Recycling Guide:?([\s\S]*?)(?=Energy Savings|Cost Savings|Environmental Impact|$)/i);
+        if (recyclingMatch && recyclingMatch[1]) {
+            // Try to extract numbered steps (1. Step one, 2. Step two, etc.)
+            const stepsText = recyclingMatch[1].trim();
+            const stepsMatches = stepsText.match(/\d+\.\s+([^\d\n]+)/g);
+            
+            if (stepsMatches && stepsMatches.length) {
+                result.recyclingSteps = stepsMatches.map(step => step.replace(/^\d+\.\s+/, '').trim());
+            } else {
+                // If no numbered steps, just split by newlines
+                result.recyclingSteps = stepsText.split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line.length > 0);
+            }
+        }
+        
+        // Extract energy savings
+        const energyMatch = analysisText.match(/Energy Savings:?([\s\S]*?)(?=Cost Savings|Environmental Impact|$)/i);
+        if (energyMatch && energyMatch[1]) {
+            result.energySavings = energyMatch[1].trim();
+        }
+        
+        // Extract cost savings
+        const costMatch = analysisText.match(/Cost Savings:?([\s\S]*?)(?=Environmental Impact|$)/i);
+        if (costMatch && costMatch[1]) {
+            result.costSavings = costMatch[1].trim();
+        }
+        
+        // Extract environmental impact
+        const environmentalMatch = analysisText.match(/Environmental Impact:?([\s\S]*?)(?=$)/i);
+        if (environmentalMatch && environmentalMatch[1]) {
+            result.environmentalImpact = environmentalMatch[1].trim();
+        }
+        
+        return result;
+    } catch (error) {
+        console.error('Error parsing analysis text:', error);
+        return result;
+    }
+}
+
+// Function to reset product analysis
+function resetProductAnalysis() {
+    const productImageInput = document.getElementById('productImageInput');
+    const productImagePreview = document.getElementById('productImagePreview');
+    const analyzeProductBtn = document.getElementById('analyzeProductBtn');
+    const productAnalysisResults = document.getElementById('productAnalysisResults');
+    const analysisErrorMessage = document.getElementById('analysisErrorMessage');
+    
+    // Clear file input
+    if (productImageInput) productImageInput.value = '';
+    
+    // Clear image preview
+    if (productImagePreview) productImagePreview.innerHTML = '';
+    
+    // Disable analyze button
+    if (analyzeProductBtn) analyzeProductBtn.disabled = true;
+    
+    // Hide results and errors
+    if (productAnalysisResults) productAnalysisResults.classList.remove('visible');
+    if (analysisErrorMessage) analysisErrorMessage.classList.remove('visible');
 }
