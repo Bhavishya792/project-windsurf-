@@ -7,54 +7,11 @@
     <title>EcoRise - Environmental Awareness</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/calendar.css">
-    <link rel="stylesheet" href="css/camera-analysis.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- FullCalendar CSS -->
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet' />
-    <style>
-        /* Critical modal fixes - matches original implementation */
-        .modal {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .modal.active {
-            opacity: 1;
-        }
-        
-        /* Profile modal specific fixes */
-        #profileModal .profile-tabs {
-            display: flex;
-            border-bottom: 1px solid #e0e0e0;
-            margin-top: 20px;
-        }
-        
-        #profileModal .profile-tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        #profileModal .profile-tab.active {
-            color: #4CAF50;
-            border-bottom: 2px solid #4CAF50;
-        }
-        
-        #profileModal .tab-content {
-            padding: 20px 0;
-        }
-        
-        #profileModal .tab-pane {
-            display: none;
-        }
-        
-        #profileModal .tab-pane.active {
-            display: block;
-        }
-    </style>
 </head>
 
 <body>
@@ -102,7 +59,7 @@
             </div>
         </section>
 
-        <button class="floating-camera-btn" id="cameraBtn" onclick="openCameraModal()">
+        <button class="floating-camera-btn" id="cameraBtn">
             <i class="fas fa-camera"></i>
         </button>
 
@@ -761,182 +718,71 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Profile Tabs Navigation -->
             <div class="profile-tabs">
-                <div class="profile-tab active" data-tab="profileInfo">Personal Info</div>
-                <div class="profile-tab" data-tab="profileActivity">Activity</div>
-                <div class="profile-tab" data-tab="profileBadges">Badges</div>
-                <div class="profile-tab" data-tab="profileSettings">Settings</div>
+                <button class="tab-btn active" data-tab="activities">Activities</button>
+                <button class="tab-btn" data-tab="badges">Badges</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
             </div>
-            
-            <!-- Tab Content -->
-            <div class="tab-content">
-                <!-- Personal Info Tab -->
-                <div id="profileInfo" class="tab-pane active">
-                    <div class="personal-info-section">
-                        <h3>Personal Information</h3>
-                        <div class="info-item">
-                            <span class="info-label">Full Name:</span>
-                            <span class="info-value">John Doe</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Email:</span>
-                            <span class="info-value">john.doe@example.com</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Location:</span>
-                            <span class="info-value">Mumbai, India</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Member Since:</span>
-                            <span class="info-value">January 2024</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Interests:</span>
-                            <span class="info-value">
-                                <span class="tag">Recycling</span>
-                                <span class="tag">Conservation</span>
-                                <span class="tag">Sustainable Living</span>
-                            </span>
-                        </div>
-                        <button class="edit-info-btn primary-btn">Edit Profile</button>
-                    </div>
-                </div>
-                
-                <!-- Activity Tab -->
-                <div id="profileActivity" class="tab-pane">
-                    <div class="activity-section">
-                        <h3>Recent Activity</h3>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fas fa-calendar-check"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <h4>Attended Beach Cleanup</h4>
-                                    <p>Juhu Beach, Mumbai</p>
-                                    <p class="activity-date">March 15, 2025</p>
-                                </div>
-                                <div class="activity-points">+20 points</div>
+            <div class="profile-content">
+                <div class="tab-content active" id="activities">
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-leaf activity-icon"></i>
+                            <div class="activity-details">
+                                <h4>Started a recycling campaign</h4>
+                                <p>Collected 50kg of recyclable materials</p>
+                                <span class="activity-date">March 15, 2025</span>
                             </div>
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fas fa-seedling"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <h4>Planted 5 Trees</h4>
-                                    <p>Aarey Colony, Mumbai</p>
-                                    <p class="activity-date">February 28, 2025</p>
-                                </div>
-                                <div class="activity-points">+50 points</div>
+                            <span class="points">+30 pts</span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-tree activity-icon"></i>
+                            <div class="activity-details">
+                                <h4>Planted Trees</h4>
+                                <p>Contributed to local park restoration</p>
+                                <span class="activity-date">March 10, 2025</span>
                             </div>
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fas fa-recycle"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <h4>Recycled 10kg of Plastic</h4>
-                                    <p>Local Recycling Center</p>
-                                    <p class="activity-date">February 10, 2025</p>
-                                </div>
-                                <div class="activity-points">+15 points</div>
-                            </div>
+                            <span class="points">+50 pts</span>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Badges Tab -->
-                <div id="profileBadges" class="tab-pane">
-                    <div class="badges-section">
-                        <h3>Your Badges</h3>
-                        <div class="badges-grid">
-                            <div class="badge-item">
-                                <div class="badge-icon">
-                                    <i class="fas fa-award"></i>
-                                </div>
-                                <div class="badge-name">First Volunteer</div>
-                                <div class="badge-desc">Participated in your first volunteer event</div>
-                            </div>
-                            <div class="badge-item">
-                                <div class="badge-icon">
-                                    <i class="fas fa-tree"></i>
-                                </div>
-                                <div class="badge-name">Tree Planter</div>
-                                <div class="badge-desc">Planted at least 5 trees</div>
-                            </div>
-                            <div class="badge-item">
-                                <div class="badge-icon">
-                                    <i class="fas fa-water"></i>
-                                </div>
-                                <div class="badge-name">Beach Guardian</div>
-                                <div class="badge-desc">Participated in 3+ beach cleanups</div>
-                            </div>
-                            <div class="badge-item">
-                                <div class="badge-icon">
-                                    <i class="fas fa-recycle"></i>
-                                </div>
-                                <div class="badge-name">Recycling Hero</div>
-                                <div class="badge-desc">Recycled over 50kg of materials</div>
-                            </div>
-                            <div class="badge-item">
-                                <div class="badge-icon">
-                                    <i class="fas fa-lightbulb"></i>
-                                </div>
-                                <div class="badge-name">Energy Saver</div>
-                                <div class="badge-desc">Reduced carbon footprint by 10%</div>
-                            </div>
+                <div class="tab-content" id="badges">
+                    <div class="badges-grid">
+                        <div class="badge">
+                            <i class="fas fa-seedling"></i>
+                            <span>Green Thumb</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-recycle"></i>
+                            <span>Recycling Pro</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-solar-panel"></i>
+                            <span>Energy Saver</span>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Settings Tab -->
-                <div id="profileSettings" class="tab-pane">
-                    <div class="settings-section">
-                        <h3>Account Settings</h3>
-                        <div class="settings-group">
-                            <h4>Notification Preferences</h4>
-                            <div class="setting-item">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <div class="setting-label">Email Notifications</div>
-                            </div>
-                            <div class="setting-item">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <div class="setting-label">Event Reminders</div>
-                            </div>
-                            <div class="setting-item">
-                                <label class="toggle-switch">
-                                    <input type="checkbox">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <div class="setting-label">Weekly Newsletter</div>
-                            </div>
+                <div class="tab-content" id="settings">
+                    <form id="profileSettingsForm">
+                        <div class="form-group">
+                            <label for="settingsName">Name</label>
+                            <input type="text" id="settingsName" value="John Doe">
                         </div>
-                        <div class="settings-group">
-                            <h4>Privacy Settings</h4>
-                            <div class="setting-item">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <div class="setting-label">Show My Activities on Leaderboard</div>
-                            </div>
-                            <div class="setting-item">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <div class="setting-label">Allow Others to See My Profile</div>
-                            </div>
+                        <div class="form-group">
+                            <label for="settingsEmail">Email</label>
+                            <input type="email" id="settingsEmail" value="john.doe@example.com">
                         </div>
-                        <button class="save-settings-btn primary-btn">Save Settings</button>
-                    </div>
+                        <div class="form-group">
+                            <label for="settingsLocation">Location</label>
+                            <input type="text" id="settingsLocation" value="New York, USA">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsBio">Bio</label>
+                            <textarea
+                                id="settingsBio">Passionate about environmental conservation and sustainable living.</textarea>
+                        </div>
+                        <button type="submit" class="save-settings-btn">Save Changes</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1016,79 +862,6 @@
         </div>
     </div>
 
-    <!-- Product Analysis Modal -->
-    <div class="modal" id="productAnalysisModal">
-        <div class="modal-content product-analysis-modal">
-            <div class="modal-header">
-                <h2>Product Analysis</h2>
-                <button class="close-btn"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="upload-area" id="uploadArea">
-                    <i class="fas fa-camera"></i>
-                    <h3>Take a Photo or Upload Image</h3>
-                    <p>Click here to capture or select an image of the product you want to analyze</p>
-                    <input type="file" id="productImageInput" accept="image/*" style="display: none;" capture>
-                </div>
-
-                <div class="image-preview" id="productImagePreview">
-                    <!-- Preview will be shown here -->
-                </div>
-
-                <div class="action-buttons">
-                    <button class="action-btn analyze-btn" id="analyzeProductBtn" disabled>Analyze Product</button>
-                    <button class="action-btn reset-btn" id="resetImageBtn">Reset Image</button>
-                </div>
-
-                <div class="loading-indicator" id="analysisLoadingIndicator">
-                    <div class="loading-spinner"></div>
-                    <p>Analyzing your product...</p>
-                </div>
-
-                <div class="error-message" id="analysisErrorMessage">
-                    An error occurred while analyzing your image. Please try again.
-                </div>
-
-                <div class="analysis-results" id="productAnalysisResults">
-                    <div class="analysis-section">
-                        <h3>Product Description</h3>
-                        <p id="productDescription"></p>
-                    </div>
-
-                    <div class="analysis-section">
-                        <h3>Materials</h3>
-                        <p id="productMaterials"></p>
-                    </div>
-
-                    <div class="analysis-section">
-                        <h3>Recycling Guide</h3>
-                        <ol class="recycling-steps" id="recyclingSteps">
-                            <!-- Steps will be added dynamically -->
-                        </ol>
-                    </div>
-
-                    <div class="savings-indicators">
-                        <div class="savings-indicator">
-                            <i class="fas fa-bolt"></i>
-                            <h4>Energy Savings</h4>
-                            <p id="energySavings"></p>
-                        </div>
-                        <div class="savings-indicator">
-                            <i class="fas fa-rupee-sign"></i>
-                            <h4>Cost Savings</h4>
-                            <p id="costSavings"></p>
-                        </div>
-                        <div class="savings-indicator">
-                            <i class="fas fa-leaf"></i>
-                            <h4>Environmental Impact</h4>
-                            <p id="environmentalImpact"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -1102,191 +875,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script type="module" src="script.js"></script>
     <script src="js/navbar.js"></script>
-    
-    <!-- Debug script for camera button -->
-    <script>
-        console.log('Debug script loaded');
-        
-        // Modal handling functions that match the original implementation
-        function openModal(modal) {
-            if (!modal) return;
-            console.log('Opening modal:', modal.id);
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('active');
-            }, 10);
-        }
-        
-        function closeModal(modal) {
-            if (!modal) return;
-            console.log('Closing modal:', modal.id);
-            modal.classList.remove('active');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-        
-        // Direct camera button handler
-        function openCameraModal() {
-            console.log('Camera button clicked');
-            const modal = document.getElementById('productAnalysisModal');
-            if (modal) {
-                openModal(modal);
-            } else {
-                console.error('Product analysis modal not found');
-            }
-        }
-        
-        // Handle profile tabs functionality
-        function setupProfileTabs() {
-            const tabs = document.querySelectorAll('#profileModal .profile-tab');
-            const tabContents = document.querySelectorAll('#profileModal .tab-pane');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-                    
-                    // Get tab target and activate corresponding content
-                    const target = this.getAttribute('data-tab');
-                    document.getElementById(target).classList.add('active');
-                });
-            });
-            
-            // Activate first tab by default
-            if (tabs.length > 0) {
-                tabs[0].click();
-            }
-        }
-        
-        // Add event listener directly
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded in debug script');
-            
-            // Setup profile tabs
-            setupProfileTabs();
-            
-            // Camera button
-            const cameraBtn = document.getElementById('cameraBtn');
-            if (cameraBtn) {
-                console.log('Camera button found');
-                cameraBtn.addEventListener('click', openCameraModal);
-            } else {
-                console.error('Camera button not found');
-            }
-            
-            // Fix profile button
-            const profileBtn = document.querySelector('.profile-btn');
-            const profileModal = document.getElementById('profileModal');
-            if (profileBtn && profileModal) {
-                console.log('Profile button found');
-                profileBtn.addEventListener('click', function() {
-                    console.log('Profile button clicked');
-                    openModal(profileModal);
-                });
-            } else {
-                console.error('Profile button or modal not found');
-            }
-            
-            // Handle modal close buttons
-            const closeButtons = document.querySelectorAll('.close-btn');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const modal = this.closest('.modal');
-                    if (modal) {
-                        closeModal(modal);
-                    }
-                });
-            });
-            
-            // Handle product image upload
-            const uploadArea = document.getElementById('uploadArea');
-            const productImageInput = document.getElementById('productImageInput');
-            if (uploadArea && productImageInput) {
-                uploadArea.addEventListener('click', function() {
-                    productImageInput.click();
-                });
-                
-                productImageInput.addEventListener('change', function(e) {
-                    if (e.target.files && e.target.files[0]) {
-                        const file = e.target.files[0];
-                        const reader = new FileReader();
-                        
-                        reader.onload = function(e) {
-                            const preview = document.getElementById('productImagePreview');
-                            if (preview) {
-                                preview.innerHTML = `<img src="${e.target.result}" alt="Product preview">`;
-                            }
-                            
-                            // Enable analyze button
-                            const analyzeBtn = document.getElementById('analyzeProductBtn');
-                            if (analyzeBtn) {
-                                analyzeBtn.disabled = false;
-                            }
-                        };
-                        
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-            
-            // Handle reset button
-            const resetBtn = document.getElementById('resetImageBtn');
-            if (resetBtn) {
-                resetBtn.addEventListener('click', function() {
-                    const preview = document.getElementById('productImagePreview');
-                    const productImageInput = document.getElementById('productImageInput');
-                    const analyzeBtn = document.getElementById('analyzeProductBtn');
-                    const results = document.getElementById('productAnalysisResults');
-                    
-                    if (preview) preview.innerHTML = '';
-                    if (productImageInput) productImageInput.value = '';
-                    if (analyzeBtn) analyzeBtn.disabled = true;
-                    if (results) results.classList.remove('visible');
-                });
-            }
-            
-            // Handle analyze button
-            const analyzeBtn = document.getElementById('analyzeProductBtn');
-            if (analyzeBtn) {
-                analyzeBtn.addEventListener('click', function() {
-                    // For now, just show a mock analysis with placeholder data
-                    const results = document.getElementById('productAnalysisResults');
-                    const loading = document.getElementById('analysisLoadingIndicator');
-                    
-                    if (loading) loading.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        // Fill in mock data
-                        document.getElementById('productDescription').textContent = 'This appears to be a plastic water bottle with a cap.';
-                        document.getElementById('productMaterials').textContent = 'Primary material: PET (Polyethylene Terephthalate) plastic. Cap is likely made of HDPE (High-Density Polyethylene).';
-                        
-                        const recyclingSteps = document.getElementById('recyclingSteps');
-                        if (recyclingSteps) {
-                            recyclingSteps.innerHTML = `
-                                <li>Remove the cap and any labels if possible</li>
-                                <li>Rinse the bottle thoroughly to remove any residue</li>
-                                <li>Crush the bottle to save space</li>
-                                <li>Place in your recycling bin for collection</li>
-                                <li>Caps can be recycled separately in some areas</li>
-                            `;
-                        }
-                        
-                        document.getElementById('energySavings').textContent = 'Equivalent to saving 3 hours of light bulb usage';
-                        document.getElementById('costSavings').textContent = 'Approximately ₹15-20 in avoided production costs';
-                        document.getElementById('environmentalImpact').textContent = 'Reduces 300g of CO2 emissions and saves 3 liters of water';
-                        
-                        if (loading) loading.style.display = 'none';
-                        if (results) results.classList.add('visible');
-                    }, 2000);
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>
