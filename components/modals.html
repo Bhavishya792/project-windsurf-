@@ -1,0 +1,207 @@
+<!-- Standard Modals for EcoRise Project -->
+
+<!-- Profile Modal -->
+<div class="modal" id="profileModal">
+    <div class="modal-content profile-modal">
+        <button class="close-btn"><i class="fas fa-times"></i></button>
+        <div class="profile-header">
+            <div class="profile-image-container">
+                <img src="assets/default-profile.png" alt="Profile" id="profileImage">
+                <button class="edit-profile-image">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <div class="profile-info">
+                <h2 id="profileName">John Doe</h2>
+                <p class="profile-email">john.doe@example.com</p>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-value">15</span>
+                        <span class="stat-label">Events</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">250</span>
+                        <span class="stat-label">Pts</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">5</span>
+                        <span class="stat-label">Badges</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-badges">
+            <h3>Your Badges</h3>
+            <div class="badges-grid">
+                <div class="badge">
+                    <img src="assets/badges/recycling-champion.svg" alt="Recycling Champion" onerror="this.src='assets/badges/recycling-champion.png'">
+                    <span>Recycling Champion</span>
+                </div>
+                <div class="badge">
+                    <img src="assets/badges/event-organizer.svg" alt="Event Organizer" onerror="this.src='assets/badges/event-organizer.png'">
+                    <span>Event Organizer</span>
+                </div>
+                <div class="badge">
+                    <img src="assets/badges/waste-warrior.svg" alt="Waste Warrior" onerror="this.src='assets/badges/waste-warrior.png'">
+                    <span>Waste Warrior</span>
+                </div>
+                <div class="badge">
+                    <img src="assets/badges/eco-explorer.svg" alt="Eco Explorer" onerror="this.src='assets/badges/eco-explorer.png'">
+                    <span>Eco Explorer</span>
+                </div>
+                <div class="badge">
+                    <img src="assets/badges/community-leader.svg" alt="Community Leader" onerror="this.src='assets/badges/community-leader.png'">
+                    <span>Community Leader</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-recent-activity">
+            <h3>Recent Activity</h3>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-title">Attended Riverbank Cleanup</div>
+                        <div class="activity-date">March 15, 2025</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-title">Recycled 10kg of materials</div>
+                        <div class="activity-date">March 10, 2025</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-title">Created "Urban Garden Workshop"</div>
+                        <div class="activity-date">March 5, 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendar Modal -->
+<div class="modal" id="calendarModal">
+    <div class="modal-content calendar-modal">
+        <button class="close-btn"><i class="fas fa-times"></i></button>
+        <div class="calendar-header">
+            <button id="prevMonth" class="calendar-nav-btn"><i class="fas fa-chevron-left"></i></button>
+            <h2 id="currentMonth">March 2025</h2>
+            <button id="nextMonth" class="calendar-nav-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- Day headers -->
+            <div class="calendar-day-header">Sun</div>
+            <div class="calendar-day-header">Mon</div>
+            <div class="calendar-day-header">Tue</div>
+            <div class="calendar-day-header">Wed</div>
+            <div class="calendar-day-header">Thu</div>
+            <div class="calendar-day-header">Fri</div>
+            <div class="calendar-day-header">Sat</div>
+            
+            <!-- Example days - will be replaced by JS -->
+            <div class="calendar-day">1</div>
+            <div class="calendar-day">2</div>
+            <div class="calendar-day">3</div>
+            <div class="calendar-day today">4</div>
+            <div class="calendar-day">5</div>
+            <div class="calendar-day has-event">6</div>
+            <div class="calendar-day">7</div>
+            <div class="calendar-day">8</div>
+            <div class="calendar-day has-event">9</div>
+            <div class="calendar-day">10</div>
+            <div class="calendar-day">11</div>
+            <div class="calendar-day">12</div>
+            <div class="calendar-day">13</div>
+            <div class="calendar-day">14</div>
+        </div>
+        <div class="events-list" id="eventsList">
+            <h3>Events for <span id="selectedDate">March 25, 2025</span></h3>
+            <div id="eventsContainer">
+                <!-- Example event items -->
+                <div class="event-item">
+                    <div class="event-time">10:00 AM - 12:00 PM</div>
+                    <div class="event-title">Community Cleanup</div>
+                    <div class="event-location"><i class="fas fa-map-marker-alt"></i> Lincoln Park</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">2:00 PM - 4:00 PM</div>
+                    <div class="event-title">Recycling Workshop</div>
+                    <div class="event-location"><i class="fas fa-map-marker-alt"></i> Community Center</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upload/Camera Modal -->
+<div class="modal" id="uploadModal">
+    <div class="modal-content">
+        <button class="close-btn"><i class="fas fa-times"></i></button>
+        <h2>Upload an Image</h2>
+        <div class="upload-area">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Drag & Drop or Click to Upload</p>
+            <input type="file" id="imageUpload" accept="image/*" class="file-input">
+        </div>
+        <div class="uploaded-image">
+            <img id="previewImage" src="" alt="Preview">
+        </div>
+        <div class="upload-buttons">
+            <button class="primary-btn" id="analyzeBtn">Analyze</button>
+            <button class="secondary-btn" id="resetBtn">Reset</button>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal" id="notificationModal">
+    <div class="modal-content notification-modal">
+        <button class="close-btn"><i class="fas fa-times"></i></button>
+        <h2>Notifications</h2>
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">New Event: Beach Cleanup</div>
+                    <div class="notification-text">A new cleanup event has been scheduled for next weekend.</div>
+                    <div class="notification-time">2 hours ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Badge Earned: Recycling Champion</div>
+                    <div class="notification-text">Congratulations! You've earned a new badge.</div>
+                    <div class="notification-time">Yesterday</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Friend Request</div>
+                    <div class="notification-text">EcoWarrior has sent you a friend request.</div>
+                    <div class="notification-time">2 days ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

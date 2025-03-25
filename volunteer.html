@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/modals.css">
 </head>
 <body class="eco-theme">
     <nav class="main-nav">
@@ -639,11 +640,16 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script src="volunteer.js"></script>
     <script src="js/navbar.js"></script>
+    <script src="js/modal-injector.js"></script>
+    <script src="js/calendar-manager.js"></script>
+    <script type="module" src="js/modal.js"></script>
+    <script type="module" src="script.js"></script>
     
-    <!-- Directly initialize the map without conflicting with other scripts -->
+    <!-- Map initialization -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Adding volunteer map initialization');
@@ -727,7 +733,6 @@
             console.log('Volunteer map initialized successfully');
         };
     </script>
-    <script type="module" src="script.js"></script>
     
     <script>
         // Function to create and add a new event

@@ -3,6 +3,8 @@ import { initializeCalendar } from './js/calendar.js';
 
 // Configuration import
 import { GOOGLE_MAPS_API_KEY } from './config.js';
+// Import product analysis service
+import { initProductAnalysis } from './js/product-analysis.js';
 
 // DOM Elements
 const cameraBtn = document.getElementById('cameraBtn');
@@ -565,11 +567,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize calendar from the shared module
     initializeCalendar();
     
+    // Initialize product analysis functionality
+    initProductAnalysis();
+    
     // Load profile data
     loadProfileData();
     
     // Load events
     updateEventsDisplay();
+    
+    // Load Google Maps API
+    loadGoogleMapsAPI();
     
     // Calendar button click is now handled by the calendar module
     

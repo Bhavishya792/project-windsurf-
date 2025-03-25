@@ -1,0 +1,390 @@
+/**
+ * Standardized modal styles for EcoRise
+ * This ensures consistent modal appearance and behavior across all pages
+ */
+
+/* Modal base styles */
+.modal, .calendar-modal, .event-modal, .signup-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Active modal state */
+.modal.active, .calendar-modal.active, .event-modal.active, .signup-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Modal content container */
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    position: relative;
+    padding: 20px;
+    width: 500px;
+    transition: transform 0.3s ease;
+    transform: scale(0.9);
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #222;
+}
+
+/* Calendar modal specific styles */
+.calendar-modal .modal-content {
+    width: 700px;
+    max-width: 95%;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 1001;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.calendar-day:hover {
+    background-color: #f0f0f0;
+}
+
+.calendar-day.active {
+    background-color: var(--primary-color, #4caf50);
+    color: white;
+}
+
+.calendar-day.today {
+    border: 2px solid var(--primary-color, #4caf50);
+}
+
+.calendar-day.has-event {
+    position: relative;
+}
+
+.calendar-day.has-event:after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: var(--primary-color, #4caf50);
+    border-radius: 50%;
+}
+
+.events-list {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.event-item {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--primary-color, #4caf50);
+}
+
+.event-time {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.event-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.event-location {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.event-location i {
+    margin-right: 5px;
+}
+
+/* Calendar Navigation buttons */
+.calendar-nav-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.calendar-nav-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Profile modal specific styles */
+.profile-modal {
+    width: 600px;
+}
+
+.profile-header {
+    display: flex;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-image-container {
+    position: relative;
+    margin-right: 20px;
+}
+
+.profile-image-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.edit-profile-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--primary-color, #4caf50);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-stats {
+    display: flex;
+    margin-top: 10px;
+}
+
+.stat {
+    margin-right: 20px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.profile-badges h3, .profile-recent-activity h3 {
+    margin-bottom: 15px;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.badge {
+    text-align: center;
+}
+
+.badge img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+.badge span {
+    font-size: 0.8rem;
+    display: block;
+}
+
+.activity-list {
+    margin-bottom: 20px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.activity-icon {
+    background-color: #f0f0f0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.activity-title {
+    font-weight: 500;
+}
+
+.activity-date {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+/* Upload modal specific styles */
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 30px;
+    text-align: center;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color, #4caf50);
+}
+
+.upload-area i {
+    font-size: 2rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.file-input {
+    display: none;
+}
+
+.uploaded-image {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.uploaded-image img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 5px;
+}
+
+.upload-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Notification modal specific styles */
+.notification-modal {
+    width: 500px;
+}
+
+.notification-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-item.unread {
+    background-color: rgba(76, 175, 80, 0.05);
+}
+
+.notification-icon {
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.notification-time {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 5px;
+}
